@@ -26,6 +26,9 @@ importers:
       eslint:
         specifier: ^9.22.0
         version: 9.39.4
+      next:
+        specifier: ^15.0.0
+        version: 15.5.14(@playwright/test@1.58.2)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       pnpm:
         specifier: 10.6.0
         version: 10.6.0
