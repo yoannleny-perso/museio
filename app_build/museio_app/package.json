@@ -21,7 +21,7 @@
     "supabase:reset": "supabase db reset",
     "supabase:push": "supabase db push",
     "supabase:push:hosted": "node ./scripts/supabase/push-hosted.mjs",
-    "start:api:railway": "node apps/api/dist/main.js",
+    "start:api:railway": "pnpm --filter @museio/api start:prod",
     "verify:preview-env": "node ./scripts/diagnostics/validate-preview-env.mjs",
     "verify:trust-hygiene": "node ./scripts/diagnostics/check-trust-hygiene.mjs",
     "verify:hosted-runtime": "node ./scripts/diagnostics/verify-hosted-runtime.mjs",

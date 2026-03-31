@@ -4,22 +4,25 @@
   "private": true,
   "type": "module",
   "main": "./dist/index.js",
-  "types": "./src/index.ts",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "exports": {
     ".": {
-      "types": "./src/index.ts",
+      "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
     },
     "./web": {
-      "types": "./src/web.tsx",
+      "types": "./dist/web.d.ts",
       "default": "./dist/web.js"
     },
     "./native": {
-      "types": "./src/native.ts",
+      "types": "./dist/native.d.ts",
       "default": "./dist/native.js"
     },
     "./portfolio": {
-      "types": "./src/portfolio.ts",
+      "types": "./dist/portfolio.d.ts",
       "default": "./dist/portfolio.js"
     }
   },
@@ -32,7 +35,7 @@
     "@museio/types": "workspace:*"
   },
   "scripts": {
-    "build": "tsc -p tsconfig.json",
+    "build": "rm -rf dist && tsc -p tsconfig.json",
     "lint": "eslint src --ext .ts",
     "typecheck": "tsc --noEmit",
     "test": "vitest run"

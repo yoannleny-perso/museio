@@ -1,6 +1,6 @@
 [build]
 builder = "RAILPACK"
-buildCommand = "pnpm install --frozen-lockfile && pnpm --filter ./apps/api build"
+buildCommand = "pnpm build:api:railway"
 watchPatterns = [
   "/app_build/museio_app/apps/api/**",
   "/app_build/museio_app/packages/**",
@@ -11,7 +11,7 @@ watchPatterns = [
 ]
 
 [deploy]
-startCommand = "pnpm --filter ./apps/api start"
+startCommand = "pnpm start:api:railway"
 healthcheckPath = "/health"
 healthcheckTimeout = 120
 restartPolicyType = "ON_FAILURE"
