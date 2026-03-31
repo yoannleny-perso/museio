@@ -1,0 +1,896 @@
+MUSEIO FIGMA MEGA PROMPT - V3 KOMI-INSPIRED PORTFOLIO EXPERIENCE ADDENDUM
+
+Use this prompt to UPDATE the existing Museio Figma file that was already generated from V1 and extended in V2. Do not rebuild the whole product from zero unless a portfolio-related screen is missing. Extend the current file so the Museio portfolio system becomes dramatically more beautiful, dynamic, premium, and conversion-friendly.
+
+ROLE
+You are Figma AI acting as a world-class mobile product designer, motion systems designer, creative director, UX architect, design systems librarian, and prototype storyteller.
+
+You are redesigning the Museio portfolio experience so it feels as desirable, expressive, and dynamic as the best creator mini-sites in market, while remaining distinctly Museio and deeply usable for mobile-first booking workflows.
+
+VERY IMPORTANT DESIGN RULE
+Take inspiration from the public qualities associated with premium creator mini-site products like Komi:
+- highly personalized creator pages
+- custom themes, photography, logo, and strong personal branding
+- on-page engagement instead of sending users away too early
+- advanced analytics and conversion orientation
+- polished, fashion-forward, premium creator energy
+
+Do NOT copy Komi branding, logos, exact layouts, creator content, trademarks, or page compositions. Translate the qualities into a unique Museio product language.
+
+PRIMARY OBJECTIVE
+Transform the Museio Portfolio tab and all public portfolio surfaces into a true premium creator website builder and booking destination.
+
+This V3 update must introduce TWO distinct but connected modes:
+1. CREATOR THUMB EDIT MODE
+   - a one-handed mobile editing experience for artists to build and manage their page from the phone
+2. CLIENT SHOWCASE + BOOK MODE
+   - a cinematic public-facing portfolio and booking experience for fans, promoters, venues, brands, and clients
+
+The result should feel modern enough that a user says: "this feels like 2026."
+
+NORTH STAR PRODUCT THESIS
+Museio should no longer feel like a simple admin app with a portfolio tab.
+Museio should feel like:
+- an artist operating system on the inside
+- a premium mini-site builder in the middle
+- a conversion-ready booking destination on the outside
+
+Beauty must increase trust and conversion.
+Motion must create delight without slowing action.
+Every portfolio page must be impressive, interactive, and bookable.
+
+V3 SCOPE
+Update these areas in the existing Museio file:
+- Portfolio tab
+- public artist portfolio pages
+- share / preview / publish flows
+- booking entry points from portfolio
+- analytics for portfolio performance
+- theme customization system
+- media presentation system
+- thumb-first content editing system
+- template and section block library
+- motion and transition language for portfolio-related screens
+
+Keep V1 and V2 product compatibility:
+- Home, Jobs, Finance, More still exist
+- V2 booking, deposits, multi-slot booking, chat, sharing, and payment concepts remain valid
+- public booking still works, but is now better integrated into the portfolio experience
+
+==================================================
+FOUNDATIONAL EXPERIENCE MODEL
+==================================================
+
+MUSEIO NOW HAS A DUAL VISUAL LANGUAGE
+1. OPERATIONAL APP SURFACES
+- clean, reliable, efficient mobile SaaS UI
+- used for Jobs, Finance, Settings, calendar management, tax flows, chat admin
+- still premium, but lighter and more practical
+
+2. PORTFOLIO AND PUBLIC SURFACES
+- cinematic
+- editorial
+- immersive
+- motion-rich
+- creator-brand-first
+- more expressive typography
+- more dramatic media treatment
+- more contrast, depth, and storytelling
+
+Do not redesign all app surfaces to look like a fashion website.
+Only elevate the portfolio/public side into this richer visual mode.
+The creator editing environment should sit between both worlds:
+- operational enough to be usable
+- expressive enough to feel exciting and premium
+
+==================================================
+DESIGN PRINCIPLES FOR THE PORTFOLIO SYSTEM
+==================================================
+
+1. THUMB-FIRST EDITING
+The creator should be able to edit the portfolio on a phone with one hand.
+Design with lower-screen action zones, bottom sheets, sticky action docks, and large tap targets.
+Important actions should live in the bottom 40 to 55 percent of the screen whenever possible.
+
+2. LIVE PREVIEW ALWAYS
+Editing must feel direct and visual. The creator should always feel close to the final result.
+Support Edit, Preview, and Live modes with fast switching.
+
+3. THEMES, NOT JUST FORMS
+Portfolio building should feel like selecting a vibe, not filling out a boring CMS.
+Let creators shape mood, color, media treatment, card style, edge treatment, typography, and CTA tone.
+
+4. STORYTELLING OVER STACKING
+Do not render the portfolio as a dead vertical list of generic blocks.
+Create rhythm, contrast, pacing, reveal moments, and hero moments.
+Treat sections like scenes in a story.
+
+5. BOOKING SHOULD BE NATIVE
+Public viewers should be able to admire the artist and immediately book or inquire without the experience feeling like they left the portfolio.
+Booking is part of the story, not a detached form.
+
+6. MOTION WITH PURPOSE
+Motion should communicate hierarchy, focus, cause and effect, polish, and personality.
+No gimmicky over-animation. Avoid chaos.
+Think premium product motion, not novelty motion.
+
+7. HIGH TRUST CONVERSION
+For clients and venues, the public page must feel beautiful but also trustworthy, credible, and easy to act on.
+Use testimonials, brand logos, key facts, response expectations, availability snippets, verified states, and clear CTA structure.
+
+==================================================
+PORTFOLIO INFORMATION ARCHITECTURE - NEW V3
+==================================================
+
+Maintain the bottom tabs: Home, Jobs, Portfolio, Finance, More.
+
+Inside Portfolio, create this architecture:
+
+A. Portfolio Home
+- Portfolio Overview
+- Live Status card
+- Completion score
+- Quick actions
+- Theme summary
+- Recent analytics snapshot
+- Preview / Share / Edit CTA cluster
+
+B. Portfolio Builder
+- Edit mode
+- Preview mode
+- Live mode
+- content block list
+- section reorder mode
+- block settings mode
+- style controls mode
+- add section flow
+- media management flow
+- publish flow
+
+C. Theme Studio
+- theme presets gallery
+- color and accent editor
+- type style editor
+- card shape and border editor
+- motion intensity editor
+- background style editor
+- CTA style editor
+- theme preview comparison
+
+D. Content Studio
+- hero editor
+- bio editor
+- social links editor
+- featured media editor
+- gallery editor
+- testimonial editor
+- brand logos editor
+- booking CTA editor
+- availability teaser editor
+- FAQ editor
+- contact block editor
+- press kit block editor
+- events / gigs block editor
+- custom link block editor
+
+E. Public Portfolio Experience
+- public landing page
+- section detail expansion states
+- public gallery / media lightbox
+- public sticky CTA states
+- public availability preview
+- public booking entry
+- public inquiry entry
+- public share view
+
+F. Portfolio Insights
+- views and visitors
+- CTA taps
+- booking conversion
+- top referrers
+- top-performing sections
+- audience path analysis
+- date filters
+
+==================================================
+FIGMA PAGE STRUCTURE FOR V3
+==================================================
+
+Add or update these Figma pages:
+13 Portfolio V3 Foundations
+14 Portfolio V3 Components
+15 Portfolio V3 Creator Edit Flow
+16 Portfolio V3 Theme Studio
+17 Portfolio V3 Public Showcase Flow
+18 Portfolio V3 Booking from Portfolio Flow
+19 Portfolio V3 Insights + Sharing
+20 Portfolio V3 Motion Specs + Prototype Journeys
+
+==================================================
+VISUAL DIRECTION - KOMI-INSPIRED BUT DISTINCTLY MUSEIO
+==================================================
+
+OVERALL MOOD
+The portfolio experience should feel:
+- editorial
+- premium
+- artistic
+- alive
+- fluid
+- polished
+- confident
+- creator-first
+- luxury without being snobby
+- modern enough for musicians, DJs, visual artists, and cultural tastemakers
+
+AESTHETIC REFERENCE TRANSLATION
+Translate these high-level qualities into Museio:
+- mini-site energy rather than plain profile page
+- custom theme richness rather than single app skin
+- expressive hero moments with strong photography or motion media
+- sharper brand storytelling
+- sections that feel curated, not templated
+- more depth, layering, glow, grain, blur, gradient, and contrast when appropriate
+- highly tactile call-to-action moments
+- a visual pace that mixes calm breathing room with high-impact moments
+
+MUSEIO PORTFOLIO COLOR STRATEGY
+Keep Museio recognizable, but allow richer theme variation in public portfolio surfaces.
+Create a token system with:
+- app-core neutrals
+- portfolio-core neutrals
+- creator accent color
+- CTA accent color
+- surface tint levels
+- overlay gradients
+- shadow / glow tokens
+
+Generate at least these theme presets as Figma variables and demo frames:
+1. Muse Light
+   - soft ivory / lilac / plum / glassy cards
+2. Midnight Stage
+   - deep charcoal / black plum / spotlight gradients / luminous white text
+3. Editorial Mono
+   - black / white / warm gray / minimal luxury
+4. Electric Club
+   - inky background / violet / blue / fuchsia accent glows
+5. Sunset Luxe
+   - warm sand / rose / bronze / soft cream
+
+Each theme preset must have:
+- full public portfolio landing frame
+- full creator preview frame
+- booking CTA state
+- media gallery state
+
+TYPOGRAPHY FOR PORTFOLIO MODE
+Use a more expressive hierarchy than the operational app.
+Keep body text readable and modern, but allow larger display moments and stronger editorial rhythm.
+Create these additional portfolio text styles:
+- Portfolio Display XL
+- Portfolio Hero Title
+- Portfolio Section Lead
+- Eyebrow Label
+- Meta Label
+- Floating CTA Label
+- Quote / Testimonial Style
+
+Allow type pairings that feel more editorial while remaining product-safe.
+Do not become old-fashioned or serif-heavy unless it is part of a creator theme preset.
+
+LAYOUT RULES
+- mobile-first
+- single-column by default
+- full-bleed hero media where useful
+- floating cards layered over media when appropriate
+- sticky CTA bar on public pages
+- section-to-section contrast should vary intentionally
+- use both edge-to-edge moments and contained cards
+- create rhythm with alternating densities
+- avoid giant dead zones
+- avoid repetitive identical cards all the way down
+
+==================================================
+CREATOR THUMB EDIT MODE - PRODUCT DEFINITION
+==================================================
+
+GOAL
+The creator should be able to build and maintain a premium page from their phone quickly, confidently, and with one hand.
+
+CORE UX MODEL
+The editor is not a traditional admin form. It is a thumb-first visual builder.
+
+MAIN PATTERN
+- top area shows the selected portion of the page or live preview context
+- bottom sticky action dock contains the main editing controls
+- detailed editing happens in bottom sheets, stacked drawers, compact panels, and context cards
+- switching between blocks should be fast and visually obvious
+
+PRIMARY CREATOR MODES
+1. Edit
+2. Preview
+3. Live
+4. Rearrange
+5. Style
+6. Analytics snapshot
+
+MAIN CREATOR ACTION DOCK
+Design a sticky dock with the following actions:
+- Add
+- Arrange
+- Style
+- Preview
+- Publish
+
+Use large icon + label controls.
+The dock must feel premium, tactile, and obvious.
+It should visually float above content.
+
+THUMB-FIRST RULES
+- all primary actions reachable near the bottom
+- secondary controls in expandable sheets
+- avoid forcing users to tap small icons in the top corners for frequent tasks
+- any editing step that requires repeated micro-taps should be redesigned into chips, presets, sliders, or large selection tiles
+
+SCREEN INVENTORY - CREATOR SIDE
+Generate all of these frames:
+1. Portfolio Home - empty
+2. Portfolio Home - partially complete
+3. Portfolio Home - live and performing well
+4. Builder - empty starter state
+5. Builder - populated with mixed sections
+6. Builder - block selected
+7. Builder - multi-select rearrange mode
+8. Builder - edit versus preview split toggle state
+9. Add Section bottom sheet
+10. Section Library full screen
+11. Hero block editor
+12. Bio block editor
+13. Social links editor
+14. Featured media editor
+15. Gallery editor
+16. Testimonial editor
+17. Brand logos editor
+18. Booking CTA editor
+19. Availability teaser editor
+20. FAQ editor
+21. Contact block editor
+22. Press kit block editor
+23. Events block editor
+24. Custom link block editor
+25. Theme Studio landing
+26. Theme preset picker
+27. Color editor
+28. Type editor
+29. Card / shape editor
+30. Motion editor
+31. Background editor
+32. CTA style editor
+33. Theme compare mode
+34. Publish review screen
+35. Publish success state
+36. Share portfolio sheet
+37. Public preview in device frame
+38. Analytics summary panel
+39. Portfolio settings screen
+40. Username / domain management screen
+
+==================================================
+BLOCK SYSTEM - CONTENT MODULES TO DESIGN
+==================================================
+
+Create a block-based portfolio builder. Every block must exist as a reusable Figma component with variants for:
+- empty
+- draft
+- populated
+- selected
+- collapsed
+- public
+- creator edit
+
+MANDATORY BLOCK TYPES
+1. Hero block
+2. Artist intro block
+3. Short bio block
+4. Social rail block
+5. Featured video block
+6. Featured music / mix block
+7. Gallery block
+8. Testimonial carousel block
+9. Brand / venue logos block
+10. Press quote block
+11. Upcoming gigs / events block
+12. Availability preview block
+13. Booking CTA block
+14. FAQ block
+15. Contact / inquiry block
+16. Link collection block
+17. Press kit download block
+18. Stats / milestones block
+19. Featured service package block
+20. Highlight reel story block
+
+OPTIONAL HIGH-VALUE BLOCKS - INCLUDE AS PREMIUM IDEAS
+21. Pinned moment block
+22. Collaborator spotlight block
+23. Moodboard collage block
+24. Fan-proof or community block
+25. Residency package block
+26. Private invite-only block
+27. Social proof ticker block
+28. Latest release block
+
+BLOCK COMPOSITION RULES
+- not every block must look like a white card
+- some blocks can be full bleed
+- some can float over media
+- some can snap into bento compositions
+- some can have carousel behavior
+- some can use layered glass or subtle blur
+- the portfolio should feel curated and alive
+
+==================================================
+HERO SYSTEM - MAKE THIS EXCEPTIONAL
+==================================================
+
+The hero is the most important part of the page.
+Design it as a premium, scroll-stopping entry.
+
+Create hero layout variants:
+1. Full bleed portrait hero
+2. Split hero with floating CTA card
+3. Poster-style hero with overlaid name and tags
+4. Carousel hero with swipeable media
+5. Minimal editorial hero with strong type and one image
+6. Dark performance hero with spotlight gradients
+
+Hero content options:
+- artist photo
+- artist name / stage name
+- one-line descriptor
+- city / availability / genres
+- social proof line
+- top CTA cluster: Book, Watch Reel, Listen, Contact, Download Press Kit
+- trust indicators: verified, response time, recent clients, available for selected event types
+
+Hero motion ideas to represent in Figma prototypes:
+- slow parallax image shift
+- text fade / slide reveal
+- CTA card lift-in
+- gradient glow drift
+- sticky hero collapse to compact header on scroll
+
+==================================================
+PUBLIC CLIENT SHOWCASE + BOOK MODE
+==================================================
+
+GOAL
+The public portfolio should feel premium enough to impress a manager, promoter, venue, brand, or fan while making booking effortless.
+
+CLIENT EXPERIENCE PRINCIPLES
+- first impression within 2 seconds must be strong
+- every important action should be visible without hunting
+- viewer should understand who the artist is, why they are compelling, and what to do next
+- page must invite exploration but never hide the booking path
+- trust, polish, and clarity matter as much as beauty
+
+PUBLIC PAGE STRUCTURE
+Design a default public page flow like this:
+1. Hero scene
+2. CTA and key facts strip
+3. Featured media / reel
+4. Bio / positioning
+5. social proof / logos / testimonials
+6. gallery or highlights
+7. packages or booking options
+8. availability teaser
+9. FAQ / practical details
+10. booking CTA section
+11. sticky bottom CTA persists when appropriate
+
+PUBLIC SCREEN INVENTORY
+Generate all of these public-facing frames:
+1. Public portfolio landing - light theme
+2. Public portfolio landing - dark theme
+3. Public portfolio landing - editorial theme
+4. Public hero collapsed sticky header state
+5. Public gallery lightbox
+6. Public featured media expanded view
+7. Public testimonial carousel active state
+8. Public packages / service cards view
+9. Public availability teaser expanded state
+10. Public booking CTA entry sheet
+11. Public inquiry CTA entry sheet
+12. Public press kit preview state
+13. Public not found / handle unavailable state
+14. Public private profile state
+15. Public shared preview with token state
+16. Public mobile web loading skeleton
+17. Public mobile web error state
+18. Public share sheet preview frame
+
+==================================================
+BOOKING MUST FEEL EMBEDDED IN THE PORTFOLIO
+==================================================
+
+Do not make booking feel like a jarring route break.
+The user can move into booking from the portfolio in a way that feels continuous.
+
+Design booking entry patterns:
+- sticky Book CTA on hero
+- booking CTA cards embedded between sections
+- bottom sheet quick inquiry
+- full-screen transition into booking funnel with shared visual DNA
+- package-based booking cards for residencies, club nights, weddings, private events, and brand activations
+
+PUBLIC BOOKING FLOW FROM PORTFOLIO
+Generate these frames and connect them in prototype:
+1. Tap Book from hero
+2. Booking intent sheet
+3. Choose event type
+4. Choose package or custom request
+5. Choose single-slot or multi-slot booking
+6. Choose dates and times
+7. review selection
+8. enter client details
+9. add notes and attachments intention
+10. submit request
+11. request sent success
+12. quote pending state
+
+Use V2 compatibility:
+- multi-slot booking remains supported
+- deposits may be shown as part of package expectations
+- chat may appear after inquiry in later lifecycle
+
+==================================================
+THEME STUDIO - MAKE THIS FEEL LUXURY AND FUN
+==================================================
+
+GOAL
+Theme editing should feel exciting, like directing a brand shoot, not changing boring app settings.
+
+THEME STUDIO MUST INCLUDE
+- theme preset gallery
+- style mood cards
+- live preview device
+- quick remix button
+- custom accent color control
+- typography tone selector
+- card style selector
+- edge treatment selector
+- media treatment selector
+- motion intensity selector
+- CTA personality selector
+
+CTA PERSONALITY OPTIONS
+Generate variants like:
+- Elegant
+- Bold
+- Minimal
+- Club / Nightlife
+- Luxe
+- Playful
+
+MEDIA TREATMENT OPTIONS
+Generate variants like:
+- clean crop
+- soft rounded poster
+- edge-to-edge
+- layered collage
+- blurred backdrop card
+- framed editorial tile
+- glass overlay card
+
+MOTION INTENSITY OPTIONS
+Generate variants like:
+- Calm
+- Expressive
+- Performance
+
+==================================================
+PORTFOLIO INSIGHTS - INSPIRED BY CONVERSION TOOLS
+==================================================
+
+Add a portfolio analytics layer so artists understand what is working.
+
+SCREENS TO GENERATE
+1. Portfolio Insights overview
+2. Views and visitors detail
+3. CTA conversion detail
+4. Top sections performance
+5. Referrer sources
+6. Booking funnel conversion
+7. Date range comparison
+8. Empty analytics state for new portfolios
+
+METRICS TO SHOW
+- views
+- unique visitors
+- CTA taps
+- booking starts
+- booking submissions
+- top-performing section
+- most tapped link
+- theme performance note
+- top referrer
+- conversion rate
+
+KILLER INSIGHT FEATURES
+- "Your video reel drives 42% of booking starts"
+- "Profiles with testimonials are converting better"
+- "Traffic from Instagram converts higher than direct"
+- "Your Midnight Stage theme is outperforming Muse Light"
+
+==================================================
+MOTION SYSTEM - THIS IS WHERE THE 2026 FEEL LIVES
+==================================================
+
+Create a dedicated motion spec page and prototype examples.
+Use Smart Animate, overlays, timed transitions, component variants, and scroll storytelling patterns where Figma allows.
+
+MOTION PRINCIPLES
+- refined
+- smooth
+- layered
+- light but memorable
+- confident
+- not childish
+- not noisy
+
+MANDATORY MOTION PATTERNS
+1. Hero reveal on page load
+2. Section fade / slide / rise entrances
+3. Sticky CTA dock appearing after scroll threshold
+4. Theme switch morph
+5. Block add animation in builder
+6. Reorder animation with spring feel
+7. Publish success burst / glow confirmation
+8. Media card hover / press lift behavior
+9. Bottom sheet rise with background blur
+10. Gallery image opening into lightbox
+11. Collapsing header on public scroll
+12. Analytics cards count-up or staged reveal feel
+
+RECOMMENDED MOTION TOKENS
+- fast: 120 to 160 ms
+- standard: 200 to 260 ms
+- expressive: 320 to 420 ms
+- use ease out, spring-like feel, and soft overshoot where appropriate
+
+DO NOT OVERDO
+Avoid:
+- spinning gimmicks
+- noisy particle effects
+- constant pulsing everywhere
+- motion that slows booking
+- unreadable moving type
+
+==================================================
+COMPONENT LIBRARY ADDITIONS FOR V3
+==================================================
+
+Build these as reusable components with variants and nested properties:
+
+EDITOR COMPONENTS
+- Portfolio action dock
+- preview mode switcher
+- theme card
+- section library tile
+- block handle row
+- block toolbar
+- live preview device shell
+- publish review card
+- style chip set
+- media treatment picker
+- motion intensity selector
+
+PUBLIC COMPONENTS
+- immersive hero
+- sticky CTA bar
+- key facts strip
+- logo rail
+- testimonial card / carousel
+- gallery mosaic
+- gallery lightbox
+- package card
+- booking teaser card
+- press quote card
+- social pill row
+- availability chip rail
+- public share preview card
+
+SHARED COMPONENTS
+- avatar variants
+- verified badge
+- tag / genre chip
+- metrics chip
+- analytics card
+- section divider styles
+- background texture overlays
+- gradient overlay variants
+- floating glass card
+- bento grid tile variants
+
+==================================================
+LOGIC AND DATA NOTES TO REPRESENT IN FIGMA
+==================================================
+
+Represent these content and state concepts in annotations and realistic mock data:
+- portfolio profile
+- public handle / custom domain
+- portfolio theme config
+- section array
+- section visibility
+- draft versus live version
+- analytics summary
+- portfolio completion score
+- media asset collection
+- booking CTA config
+- package types
+- availability teaser source
+- trust indicators
+- social proof set
+- share card metadata
+
+LOGIC BEHAVIOR TO SHOW
+- if profile is incomplete, show completion guidance
+- if handle not set, user cannot publish publicly
+- if profile is private, only tokenized preview is accessible
+- if no hero media, use strong typographic fallback hero
+- if no testimonials, suggest adding trust content
+- if booking disabled, CTA becomes contact-only
+- if availability is connected, show live preview badges
+- if analytics data is sparse, show learning-state cards instead of broken charts
+
+==================================================
+KILLER FEATURES TO INCLUDE AS V3 IDEAS
+==================================================
+
+Include these features in the prompt and generate concept frames for them:
+
+1. QUICK REMIX
+A one-tap action that applies a new theme mood to the entire portfolio.
+Generate before / after preview frames.
+
+2. AUDIENCE PATH CTA SETS
+Allow creators to choose their primary visitor path:
+- Book Me
+- Watch My Reel
+- Listen Now
+- View Press Kit
+- Contact Manager
+This changes hero CTA emphasis and section order.
+
+3. STORY MODE PREVIEW
+A more immersive portfolio preview that feels like viewing a premium mini-site narrative.
+Think swipeable scenes or stronger section transitions.
+
+4. SMART SECTION SUGGESTIONS
+If a creator is missing trust-building content, surface suggestions:
+- add testimonials
+- add brands worked with
+- add video reel
+- add FAQ
+- add package cards
+
+5. BOOKING READINESS SCORE
+Show how prepared the page is for client conversion.
+Examples:
+- media quality present
+- trust proof present
+- CTA configured
+- availability linked
+- inquiry route enabled
+
+6. THEME MATCH PRESETS BY CREATOR TYPE
+Generate recommendation cards like:
+- DJ / electronic
+- vocalist
+- wedding performer
+- band
+- visual artist
+- creative director
+
+7. SHARE CARD STUDIO
+Let creators preview how their page or booking card appears when shared in messaging apps.
+
+8. LINK IN BIO MODE
+Create a condensed public mode optimized for social bio traffic, with top CTAs, top media, and top conversion blocks.
+
+==================================================
+Figma PROTOTYPE JOURNEYS - MUST ALL BE WIRED
+==================================================
+
+Create clickable flows for all of these:
+
+FLOW 1 - First-time creator builds portfolio
+Portfolio Home -> Start Builder -> Add Hero -> Add Bio -> Add Social Links -> Add Booking CTA -> Preview -> Publish Success
+
+FLOW 2 - Creator remixes theme
+Portfolio Home -> Theme Studio -> Try theme presets -> adjust accent -> adjust CTA personality -> compare -> save
+
+FLOW 3 - Creator reorders sections one-handed
+Builder -> Rearrange mode -> drag-like reorder simulation -> save -> preview updated order
+
+FLOW 4 - Creator adds trust content
+Builder -> Add Section -> Testimonials -> Logos -> FAQ -> Publish review -> live preview
+
+FLOW 5 - Creator shares portfolio
+Portfolio Home -> Share sheet -> choose public page or link in bio mode -> share card preview -> success
+
+FLOW 6 - Client discovers and browses page
+Public landing -> scroll hero -> view reel -> open gallery -> read testimonials -> tap booking CTA
+
+FLOW 7 - Client starts booking
+Public landing -> Book CTA -> package chooser -> date selection -> details -> request sent
+
+FLOW 8 - Client is not ready to book
+Public landing -> Inquiry sheet -> send quick message -> confirmation
+
+FLOW 9 - Creator checks analytics
+Portfolio Home -> Insights -> top sections -> booking conversion -> date compare
+
+FLOW 10 - Private preview
+Builder -> Preview -> tokenized preview frame -> restricted public state example
+
+==================================================
+COPY TONE AND CONTENT DIRECTION
+==================================================
+
+Portfolio copy should feel:
+- confident
+- polished
+- culturally aware
+- concise
+- premium
+- not corporate
+- not cheesy
+- not generic startup copy
+
+Use realistic artist sample content.
+Generate at least 3 sample creators with different vibes:
+1. nightlife DJ / producer
+2. elegant wedding vocalist
+3. fashion-forward multidisciplinary creative
+
+Each sample creator should have:
+- distinct imagery direction
+- distinct theme preset
+- distinct CTA emphasis
+- distinct section mix
+
+==================================================
+QUALITY BAR - THIS MUST FEEL BETTER THAN V1 AND V2
+==================================================
+
+The generated portfolio system must feel:
+- dramatically more premium
+- more alive
+- more dynamic
+- more intuitive on mobile
+- more thumb-friendly
+- more conversion-ready
+- more brandable
+- more shareable
+- more emotionally impressive
+
+Avoid these failure modes:
+- generic SaaS cards pasted into a portfolio
+- repetitive sections with no visual pacing
+- weak hero moments
+- tiny edit icons scattered everywhere
+- too much top-corner dependency for editing
+- beautiful pages with no booking clarity
+- over-animated gimmicks
+- dark themes with poor readability
+- builder UI that feels like a spreadsheet CMS
+
+FINAL DELIVERABLE EXPECTATION FOR FIGMA
+Generate a V3 portfolio ecosystem that makes Museio feel like a world-class creator product.
+The portfolio must be beautiful enough to impress the artist, intuitive enough to manage from a phone, and clear enough for a client to browse and book instantly.
+
+This is not a minor reskin.
+This is a premium portfolio experience redesign inside the Museio product system.
+
+END OF V3 ADDENDUM

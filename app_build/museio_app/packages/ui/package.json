@@ -1,0 +1,40 @@
+{
+  "name": "@museio/ui",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "default": "./dist/index.js"
+    },
+    "./web": {
+      "types": "./src/web.tsx",
+      "default": "./dist/web.js"
+    },
+    "./native": {
+      "types": "./src/native.ts",
+      "default": "./dist/native.js"
+    },
+    "./portfolio": {
+      "types": "./src/portfolio.ts",
+      "default": "./dist/portfolio.js"
+    }
+  },
+  "peerDependencies": {
+    "react": "^18.3.1 || ^19.0.0",
+    "react-dom": "^18.3.1 || ^19.0.0"
+  },
+  "dependencies": {
+    "@museio/domain": "workspace:*",
+    "@museio/types": "workspace:*"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "lint": "eslint src --ext .ts",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  }
+}

@@ -1,0 +1,270 @@
+import { PortfolioV3, PortfolioBlock, PortfolioInsights } from '../types/portfolio-v3';
+import artistPhoto from 'figma:asset/955703e49fcbf25216ca19f63d51755d531a4505.png';
+
+export const mockPortfolioV3Insights: PortfolioInsights = {
+  dateRange: {
+    start: '2026-02-20',
+    end: '2026-03-20',
+  },
+  stats: {
+    views: 1847,
+    uniqueVisitors: 1204,
+    ctaTaps: 389,
+    bookingStarts: 127,
+    bookingSubmissions: 43,
+    conversionRate: 3.57,
+    topSection: 'featured-video',
+    topReferrer: 'Instagram',
+  },
+  sectionPerformance: [
+    { sectionId: 's1', sectionTitle: 'Video Reel', views: 1520, engagement: 82 },
+    { sectionId: 's2', sectionTitle: 'Testimonials', views: 980, engagement: 65 },
+    { sectionId: 's3', sectionTitle: 'Gallery', views: 720, engagement: 48 },
+    { sectionId: 's4', sectionTitle: 'Packages', views: 650, engagement: 51 },
+  ],
+  referrerSources: [
+    { source: 'Instagram', visits: 842, conversions: 28 },
+    { source: 'Direct', visits: 520, conversions: 12 },
+    { source: 'Facebook', visits: 310, conversions: 3 },
+  ],
+  bookingFunnel: {
+    views: 1847,
+    bookingStarts: 127,
+    submissions: 43,
+    conversionRate: 33.9,
+  },
+  insights: [
+    'Your video reel drives 42% of booking starts',
+    'Profiles with testimonials convert 2.3x better',
+    'Traffic from Instagram converts 3.3% vs 2.3% overall',
+    'Your Midnight Stage theme is outperforming Muse Light by 18%',
+  ],
+};
+
+export const mockPortfolioV3Blocks: PortfolioBlock[] = [
+  {
+    id: 'hero-1',
+    type: 'hero',
+    enabled: true,
+    order: 0,
+    visibility: 'public',
+    content: {
+      layout: 'split-with-cta-card',
+      artistPhoto: artistPhoto,
+      artistName: 'Alex Rivers',
+      descriptor: 'Electronic Music Producer & Live Performer',
+      city: 'Melbourne',
+      genres: ['House', 'Techno', 'Progressive'],
+      socialProof: 'Trusted by 200+ venues worldwide',
+      ctaButtons: {
+        primary: { label: 'Book Me', action: 'booking' },
+        secondary: { label: 'Watch Reel', action: 'video' },
+      },
+      trustIndicators: {
+        verified: true,
+        responseTime: 'Usually responds within 2 hours',
+        recentClients: ['Ministry of Sound', 'Fabric London', 'Berghain'],
+        eventTypes: ['Club Nights', 'Festivals', 'Private Events'],
+      },
+    },
+  },
+  {
+    id: 'video-1',
+    type: 'featured-video',
+    title: 'Latest Performance Reel',
+    enabled: true,
+    order: 1,
+    visibility: 'public',
+    content: {
+      videoUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+      thumbnail: 'https://images.unsplash.com/photo-1698153782147-07bb858d5232?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxESiUyMHBlcmZvcm1hbmNlJTIwY29uY2VydCUyMGxpZ2h0c3xlbnwxfHx8fDE3NzQwNDEyMDZ8MA&ixlib=rb-4.1.0&q=80&w=1080',
+      description: '2026 Festival Season Highlights',
+      duration: '3:42',
+    },
+  },
+  {
+    id: 'bio-1',
+    type: 'short-bio',
+    title: 'About',
+    enabled: true,
+    order: 2,
+    visibility: 'public',
+    content: {
+      text: 'Alex Rivers is a Melbourne-based electronic music producer and live performer, known for blending deep house grooves with progressive techno soundscapes. With over a decade of experience headlining international clubs and festivals, Alex brings energy, precision, and unforgettable sonic experiences to every performance.',
+    },
+  },
+  {
+    id: 'testimonials-1',
+    type: 'testimonial-carousel',
+    title: 'What Clients Say',
+    enabled: true,
+    order: 3,
+    visibility: 'public',
+    content: {
+      testimonials: [
+        {
+          id: 't1',
+          quote: 'Alex absolutely killed it at our festival. The crowd was electric from start to finish.',
+          author: 'Sarah Chen',
+          role: 'Festival Director',
+          company: 'Subsonic Music Festival',
+        },
+        {
+          id: 't2',
+          quote: 'Professional, reliable, and incredibly talented. Alex is our go-to for all major club nights.',
+          author: 'Marcus Thompson',
+          role: 'Venue Manager',
+          company: 'The Warehouse Melbourne',
+        },
+        {
+          id: 't3',
+          quote: 'Working with Alex was seamless. Great communication, perfect vibe, and the dance floor never stopped.',
+          author: 'Nina Rodriguez',
+          role: 'Event Producer',
+          company: 'PRYSM Events',
+        },
+      ],
+    },
+  },
+  {
+    id: 'gallery-1',
+    type: 'gallery',
+    title: 'Gallery',
+    enabled: true,
+    order: 4,
+    visibility: 'public',
+    content: {
+      items: [
+        { id: 'g1', url: 'https://images.unsplash.com/photo-1624929303661-22c5bce0169b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxlbGVjdHJvbmljJTIwbXVzaWMlMjBmZXN0aXZhbCUyMGNyb3dkfGVufDF8fHx8MTc3NDAwNDg3MHww&ixlib=rb-4.1.0&q=80&w=1080', type: 'image', caption: 'Subsonic Festival 2026' },
+        { id: 'g2', url: 'https://images.unsplash.com/photo-1572327918315-173bc4545e39?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxuaWdodGNsdWIlMjBESiUyMHR1cm50YWJsZXN8ZW58MXx8fHwxNzc0MDQxMjEwfDA&ixlib=rb-4.1.0&q=80&w=1080', type: 'image', caption: 'The Warehouse Melbourne' },
+        { id: 'g3', url: 'https://images.unsplash.com/photo-1642177255157-fe900ab513e0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtdXNpYyUyMHN0dWRpbyUyMHByb2R1Y3Rpb258ZW58MXx8fHwxNzc0MDExNzYyfDA&ixlib=rb-4.1.0&q=80&w=1080', type: 'image', caption: 'Private Event - Sydney' },
+        { id: 'g4', url: 'https://images.unsplash.com/photo-1740458983830-24bfc1118a05?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb25jZXJ0JTIwc3RhZ2UlMjBsaWdodGluZ3xlbnwxfHx8fDE3NzQwNDEyMTR8MA&ixlib=rb-4.1.0&q=80&w=1080', type: 'image', caption: 'NYE 2025 - Crown Casino' },
+        { id: 'g5', url: 'https://images.unsplash.com/photo-1771848194254-28ed0cb7972f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxlbGVjdHJvbmljJTIwbXVzaWMlMjBlcXVpcG1lbnR8ZW58MXx8fHwxNzczOTIwMTYwfDA&ixlib=rb-4.1.0&q=80&w=1080', type: 'image', caption: 'Studio Session' },
+        { id: 'g6', url: 'https://images.unsplash.com/photo-1698153782147-07bb858d5232?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxESiUyMHBlcmZvcm1hbmNlJTIwY29uY2VydCUyMGxpZ2h0c3xlbnwxfHx8fDE3NzQwNDEyMDZ8MA&ixlib=rb-4.1.0&q=80&w=1080', type: 'image', caption: 'Fabric London' },
+      ],
+      layout: 'masonry',
+    },
+  },
+  {
+    id: 'logos-1',
+    type: 'brand-logos',
+    title: 'Worked With',
+    enabled: true,
+    order: 5,
+    visibility: 'public',
+    content: {
+      logos: [
+        { id: 'l1', name: 'Ministry of Sound', url: '' },
+        { id: 'l2', name: 'Fabric London', url: '' },
+        { id: 'l3', name: 'Berghain', url: '' },
+        { id: 'l4', name: 'Tomorrowland', url: '' },
+        { id: 'l5', name: 'Ultra Music Festival', url: '' },
+        { id: 'l6', name: 'Coachella', url: '' },
+      ],
+    },
+  },
+  {
+    id: 'packages-1',
+    type: 'featured-package',
+    title: 'Booking Options',
+    enabled: true,
+    order: 6,
+    visibility: 'public',
+    content: {
+      packages: [
+        {
+          id: 'p1',
+          name: 'Club Night',
+          description: '2-hour DJ set for club venues',
+          price: 2500,
+          duration: '2 hours',
+          features: ['Professional setup', 'Curated setlist', 'Social media promotion'],
+        },
+        {
+          id: 'p2',
+          name: 'Festival Set',
+          description: 'High-energy festival performance',
+          price: 5000,
+          duration: '90 minutes',
+          features: ['Full production rider', 'Press kit materials', 'Pre-event promotion'],
+        },
+        {
+          id: 'p3',
+          name: 'Private Event',
+          description: 'Exclusive performance for private events',
+          duration: '3 hours',
+          features: ['Customized setlist', 'Meet & greet option', 'Flexible scheduling'],
+        },
+      ],
+    },
+  },
+  {
+    id: 'faq-1',
+    type: 'faq',
+    title: 'Frequently Asked Questions',
+    enabled: true,
+    order: 7,
+    visibility: 'public',
+    content: {
+      items: [
+        {
+          id: 'faq1',
+          question: 'What equipment do you bring?',
+          answer: 'I bring my own Pioneer CDJ-3000s and DJM-900NXS2 mixer. I can also work with venue equipment if available.',
+        },
+        {
+          id: 'faq2',
+          question: 'How far in advance should we book?',
+          answer: 'I recommend booking at least 4-6 weeks in advance for club nights, and 8-12 weeks for festivals and major events.',
+        },
+        {
+          id: 'faq3',
+          question: 'Do you take requests?',
+          answer: 'For private events, absolutely! I work with clients to craft the perfect vibe. For club nights, I curate sets based on the venue and crowd energy.',
+        },
+        {
+          id: 'faq4',
+          question: 'What is your cancellation policy?',
+          answer: 'Cancellations made 14+ days before the event receive a full refund. Cancellations within 14 days are subject to a 50% fee.',
+        },
+      ],
+    },
+  },
+  {
+    id: 'booking-cta-1',
+    type: 'booking-cta',
+    title: 'Ready to Book?',
+    enabled: true,
+    order: 8,
+    visibility: 'public',
+    content: {
+      heading: 'Let\'s Create Something Amazing',
+      description: 'Available for clubs, festivals, private events, and brand activations. Get in touch to check availability and discuss your event.',
+      ctaLabel: 'Check Availability',
+      ctaAction: 'booking',
+      secondaryCtaLabel: 'Quick Inquiry',
+      secondaryCtaAction: 'inquiry',
+    },
+  },
+];
+
+export const mockPortfolioV3: PortfolioV3 = {
+  id: 'pf-001',
+  userId: 'user-001',
+  handle: 'alexrivers',
+  isPublic: true,
+  isPrivate: false,
+  theme: {
+    preset: 'midnight-stage',
+    ctaPersonality: 'bold',
+    mediaTreatment: 'edge-to-edge',
+    motionIntensity: 'expressive',
+  },
+  audiencePath: 'book-me',
+  completionScore: 92,
+  bookingReadinessScore: 88,
+  blocks: mockPortfolioV3Blocks,
+  analytics: mockPortfolioV3Insights,
+  lastPublished: '2026-03-15T10:30:00Z',
+  draftVersion: false,
+};

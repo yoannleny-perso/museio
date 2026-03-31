@@ -1,0 +1,10 @@
+.git
+.github
+.next
+.turbo
+.expo
+coverage
+playwright-report
+test-results
+production_artifacts
+app_build/figma_seed

@@ -1,0 +1,28 @@
+{
+  "name": "@museio/mobile",
+  "private": true,
+  "version": "0.1.0",
+  "main": "expo-router/entry",
+  "scripts": {
+    "dev": "EXPO_NO_TELEMETRY=1 EXPO_HOME=../../.expo expo start --offline --port 8081",
+    "build": "EXPO_NO_TELEMETRY=1 EXPO_HOME=../../.expo expo export --platform all",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@museio/domain": "workspace:*",
+    "@museio/types": "workspace:*",
+    "@museio/ui": "workspace:*",
+    "@museio/validation": "workspace:*",
+    "@supabase/supabase-js": "^2.49.1",
+    "expo": "^54.0.0",
+    "expo-constants": "~18.0.8",
+    "expo-router": "^4.0.0",
+    "expo-status-bar": "^2.0.0",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "react-native": "0.76.9",
+    "zod": "^3.24.2"
+  }
+}

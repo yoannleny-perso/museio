@@ -1,0 +1,5 @@
+.DS_Store
+.local-bin/
+app_build/.DS_Store
+app_build/figma_seed/.DS_Store
+docs/.DS_Store

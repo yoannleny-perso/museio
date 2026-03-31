@@ -1,0 +1,41 @@
+:root {
+  color-scheme: light;
+  font-family: "Avenir Next", "Helvetica Neue", sans-serif;
+  --museio-bg: #f5f6fb;
+  --museio-text: #151922;
+  --museio-muted: #5d6575;
+  --museio-accent: #635bff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  background: var(--museio-bg);
+  color: var(--museio-text);
+}
+
+.museio-body {
+  font-family: "Avenir Next", "Helvetica Neue", sans-serif;
+}
+
+a,
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+code {
+  font-family: "SFMono-Regular", "Menlo", monospace;
+  color: var(--museio-accent);
+}

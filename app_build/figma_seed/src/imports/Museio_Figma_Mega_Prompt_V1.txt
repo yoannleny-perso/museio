@@ -1,0 +1,990 @@
+MEGA PROMPT FOR FIGMA AI — MUSEIO V1 FULL APP RECREATION
+
+You are Figma AI acting as a senior mobile product designer, design systems architect, UX prototyper, and product analyst.
+
+Your job is to recreate the Museio app as a complete, high-fidelity, mobile-first Figma product file that preserves the current app’s information architecture, major business rules, screen inventory, interaction flows, and reusable component patterns. Build this as an As-Is V1 reconstruction for design review and click-through testing. Do not simplify the product. Do not merge screens. Do not omit hidden or edge-case states. If the current product is inconsistent, preserve the feature and represent the inconsistency explicitly as an annotated logic note rather than silently removing it.
+
+PRIMARY OBJECTIVE
+Create one full Figma file containing:
+1. design foundations and variables
+2. reusable components with variants
+3. every public and authenticated screen
+4. modals, drawers, dialogs, sheets, empty states, error states, loading states, and success states
+5. clickable prototypes that simulate all primary user flows
+6. enough realistic sample data to test navigation, forms, list states, booking flows, invoice flows, onboarding gating, and portfolio publishing
+
+DESIGN INTENT
+Recreate the app faithfully, but with a cleaner, production-grade Figma structure. Preserve current product logic and page coverage. You may improve consistency and organization, but do not remove or invent features in this V1 unless called out as an annotation.
+
+PLATFORM AND FRAME RULES
+- Primary target: mobile app prototype
+- Base frame size: iPhone 15 / 393 x 852 or equivalent modern iPhone portrait size
+- Use safe-area aware layouts
+- Use auto layout everywhere practical
+- Build all screens as component-driven compositions rather than one-off artboards
+- All interactive states should be prototype-clickable in Figma
+- Use separate Figma pages for Foundations, Components, Public Flow, Auth Flow, App Flow, States, and Prototype Map
+
+FIGMA FILE STRUCTURE
+Create these Figma pages in this order:
+01 Cover + Instructions
+02 Variables + Design Tokens
+03 Core Components
+04 Public Marketing + Public Portfolio + Booking
+05 Authentication + Session States
+06 App Shell + Home
+07 Jobs + Requests + Job Forms + Job Detail + Invoice States
+08 Portfolio CMS + Share + Username Gating + Media Editing
+09 Clients + Availability + Settings + More Sheet
+10 Finance + Stripe States + Payment States
+11 Errors + Empty States + Loading + Permission States
+12 Prototype Map + User Journeys
+
+VISUAL DIRECTION
+This app is clearly a light-mode creator-facing SaaS mobile product with a soft lavender brand system, rounded cards, generous spacing, quiet gray text, and a premium but approachable tone.
+
+Use this normalized visual system as the starting point:
+- Light mode only for this V1
+- Primary brand purple: #8F6EE6
+- Primary action purple: #7A42E8
+- Deep purple: #6816B0
+- Soft lavender: #E3DBF9
+- Pale lavender surface: #F4EEFD
+- App background: #F8F9FB
+- Card surface: #FEFEFE
+- Border gray: #DDDCE7
+- Primary text: #1F2430
+- Secondary text: #4F5868
+- Muted text: #7A7F8C
+- Disabled icon/text: #A4A9B6
+- Success green: #45C05A
+
+TYPOGRAPHY
+Use a neutral sans-serif system close to Inter or SF Pro.
+Create these text styles:
+- Display / 36 / Bold
+- Page Title / 28 / Bold
+- Section Title / 22 / Bold
+- Card Title / 18 / Semibold
+- Body / 16 / Regular
+- Body Strong / 16 / Semibold
+- Label / 14 / Medium
+- Caption / 12 / Medium
+- Button / 16 / Semibold
+
+SPACING SYSTEM
+Use an 8-point spacing system.
+Recommended tokens:
+- 4, 8, 12, 16, 20, 24, 32, 40, 48, 64
+Use large rounded corners and soft shadows.
+Recommended radius tokens:
+- 10, 14, 20, 28
+Use one-column mobile layouts with 20 to 24 px horizontal padding.
+Use 16 to 24 px card padding.
+Use 12 to 16 px gaps inside forms and list items.
+
+COMPONENT LIBRARY — BUILD ALL OF THESE AS REUSABLE COMPONENTS WITH VARIANTS
+1. App shell
+- Top app header
+- Bottom tab bar with Home, Jobs, Portfolio, Finance, More
+- Bottom sheet / drawer shell
+- Full-screen modal shell
+- Standard modal/dialog shell
+
+2. Buttons
+- Primary full-width button
+- Secondary button
+- Ghost button
+- Outline button
+- Pill CTA button
+- Icon-only circular button
+- Destructive button
+- Disabled states for all
+
+3. Form controls
+- Text input with label
+- Select input with chevron
+- Search field
+- Date field
+- Time field
+- Text area
+- Checkbox
+- Toggle switch
+- Inline helper text
+- Validation error message
+- Required field marker
+
+4. Data display and layout
+- Standard card
+- Tinted card
+- Empty-state card
+- Section header row
+- List row with icon + title + subtitle
+- Status badge / pill
+- Avatar / profile image placeholder
+- Calendar month header
+- Calendar day cell variants
+- Job row
+- Booking request row
+- Client row
+- Finance widget card
+- Portfolio section tile
+- Drag handle row
+- Divider
+- Toast / alert banner
+
+5. Special domain components
+- Onboarding checklist card
+- Jobs status filter chip/tab
+- Quote modal content block
+- Line item editor card
+- Invoice totals card
+- Share link modal
+- Username required dialog
+- Vacation period editor
+- Availability day editor
+- Stripe connection state card
+- Public booking stepper
+
+COMPONENT VARIANT RULES
+For each component, create variants for:
+- default
+- hover if needed for web-like behavior
+- pressed
+- focus
+- disabled
+- selected
+- error
+- success
+- empty when relevant
+- populated when relevant
+
+APP INFORMATION ARCHITECTURE TO RECREATE
+PUBLIC SURFACE
+- /
+- /auth
+- /auth/callback
+- /terms-and-privacy
+- /:handle                public portfolio live page
+- /:nickname/book         public booking flow
+- /booking-response       public quote response result page
+- /stripe-callback        callback bridge page/state
+
+AUTHENTICATED APP SURFACE
+- /app/home
+- /app/jobs
+- /app/jobs/new
+- /app/portfolio
+- /app/clients
+- /app/availability
+- /app/settings
+- /app/finance
+- /app/more               exists as a route but real behavior is drawer-first
+
+NAVIGATION MODEL TO RECREATE
+- Bottom tabs: Home, Jobs, Portfolio, Finance, More
+- More behaves like a bottom drawer, not a full independent content-first page
+- Clients, Availability, and Settings live under the More branch and should still visually keep More active in the tab bar
+- Jobs and Settings both have sub-navigation driven by tab-like controls
+- New Job and Edit Job are full-screen surfaces that hide the normal app header and bottom tab bar
+
+GLOBAL LOGIC RULES TO REPRESENT IN THE PROTOTYPE
+1. Session gating
+- Unauthenticated web users land on a marketing/landing page or auth
+- Authenticated users go to /app/home
+- Protected routes require a valid session
+- Sessions near expiry are treated as invalid for route access
+
+2. Onboarding gating
+- There is a welcome/setup popup for incomplete setup
+- The popup visually emphasizes three required areas: Personal account, Invoicing Details, Bank Account
+- As-Is logic inconsistency: the popup gating effectively checks profile plus bank completion, but invoice sending also requires a saved invoice signature
+- Represent both truths in the prototype: onboarding popup and stricter invoice-send validation
+- Include Skip for now and Don’t show this again options
+
+3. Public portfolio publishing rules
+- Portfolio edit mode requires a username/public handle
+- If username is missing, show Username Required dialog before portfolio can be published or shared
+- Live portfolio hides empty optional sections
+- Only show tab navigation in live portfolio if enabled sections actually contain content
+
+4. Availability and booking rules
+- Weekly availability editor exists
+- Booking availability is constrained by working hours, vacations, existing jobs, and pending booking requests
+- Default availability settings to represent in UI copy and settings:
+  - minimum notice: 24 hours
+  - booking buffer: 15 minutes
+  - breaks enabled: off by default
+  - default break duration: 60 minutes
+- Public booking is multi-step and date/time driven
+
+5. Quote and booking-request rules
+- Booking requests arrive publicly and appear in artist Requests inbox
+- Artist can quote, decline, or remove request
+- Client may accept or decline quote via email-link flow
+- Signed quote response tokens are valid for 30 days
+- Accepted quote creates an upcoming itemized job and seeds a default line item named “DJ Service”
+- As-Is logic quirk: quote acceptance creates the job, but source request does not appear fully normalized to an “accepted” status; model this as an annotation in the design spec notes
+
+6. Jobs rules
+- Jobs statuses seen in product/domain: requested, drafted, upcoming, past, invoice-sent, paid, deleted
+- Visible Jobs tabs in current UI: Requests, Upcoming, Invoiced, Paid, Drafts
+- There is also a hidden past-content state in code; include it as a state or admin/internal variant, but do not place it as a visible primary tab unless clearly annotated
+- Multi-day jobs appear on every date between start and end date inclusive
+- New jobs and edits support line items, tax toggles, discount percent, notes, and client selection
+- Max line items in current UI: 10
+
+7. Invoicing and payment rules
+- Invoices can only be sent when profile, bank details, and invoice signature are present
+- Default invoice due term is 14 days
+- Payment path supports Stripe payment collection and bank details display
+- Overdue reminders are rate-limited to once every 7 days
+- Paid state is ultimately reconciled from payment/webhook logic
+
+8. Notifications rules
+- Email and push notifications exist
+- Booking request insert can trigger notification behavior
+- Invoice send and overdue reminder behavior should be represented as side-effect notes and success states
+
+AS-IS DESIGN CHARACTERISTICS TO PRESERVE IN THE FIRST PASS
+- Light theme only
+- Soft pastel lavender surfaces
+- Large rounded cards
+- Low-contrast quiet gray support text
+- Large empty-state illustrations and messages
+- Purple active states across tabs, headers, chips, and CTAs
+- Premium but slightly airy creator-tool tone
+
+KNOWN PRODUCT/UX DEBT TO ANNOTATE, NOT SILENTLY FIX
+- More behaves as drawer-first instead of full page-first
+- Onboarding popup completion logic and invoice-send readiness are not fully aligned
+- Jobs has a hidden past tab/state in code
+- Availability engine uses logic that historically drifted from job status naming
+- Deep-link and callback flows are inconsistent in implementation; include callback screens and note the underlying route complexity, but do not redesign the navigation model in this V1 reconstruction
+
+NOW BUILD EVERY SCREEN BELOW
+For every screen, create:
+- the primary frame
+- relevant empty state
+- loading state when applicable
+- error or permission-denied state when applicable
+- success or completed state when applicable
+- interactive overlays if the page launches a modal, sheet, drawer, dialog, date picker, time picker, or confirmation view
+
+SCREEN SET A — PUBLIC / UNAUTHENTICATED
+
+1. Landing / Marketing screen
+Purpose: unauthenticated web entry point.
+Include:
+- Museio logo and brand language
+- CTA to Sign In / Get Started
+- short positioning copy for creator booking, portfolio, jobs, and payments
+- optional screenshots or lightweight product highlights
+Prototype actions:
+- Get Started -> Auth
+- Explore Artist Page -> Public Portfolio example
+
+2. Auth screen
+Purpose: sign in / sign up / OAuth entry.
+Include:
+- email field
+- password field
+- sign in CTA
+- sign up CTA or mode toggle
+- Google OAuth option
+- forgot password / recovery path
+States:
+- default
+- loading
+- invalid credentials
+- account creation success
+- recovery mode state
+Prototype actions:
+- successful auth -> app/home
+- recovery -> callback state
+
+3. Auth callback state
+Purpose: intermediate loading/processing state after OAuth or magic flow.
+Include:
+- loading indicator
+- success routing note
+- failure state with retry / back to auth
+
+4. Terms and Privacy page
+Purpose: legal reference page.
+Include:
+- terms section
+- privacy section
+- simple readable legal layout
+
+5. Public portfolio live page
+Route concept: /:handle
+Purpose: public artist page.
+Include:
+- hero/header area
+- artist portrait
+- artist/stage name
+- short bio
+- social links
+- optional section tabs only when content exists
+- sections for photos, videos, featured cards, music releases, events, smart links, booking section, custom sections
+- CTA to Book
+States:
+- public live page with full content
+- no content / sparse content page
+- profile not found 404-like state
+- portfolio exists but not public state
+Prototype actions:
+- Book -> booking flow
+- section tabs scroll or jump to section
+
+6. Public booking flow — step 1 Date
+Route concept: /:nickname/book
+Purpose: let a visitor request a booking.
+Include:
+- artist context header
+- stepper/progress indicator
+- secure calendar
+- available/unavailable dates
+- next CTA
+States:
+- default
+- unavailable date selection state
+- no availability state
+
+7. Public booking flow — step 2 Time
+Include:
+- secure time picker
+- available slots
+- unavailable slots
+- buffer/notice-aware messaging
+- back and next
+
+8. Public booking flow — step 3 Contact details
+Include:
+- name
+- email
+- phone
+- validation states
+- back and next
+
+9. Public booking flow — step 4 Event details
+Include:
+- event name
+- event description
+- location
+- budget
+- more options if needed
+- back and next
+
+10. Public booking flow — step 5 Review and submit
+Include:
+- summary card
+- edit links back to previous steps
+- submit request CTA
+States:
+- submit loading
+- success confirmation
+- failure error state
+
+11. Booking response page
+Route concept: /booking-response
+Purpose: public result page after quote accept or decline.
+Create these states:
+- quote accepted success
+- quote declined confirmation
+- invalid token
+- expired token
+- already processed / duplicate action
+- generic failure
+
+12. Stripe callback bridge state
+Purpose: process or simulate return from Stripe onboarding.
+Create:
+- success state leading to settings banking
+- failure state leading to bank/setup retry
+- loading bridge state
+
+SCREEN SET B — APP ENTRY AND GLOBAL SHELL
+
+13. Protected app shell
+Purpose: reusable shell for authenticated app screens.
+Include:
+- top app header with route title or logo depending on screen
+- bottom tab bar
+- support for active tab state
+- support for More sheet overlay
+
+14. More bottom sheet
+Purpose: drawer-first navigation from the More tab.
+Include exact style direction from observed UI:
+- sheet handle
+- title “More Options”
+- rows for Clients, My Availability, Settings
+- icon + title + subtitle pattern
+Prototype actions:
+- open corresponding screens
+
+15. Welcome / setup popup
+Purpose: onboarding gating overlay shown for incomplete setup.
+Use observed structure closely:
+- title “Welcome to MUSEIO”
+- explanatory body copy about account setup for invoicing and mailing
+- checklist cards for Personal account, Invoicing Details, Bank Account
+- Required pills
+- primary CTA “Take me to Settings”
+- secondary text button “Skip for now”
+- tertiary opt-out “Don’t show this again”
+- bottom reassurance note that settings are accessible later
+States:
+- only personal complete
+- personal + invoicing complete
+- all complete (dismissed / not shown)
+Prototype actions:
+- Take me to Settings -> Settings tab deep link simulation
+
+SCREEN SET C — HOME
+
+16. Home screen — empty state
+Purpose: calendar dashboard.
+Include:
+- Museio logo header
+- New Job CTA in top-right pill
+- large monthly calendar card
+- selected day state
+- jobs count for selected day
+- empty-state card saying no jobs for this date
+- CTA to add a job
+Prototype actions:
+- select day -> change selected date
+- Add a job -> New Job screen
+
+17. Home screen — populated state
+Include:
+- one or more jobs on selected date
+- multi-day job example spanning several dates
+- job cards grouped under selected day
+- state for priority/past-job handling
+Prototype actions:
+- job card -> job detail or edit
+
+18. Home overlays and states
+Create:
+- loading state
+- error state
+- edit job modal launch
+- invoice confirmation modal launch
+- past job modal launch
+
+SCREEN SET D — JOBS
+
+19. Jobs screen — empty state
+Follow observed layout closely:
+- title “Jobs” with icon
+- search bar
+- top status filter row: Requests, Upcoming, Invoiced, Paid, Drafts
+- active tab styling
+- large empty state “No jobs found” and support copy
+
+20. Jobs screen — Requests populated
+Include:
+- list of pending booking requests
+- requester info
+- event/date info
+- actions to Quote, Decline, Remove
+- one row in quoted state
+- one row in pending state
+Prototype actions:
+- Quote -> quote modal
+- Decline -> decline confirm dialog
+- Remove -> remove confirm dialog
+
+21. Quote modal
+Include:
+- quoted price field
+- optional message/context
+- send response CTA
+- cancel action
+States:
+- valid
+- invalid amount
+- loading
+- sent success
+
+22. Decline request dialog
+Include:
+- confirmation copy
+- destructive action
+- cancel
+
+23. Jobs screen — Upcoming populated
+Include:
+- upcoming jobs list
+- search results state
+- job rows with date, time, client, status
+- empty state for no matching search
+
+24. Jobs screen — Invoiced populated
+Include:
+- invoice-sent jobs
+- quick visual status separation
+
+25. Jobs screen — Paid populated
+Include:
+- paid jobs list
+- paid marker and settled state
+
+26. Jobs screen — Drafts populated
+Include:
+- drafted jobs
+- edit affordance
+- create final job CTA if relevant
+
+27. Jobs hidden / internal past state
+Include as a non-primary state frame or annotated variant:
+- past jobs list
+- note that this exists in code but not as a visible main tab in the current UI
+
+28. Job details screen or drawer
+Include:
+- full job summary
+- client details
+- line items
+- notes
+- invoice state
+- actions for edit, invoice, mark/update status if needed
+
+29. New Job full-screen form
+Recreate observed structure closely:
+- top header “New Job” with status pill “Upcoming” and close button
+- Job Details section
+- Job Title required
+- Job Number
+- Start Date / End Date
+- Start Time / End Time
+- Line Items section with item count limit 1/10 style
+- item card with drag handle, collapsible row, delete action
+- item name
+- unit cost
+- quantity
+- tax checkbox
+- Add Line Item button
+- Discount percent
+- totals card with subtotal and total
+- Notes text area
+- Client Information section
+- existing client selector or create new
+- Save Draft button
+- Create Job button
+States:
+- empty form
+- partially completed form
+- validation errors
+- max line items reached
+- saved draft success
+- created success
+Business details to reflect:
+- up to 10 line items
+- quantity default 1
+- discount percent default 0
+- tax can be toggled per item
+
+30. Edit Job full-screen form
+Same structure as New Job, but populated state with existing data.
+Include save/update and cancel behavior.
+
+31. Invoice confirmation modal
+Purpose: confirm invoice send or invoice-ready action.
+Include:
+- setup readiness summary
+- invoice send CTA
+- blocked state when profile, bank, or signature missing
+- link to relevant settings tab if blocked
+
+32. Past job modal
+Purpose: represent the separate past-job handling path found in the current product.
+Include:
+- past job details
+- archive/completion presentation
+
+SCREEN SET E — PORTFOLIO CMS
+
+33. Portfolio editor — empty/incomplete state
+Follow observed visual model closely:
+- Museio logo header
+- Private toggle at top right
+- large tinted builder canvas
+- modular empty section cards for Add Portrait Photo, Add Artist Name, Add Short Bio, Add Social Media Links
+- Add New Section CTA block at bottom
+- bottom tab bar with Portfolio active
+States:
+- blank new portfolio
+- partially completed portfolio
+
+34. Portfolio editor — populated state
+Include:
+- hero content
+- reordered sections
+- media galleries
+- social links
+- events / music / promo content
+- booking section
+- custom section example
+- drag-and-drop affordances
+- enable/disable section toggles or controls
+- remove section controls
+
+35. Add new section sheet or modal
+Include section type choices:
+- photos
+- videos
+- featured promo cards
+- music releases
+- events
+- booking section
+- smart links
+- custom section
+
+36. Edit section states
+Create representative edit dialogs or side-panels for:
+- hero/header
+- bio
+- social links
+- photo upload
+- video entry
+- featured card
+- music release
+- event
+- smart link
+- custom section
+Each should include empty, populated, validation, save success, and delete/remove options.
+
+37. Username required dialog
+Purpose: block publishing/sharing when username is missing.
+Include:
+- explanation
+- input or link to account settings
+- continue / go to settings CTA
+
+38. Share portfolio dialog
+Include:
+- public URL display
+- copy link CTA
+- native share CTA if desired
+- disabled state if username or public status missing
+
+39. Image editor / crop dialog
+Include:
+- image preview
+- crop or positioning affordance
+- save and cancel
+- upload error state
+
+40. Delete confirmation dialogs
+Create a reusable destructive dialog pattern for deleting sections/media/content.
+
+SCREEN SET F — CLIENTS
+
+41. Clients list — empty state
+Include:
+- search
+- empty-state message
+- Add Client CTA
+
+42. Clients list — populated state
+Include:
+- rows with venue/company name, contact name, email, phone, location
+- edit affordance
+- search/filter behavior
+
+43. Add Client dialog
+Include fields for:
+- venue/company name
+- contact name
+- email
+- phone
+- location
+- save
+- cancel
+- validation errors
+
+44. Edit Client dialog
+Same as Add Client, populated with sample data.
+
+45. Delete/dependency state
+Include a warning state if client cannot be deleted because jobs depend on the record.
+
+SCREEN SET G — AVAILABILITY
+
+46. Availability main screen
+Purpose: artist working hours editor.
+Include:
+- week navigation
+- days of week
+- per-day enable/disable
+- one or more time ranges per day
+- add/remove time slot
+- minimum notice, booking buffer, break settings summary or entry point
+- CTA for Copy Week and More Options
+- Vacation periods list or entry point
+States:
+- all days off
+- standard work week
+- custom varied week
+
+47. Copy Week modal
+Include:
+- source week
+- destination / apply action
+- confirmation
+
+48. More Options modal
+Include:
+- booking buffer setting
+- minimum notice setting
+- breaks toggle
+- break duration
+- any advanced scheduling notes
+
+49. Vacation period modal
+Include:
+- start date
+- end date
+- optional reason
+- save / remove
+- overlapping vacation warning state
+
+50. Availability permission and conflict states
+Include:
+- existing job conflict notice
+- pending booking request conflict note
+- unavailable booking result state
+
+SCREEN SET H — SETTINGS
+
+51. Settings shell
+Purpose: tabbed sub-application.
+Tabs:
+- Account
+- Invoice
+- Banking
+- Emails
+Also include onboarding progress summary block.
+
+52. Settings — Account tab
+Include:
+- first name
+- last name
+- email
+- phone
+- company/business details if present
+- username / public handle
+- profile completeness indicator
+- save states
+
+53. Settings — Invoice tab
+Include:
+- invoice signature area
+- optional company name
+- logo upload
+- business details for invoices
+- invoice numbering or formatting hints if useful
+- readiness state for invoice sending
+Business defaults to represent:
+- invoices commonly use 14-day terms by default
+
+54. Settings — Banking tab
+Include:
+- account holder name
+- BSB number
+- account number
+- optional fund-related fields if present
+- Stripe connect / onboarding state card
+- connect bank or complete onboarding CTA
+States:
+- not connected
+- onboarding in progress
+- connected / ready
+- callback success
+- callback failure
+
+55. Settings — Emails tab
+Include notification preferences for:
+- send job confirmation
+- send job updates
+- send job cancellations
+- receive email copies
+- receive push notifications
+States:
+- all on
+- some off
+- save success
+
+SCREEN SET I — FINANCE
+
+56. Finance Overview — empty state
+Follow observed layout closely:
+- title “Finance Overview” with icon
+- Earnings card
+- date range selector showing Last 30 Days
+- no earnings empty state with support text
+- Forecast card
+- forecast range selector showing Weekly
+- no upcoming jobs empty state
+
+57. Finance Overview — populated state
+Include:
+- earnings total from invoice status
+- date range display
+- mini trend chart or simple visual if useful
+- forecast from relevant upcoming jobs
+- jobs contributing to forecast
+- Stripe dashboard access card or CTA
+
+58. Finance filters and states
+Create:
+- date-range dropdown states
+- weekly/monthly forecast switch if relevant
+- loading
+- error
+- no data
+
+59. Stripe dashboard / payment access state
+Include:
+- launch dashboard CTA
+- connected vs disconnected presentation
+- helpful status messaging
+
+SCREEN SET J — SYSTEM STATES AND SUPPORTING FLOWS
+
+60. Loading states
+Create skeleton or loading states for:
+- auth callback
+- home
+- jobs
+- portfolio
+- settings
+- finance
+- booking submit
+
+61. Error states
+Create reusable page or card states for:
+- 401 unauthenticated / session expired redirect message
+- 404 not found for public portfolio
+- generic 500 failure
+- save failed
+- upload failed
+- payment/connect failure
+- expired or invalid quote token
+
+62. Permission-denied states
+Include:
+- portfolio editing blocked until username exists
+- invoice send blocked until setup requirements are met
+- client deletion blocked when dependent jobs exist
+
+63. Empty states
+Create reusable empty-state patterns for:
+- no jobs
+- no requests
+- no portfolio content
+- no clients
+- no earnings
+- no forecast
+- no availability configured
+
+64. Success states and notifications
+Create reusable success patterns for:
+- job created
+- draft saved
+- quote sent
+- booking request submitted
+- portfolio shared
+- settings saved
+- invoice sent
+- payment received
+
+PROTOTYPE JOURNEYS TO WIRE IN FIGMA
+Wire clickable prototype flows for at least these journeys:
+1. Public visitor -> Landing -> Auth -> Home
+2. Authenticated artist -> Welcome popup -> Settings -> complete setup -> invoice-ready state
+3. Artist -> Home -> Add Job -> Create Job -> Upcoming Jobs list
+4. Artist -> Jobs Requests -> Quote request -> Sent state
+5. Client email-response simulation -> Booking response accepted -> resulting upcoming job state
+6. Artist -> Portfolio editor -> Add section -> Share portfolio -> Public portfolio live page
+7. Visitor -> Public portfolio -> Book -> submit booking request -> success confirmation
+8. Artist -> More sheet -> Clients -> Add Client -> save success
+9. Artist -> More sheet -> Availability -> edit schedule -> save success
+10. Artist -> Finance -> Stripe connect state -> callback success -> connected state
+11. Artist -> Job detail -> Invoice confirmation -> blocked if setup incomplete -> go to settings -> return -> invoice-ready state
+12. Artist -> Finance -> invoice paid state -> paid status and updated finance widgets
+
+DATA OBJECTS AND SAMPLE CONTENT TO SEED THE PROTOTYPE
+Create realistic sample data and wire it consistently across screens.
+Use these sample entities:
+- Artist profile: Museio demo artist with portrait, stage name, short bio, email, phone, company details, username, social links
+- One incomplete profile variant
+- One complete invoice-ready profile variant
+- Bank details record
+- Invoice settings record including signature and logo
+- Notification settings record
+- 3 clients minimum
+- 1 pending booking request
+- 1 quoted booking request
+- 1 declined booking request
+- 1 drafted job
+- 2 upcoming jobs
+- 1 multi-day upcoming job
+- 1 invoice-sent job
+- 1 paid job
+- 1 past job
+- 1 public portfolio with full content
+- 1 portfolio with sparse content
+- 1 week of availability with weekday working hours
+- 1 vacation period
+
+BUSINESS RULES TO CAPTURE AS ANNOTATIONS INSIDE THE FILE
+Add a small notes page or callout layer explaining these As-Is rules:
+- session access uses a near-expiry guard
+- onboarding popup and invoice readiness are not perfectly aligned
+- default availability assumptions are 24h notice, 15m buffer, 60m break, breaks off by default
+- quote links expire after 30 days
+- accepted quote creates an upcoming job with a default “DJ Service” line item
+- line items support up to 10 rows
+- invoice due term defaults to 14 days
+- overdue reminders are effectively limited to once every 7 days
+- More is drawer-first
+- hidden past jobs state exists in code
+
+COPY AND TONE GUIDELINES
+- Keep tone creator-friendly, premium, clear, and lightly warm
+- Avoid enterprise jargon
+- Support text should be concise and readable
+- Preserve observed brand tone from current Museio screens
+
+ACCESSIBILITY AND USABILITY RULES
+- Increase contrast enough for prototype readability while staying faithful to the observed palette
+- Maintain clear tap targets
+- Use consistent field labels and helper text
+- Make status differences visually obvious
+- Build empty states that are testable, not decorative-only
+
+DO NOT DO THESE THINGS
+- do not compress multiple routes into one “summary” screen
+- do not remove dialogs, sheets, or edge states
+- do not replace the More drawer with a generic full page unless it is an additional annotated variant
+- do not invent desktop layouts in this pass
+- do not redesign business logic in this V1
+- do not omit public flows, callback states, or payment/setup states
+
+FINAL OUTPUT EXPECTATION
+By the end, the Figma file should feel like a complete, testable reconstruction of Museio V1 with:
+- full mobile screen coverage
+- reusable component library
+- clear variables and tokens
+- realistic seeded content
+- clickable prototype journeys
+- all major product states and logic represented
+- enough fidelity that a product team can inspect flows, compare logic, and plan a rebuild without losing hidden features
+
+END OF PROMPT

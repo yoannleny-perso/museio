@@ -1,0 +1,129 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  release-gates:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.6.0
+
+      - name: Setup Supabase CLI
+        uses: supabase/setup-cli@v1
+        with:
+          version: latest
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+        working-directory: app_build/museio_app
+
+      - name: Lint
+        run: pnpm lint
+        working-directory: app_build/museio_app
+
+      - name: Typecheck
+        run: pnpm typecheck
+        working-directory: app_build/museio_app
+
+      - name: Test
+        run: pnpm test
+        working-directory: app_build/museio_app
+
+      - name: Build
+        run: pnpm build
+        working-directory: app_build/museio_app
+
+      - name: Release system smoke
+        run: pnpm test:system-smoke
+        working-directory: app_build/museio_app
+
+  format-hygiene:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.6.0
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+        working-directory: app_build/museio_app
+
+      - name: Format Check
+        run: pnpm format:check
+        working-directory: app_build/museio_app
+
+  preview-smoke:
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    environment: preview
+
+    env:
+      PREVIEW_APP_URL: ${{ secrets.PREVIEW_APP_URL }}
+      PREVIEW_API_URL: ${{ secrets.PREVIEW_API_URL }}
+      PREVIEW_SUPABASE_URL: ${{ secrets.PREVIEW_SUPABASE_URL }}
+      PREVIEW_SUPABASE_PUBLISHABLE_DEFAULT_KEY: ${{ secrets.PREVIEW_SUPABASE_PUBLISHABLE_DEFAULT_KEY }}
+      PREVIEW_SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.PREVIEW_SUPABASE_SERVICE_ROLE_KEY }}
+      PLAYWRIGHT_TEST_BASE_URL: ${{ secrets.PREVIEW_APP_URL }}
+      E2E_APP_URL: ${{ secrets.PREVIEW_APP_URL }}
+      E2E_API_URL: ${{ secrets.PREVIEW_API_URL }}
+      E2E_SUPABASE_URL: ${{ secrets.PREVIEW_SUPABASE_URL }}
+      E2E_SUPABASE_PUBLISHABLE_DEFAULT_KEY: ${{ secrets.PREVIEW_SUPABASE_PUBLISHABLE_DEFAULT_KEY }}
+      E2E_SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.PREVIEW_SUPABASE_SERVICE_ROLE_KEY }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.6.0
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+        working-directory: app_build/museio_app
+
+      - name: Validate preview environment
+        run: pnpm verify:preview-env
+        working-directory: app_build/museio_app
+
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+        working-directory: app_build/museio_app
+
+      - name: Preview creator smoke
+        run: pnpm test:preview-smoke
+        working-directory: app_build/museio_app
