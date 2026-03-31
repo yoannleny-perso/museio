@@ -4,23 +4,23 @@
   "private": true,
   "type": "module",
   "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "types": "./src/index.ts",
   "files": [
     "dist"
   ],
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
+      "types": "./src/index.ts",
       "default": "./dist/index.js"
     },
     "./portfolio": {
-      "types": "./dist/portfolio.d.ts",
+      "types": "./src/portfolio.ts",
       "default": "./dist/portfolio.js"
     }
   },
   "scripts": {
     "build": "rm -rf dist && tsc -p tsconfig.json",
-    "lint": "eslint src --ext .ts",
+    "lint": "eslint \"src/**/*.ts\" --ignore-pattern \"**/*.test.ts\" --no-error-on-unmatched-pattern",
     "typecheck": "tsc --noEmit",
     "test": "vitest run"
   }

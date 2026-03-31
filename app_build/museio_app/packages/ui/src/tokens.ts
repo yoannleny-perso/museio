@@ -1,26 +1,30 @@
 export const tokens = {
   color: {
-    background: "#F5F6FB",
-    surface: "#FFFFFF",
-    surfaceMuted: "#EEF1F8",
-    surfaceElevated: "#FFFFFF",
-    text: "#151922",
-    textMuted: "#5D6575",
-    textSubtle: "#7F8798",
-    accent: "#635BFF",
-    accentHover: "#5148E6",
-    accentSoft: "#ECE9FF",
-    border: "#D9DEE8",
-    borderStrong: "#BCC5D6",
-    success: "#0F9B6F",
-    successSoft: "#E6F7F1",
-    warning: "#B36A14",
-    warningSoft: "#FFF2E1",
-    danger: "#C9474D",
+    background: "#F7F3ED",
+    backgroundAlt: "#FBF8F4",
+    canvas: "#16121D",
+    surface: "rgba(255, 255, 255, 0.92)",
+    surfaceMuted: "#F1ECE5",
+    surfaceElevated: "#FFFDFC",
+    surfaceDark: "#1E1828",
+    text: "#1E1823",
+    textMuted: "#5F5668",
+    textSubtle: "#8E8498",
+    accent: "#7B5CFA",
+    accentHover: "#694BE3",
+    accentSoft: "#EEE8FF",
+    accentWarm: "#F3B483",
+    border: "rgba(98, 79, 130, 0.12)",
+    borderStrong: "rgba(76, 56, 109, 0.22)",
+    success: "#1F8A63",
+    successSoft: "#E6F6EF",
+    warning: "#B26B14",
+    warningSoft: "#FFF3E2",
+    danger: "#C55357",
     dangerSoft: "#FCEBEC",
-    info: "#246BCE",
-    infoSoft: "#E8F1FF",
-    overlay: "rgba(18, 24, 38, 0.48)"
+    info: "#2D65D7",
+    infoSoft: "#EAF0FF",
+    overlay: "rgba(17, 12, 27, 0.56)"
   },
   spacing: {
     xxs: 4,
@@ -29,20 +33,22 @@ export const tokens = {
     md: 16,
     lg: 24,
     xl: 32,
-    xxl: 48
+    xxl: 48,
+    xxxl: 64
   },
   radius: {
     xs: 10,
-    sm: 14,
-    md: 18,
-    lg: 24,
-    xl: 32,
+    sm: 16,
+    md: 20,
+    lg: 28,
+    xl: 36,
     pill: 999
   },
   elevation: {
-    soft: "0 14px 40px rgba(22, 28, 45, 0.08)",
-    medium: "0 20px 60px rgba(22, 28, 45, 0.12)",
-    glow: "0 22px 80px rgba(99, 91, 255, 0.16)"
+    soft: "0 18px 50px rgba(27, 20, 40, 0.08)",
+    medium: "0 24px 70px rgba(27, 20, 40, 0.12)",
+    glow: "0 22px 80px rgba(123, 92, 250, 0.18)",
+    inset: "inset 0 1px 0 rgba(255,255,255,0.7)"
   },
   motion: {
     quick: "140ms",
@@ -52,40 +58,40 @@ export const tokens = {
   },
   typography: {
     display: {
-      fontSize: "clamp(3rem, 8vw, 6rem)",
+      fontSize: "clamp(3.25rem, 8vw, 6.6rem)",
       lineHeight: 0.92,
-      fontWeight: 780
+      fontWeight: 760
     },
     headline: {
-      fontSize: "clamp(2rem, 4vw, 3rem)",
-      lineHeight: 1.02,
+      fontSize: "clamp(2.2rem, 5vw, 3.4rem)",
+      lineHeight: 0.98,
       fontWeight: 720
     },
     title: {
-      fontSize: "1.5rem",
-      lineHeight: 1.1,
-      fontWeight: 700
+      fontSize: "1.55rem",
+      lineHeight: 1.08,
+      fontWeight: 720
     },
     body: {
       fontSize: "1rem",
-      lineHeight: 1.65,
+      lineHeight: 1.7,
       fontWeight: 400
     },
     label: {
-      fontSize: "0.9rem",
+      fontSize: "0.82rem",
       lineHeight: 1.3,
-      fontWeight: 600
+      fontWeight: 650
     },
     caption: {
-      fontSize: "0.78rem",
+      fontSize: "0.76rem",
       lineHeight: 1.35,
-      fontWeight: 500
+      fontWeight: 600
     }
   }
 } as const;
 
 export const appShellCopy = {
-  mobileTitle: "Museio Creator Shell",
+  mobileTitle: "Museio Mobile",
   webTitle: "Museio Public Web",
   protectedShellTitle: "Museio Workspace"
 } as const;

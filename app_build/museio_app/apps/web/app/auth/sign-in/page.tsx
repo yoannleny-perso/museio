@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Badge, Button, Card, Field, TextInput } from "@museio/ui";
+import { Badge, Button, Card, Field, TextInput, tokens } from "@museio/ui";
 import { useAuth } from "../../../src/auth/auth-context";
 
 export default function SignInShell() {
@@ -47,67 +47,101 @@ export default function SignInShell() {
         minHeight: "100vh",
         display: "grid",
         placeItems: "center",
-        padding: 24,
-        background:
-          "radial-gradient(circle at top, rgba(109, 69, 227, 0.16), transparent 42%), #f5f6fb"
+        padding: 24
       }}
     >
-      <Card style={{ width: "min(100%, 560px)" }}>
-        <div style={{ display: "grid", gap: 18 }}>
-          <Badge tone="accent">Supabase auth</Badge>
-          <div style={{ display: "grid", gap: 8 }}>
-            <h1 style={{ margin: 0, fontSize: "2rem" }}>Sign in to edit Portfolio</h1>
-            <p style={{ margin: 0, lineHeight: 1.8, color: "#5D6575" }}>
-              The Portfolio editor is protected. Public live mode stays at `/:handle`
-              and never mixes edit controls into the presentation layer.
+      <div
+        style={{
+          width: "min(100%, 1100px)",
+          display: "grid",
+          gap: 18,
+          gridTemplateColumns: "minmax(0, 1.05fr) minmax(320px, 0.95fr)"
+        }}
+        className="museio-hero-grid"
+      >
+        <Card
+          tone="dark"
+          style={{
+            padding: 32,
+            background:
+              "radial-gradient(circle at top right, rgba(243,180,131,0.28), transparent 34%), linear-gradient(145deg, #171224 0%, #2b1f42 45%, #7b5cfa 100%)"
+          }}
+        >
+          <div style={{ display: "grid", gap: 18 }}>
+            <Badge tone="accent">Creator access</Badge>
+            <h1
+              style={{
+                margin: 0,
+                fontSize: "clamp(3rem, 7vw, 5.5rem)",
+                lineHeight: 0.9,
+                letterSpacing: "-0.06em"
+              }}
+            >
+              Step back into your brand, bookings, and business.
+            </h1>
+            <p style={{ margin: 0, color: "rgba(255,255,255,0.76)", lineHeight: 1.8 }}>
+              Museio keeps edit mode protected while public portfolio and booking routes stay clean
+              and share-ready. Sign in to manage portfolio, requests, quotes, invoices, and finance.
             </p>
           </div>
+        </Card>
 
-          <Field label="Email">
-            <TextInput
-              type="email"
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
-              placeholder="artist@example.com"
-            />
-          </Field>
+        <Card style={{ padding: 28 }}>
+          <div style={{ display: "grid", gap: 18 }}>
+            <div style={{ display: "grid", gap: 8 }}>
+              <Badge tone="accent">Supabase auth</Badge>
+              <h2 style={{ margin: 0, fontSize: "2rem", letterSpacing: "-0.04em" }}>Welcome back</h2>
+              <p style={{ margin: 0, lineHeight: 1.7, color: tokens.color.textMuted }}>
+                Sign in to continue editing your public presence and business workspace.
+              </p>
+            </div>
 
-          <Field label="Password">
-            <TextInput
-              type="password"
-              value={password}
-              onChange={(event) => setPassword(event.target.value)}
-              placeholder="••••••••"
-            />
-          </Field>
+            <Field label="Email">
+              <TextInput
+                type="email"
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
+                placeholder="artist@example.com"
+              />
+            </Field>
 
-          {errorMessage ? (
-            <p style={{ margin: 0, color: "#A53B3B", lineHeight: 1.7 }}>{errorMessage}</p>
-          ) : null}
-          {message ? (
-            <p style={{ margin: 0, color: "#2F6B4F", lineHeight: 1.7 }}>{message}</p>
-          ) : null}
+            <Field label="Password">
+              <TextInput
+                type="password"
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
+                placeholder="••••••••"
+              />
+            </Field>
 
-          <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-            <Button
-              disabled={!email || !password || isSubmitting}
-              onClick={() => void handleSubmit("sign-in")}
-            >
-              {isSubmitting ? "Working…" : "Sign in"}
-            </Button>
-            <Button
-              variant="secondary"
-              disabled={!email || !password || isSubmitting}
-              onClick={() => void handleSubmit("sign-up")}
-            >
-              Create account
-            </Button>
-            <Link href="/" style={{ textDecoration: "none" }}>
-              <Button variant="ghost">Back to home</Button>
-            </Link>
+            {errorMessage ? (
+              <p style={{ margin: 0, color: tokens.color.danger, lineHeight: 1.7 }}>{errorMessage}</p>
+            ) : null}
+            {message ? (
+              <p style={{ margin: 0, color: tokens.color.success, lineHeight: 1.7 }}>{message}</p>
+            ) : null}
+
+            <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+              <Button
+                disabled={!email || !password || isSubmitting}
+                onClick={() => void handleSubmit("sign-in")}
+              >
+                {isSubmitting ? "Working…" : "Sign in"}
+              </Button>
+              <Button
+                variant="secondary"
+                disabled={!email || !password || isSubmitting}
+                onClick={() => void handleSubmit("sign-up")}
+              >
+                Create account
+              </Button>
+              <Link href="/" style={{ textDecoration: "none" }}>
+                <Button variant="ghost">Back to home</Button>
+              </Link>
+            </div>
           </div>
-        </div>
-      </Card>
+        </Card>
+      </div>
     </main>
   );
 }

@@ -1,10 +1,18 @@
 :root {
   color-scheme: light;
-  font-family: "Avenir Next", "Helvetica Neue", sans-serif;
-  --museio-bg: #f5f6fb;
-  --museio-text: #151922;
-  --museio-muted: #5d6575;
-  --museio-accent: #635bff;
+  font-family:
+    "Avenir Next",
+    "Sofia Pro",
+    "Inter",
+    sans-serif;
+  --museio-bg: #f7f3ed;
+  --museio-bg-alt: #fbf8f4;
+  --museio-text: #1e1823;
+  --museio-muted: #5f5668;
+  --museio-accent: #7b5cfa;
+  --museio-accent-warm: #f3b483;
+  --museio-border: rgba(98, 79, 130, 0.12);
+  --museio-shadow: 0 24px 70px rgba(27, 20, 40, 0.12);
 }
 
 * {
@@ -15,16 +23,41 @@ html,
 body {
   margin: 0;
   padding: 0;
+  min-height: 100%;
+}
+
+html {
+  background:
+    radial-gradient(circle at top left, rgba(123, 92, 250, 0.18), transparent 28%),
+    radial-gradient(circle at top right, rgba(243, 180, 131, 0.22), transparent 24%),
+    linear-gradient(180deg, #fff9f3 0%, #f7f3ed 35%, #f4efe8 100%);
 }
 
 body {
   min-height: 100vh;
-  background: var(--museio-bg);
+  background: transparent;
   color: var(--museio-text);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
 .museio-body {
-  font-family: "Avenir Next", "Helvetica Neue", sans-serif;
+  font-family:
+    "Avenir Next",
+    "Sofia Pro",
+    "Inter",
+    sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family:
+    "Iowan Old Style",
+    "Canela",
+    "Georgia",
+    serif;
 }
 
 a,
@@ -35,7 +68,34 @@ select {
   font: inherit;
 }
 
+a {
+  color: inherit;
+}
+
 code {
   font-family: "SFMono-Regular", "Menlo", monospace;
   color: var(--museio-accent);
+}
+
+::selection {
+  background: rgba(123, 92, 250, 0.16);
+}
+
+@media (max-width: 1024px) {
+  .museio-hero-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  .museio-workspace-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  .museio-workspace-sidebar {
+    position: static !important;
+    display: none !important;
+  }
+
+  .museio-mobile-nav {
+    display: grid !important;
+  }
 }

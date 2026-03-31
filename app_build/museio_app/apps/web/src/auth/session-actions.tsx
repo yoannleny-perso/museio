@@ -16,7 +16,7 @@ export function SessionActions() {
   return (
     <div style={{ display: "flex", gap: 10, flexWrap: "wrap", alignItems: "center" }}>
       {user?.email ? <Badge>{user.email}</Badge> : null}
-      <Button variant="ghost" onClick={() => void handleSignOut()}>
+      <Button variant="secondary" size="sm" onClick={() => void handleSignOut()}>
         Sign Out
       </Button>
     </div>

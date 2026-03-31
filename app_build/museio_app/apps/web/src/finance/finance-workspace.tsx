@@ -7,22 +7,9 @@ import type {
   FinanceWorkspaceFilters,
   FinanceWorkspaceState
 } from "@museio/types";
-import {
-  Badge,
-  Button,
-  Card,
-  Field,
-  SectionShell,
-  StatePanel,
-  TextInput,
-  tokens
-} from "@museio/ui";
+import { Badge, Button, Card, Field, SectionShell, StatePanel, TextInput, tokens } from "@museio/ui";
 import { useAuth } from "../auth/auth-context";
-import {
-  downloadFinanceExport,
-  fetchFinanceWorkspace,
-  saveFinanceTaxProfile
-} from "../lib/api";
+import { downloadFinanceExport, fetchFinanceWorkspace, saveFinanceTaxProfile } from "../lib/api";
 
 function sanitizeError(error: unknown) {
   if (!(error instanceof Error)) {
@@ -31,9 +18,7 @@ function sanitizeError(error: unknown) {
 
   try {
     const parsed = JSON.parse(error.message) as { message?: string | string[] };
-    return Array.isArray(parsed.message)
-      ? parsed.message.join(" ")
-      : parsed.message ?? error.message;
+    return Array.isArray(parsed.message) ? parsed.message.join(" ") : parsed.message ?? error.message;
   } catch {
     return error.message;
   }
@@ -92,13 +77,9 @@ export function FinanceWorkspace() {
       try {
         await load(filters);
       } catch (error) {
-        if (active) {
-          setErrorMessage(sanitizeError(error));
-        }
+        if (active) setErrorMessage(sanitizeError(error));
       } finally {
-        if (active) {
-          setIsLoading(false);
-        }
+        if (active) setIsLoading(false);
       }
     }
 
@@ -116,19 +97,13 @@ export function FinanceWorkspace() {
   );
 
   async function handleSaveTaxProfile() {
-    if (!taxDraft) {
-      return;
-    }
-
+    if (!taxDraft) return;
     setIsSaving(true);
     setErrorMessage(null);
 
     try {
       const accessToken = await getAccessToken();
-
-      if (!accessToken) {
-        throw new Error("A valid session is required.");
-      }
+      if (!accessToken) throw new Error("A valid session is required.");
 
       const nextState = await saveFinanceTaxProfile(accessToken, {
         gstRegistered: taxDraft.gstRegistered,
@@ -153,15 +128,9 @@ export function FinanceWorkspace() {
 
     try {
       const accessToken = await getAccessToken();
+      if (!accessToken) throw new Error("A valid session is required.");
 
-      if (!accessToken) {
-        throw new Error("A valid session is required.");
-      }
-
-      const payload = await downloadFinanceExport(accessToken, {
-        ...filters,
-        format
-      });
+      const payload = await downloadFinanceExport(accessToken, { ...filters, format });
       downloadPayload(payload);
     } catch (error) {
       setErrorMessage(sanitizeError(error));
@@ -192,9 +161,37 @@ export function FinanceWorkspace() {
 
   return (
     <div style={{ display: "grid", gap: 20 }}>
+      <Card
+        tone="dark"
+        style={{
+          padding: 30,
+          background:
+            "radial-gradient(circle at top right, rgba(243,180,131,0.28), transparent 34%), linear-gradient(145deg, #171224 0%, #2b1f42 42%, #7b5cfa 100%)"
+        }}
+      >
+        <div style={{ display: "grid", gap: 16 }}>
+          <Badge tone="accent">Finance workspace</Badge>
+          <h2 style={{ margin: 0, fontSize: "clamp(2.1rem, 5vw, 3.3rem)", letterSpacing: "-0.05em" }}>
+            Understand cash movement, receivables, and GST without reading raw admin tables.
+          </h2>
+          <p style={{ margin: 0, color: "rgba(255,255,255,0.76)", lineHeight: 1.8, maxWidth: 820 }}>
+            Finance is derived from invoice and payment truth only. Deposits, balances, overdue
+            exposure, Stripe readiness, and BAS-ready tax summaries all stay server-owned.
+          </p>
+          <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+            <Badge tone="success">{state.reportWindow.label}</Badge>
+            <Badge>{state.taxWindow.label}</Badge>
+            <Badge tone={state.stripe.status === "ready" ? "success" : "warning"}>
+              Stripe {state.stripe.status}
+            </Badge>
+            <Badge>{exportHint}</Badge>
+          </div>
+        </div>
+      </Card>
+
       <SectionShell
-        eyebrow="Finance Workspace"
-        title="Revenue, Receivables, and Tax"
+        eyebrow="Control bar"
+        title="Reporting windows and exports"
         actions={
           <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
             <Button variant="secondary" disabled={isSaving} onClick={() => void handleExport("csv")}>
@@ -206,114 +203,87 @@ export function FinanceWorkspace() {
           </div>
         }
       >
-        <div style={{ display: "grid", gap: 16 }}>
-          <p style={{ margin: 0, color: tokens.color.textMuted, lineHeight: 1.7 }}>
-            Finance now reconciles from invoice and payment truth only. Overdue aging is
-            invoice-driven, deposits and balances remain phase-aware, and GST summaries are
-            ready for later BAS-style export workflows.
-          </p>
-          <div style={{ display: "grid", gap: 10, gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))" }}>
-            <Field label="Report Window">
-              <select
-                value={filters.reportPreset}
-                onChange={(event) =>
-                  setFilters((current) => ({
-                    ...current,
-                    reportPreset: event.target.value as FinanceWorkspaceFilters["reportPreset"]
-                  }))
-                }
-                style={{
-                  minHeight: 48,
-                  borderRadius: 18,
-                  border: `1px solid ${tokens.color.border}`,
-                  padding: "0 14px",
-                  background: "#fff"
-                }}
-              >
-                <option value="last-30-days">Last 30 Days</option>
-                <option value="last-90-days">Last 90 Days</option>
-                <option value="last-6-months">Last 6 Months</option>
-                <option value="year-to-date">Year To Date</option>
-                <option value="all-time">All Time</option>
-              </select>
-            </Field>
-            <Field label="Tax Period">
-              <select
-                value={filters.taxPreset}
-                onChange={(event) =>
-                  setFilters((current) => ({
-                    ...current,
-                    taxPreset: event.target.value as FinanceWorkspaceFilters["taxPreset"]
-                  }))
-                }
-                style={{
-                  minHeight: 48,
-                  borderRadius: 18,
-                  border: `1px solid ${tokens.color.border}`,
-                  padding: "0 14px",
-                  background: "#fff"
-                }}
-              >
-                <option value="current-quarter">Current Quarter</option>
-                <option value="previous-quarter">Previous Quarter</option>
-                <option value="financial-year-to-date">Financial Year To Date</option>
-              </select>
-            </Field>
-            <Field label="Forecast Mode">
-              <select
-                value={filters.forecastMode}
-                onChange={(event) =>
-                  setFilters((current) => ({
-                    ...current,
-                    forecastMode: event.target.value as FinanceWorkspaceFilters["forecastMode"]
-                  }))
-                }
-                style={{
-                  minHeight: 48,
-                  borderRadius: 18,
-                  border: `1px solid ${tokens.color.border}`,
-                  padding: "0 14px",
-                  background: "#fff"
-                }}
-              >
-                <option value="monthly">Monthly</option>
-                <option value="weekly">Weekly</option>
-              </select>
-            </Field>
-          </div>
-          <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-            <Badge tone="accent">{state.reportWindow.label}</Badge>
-            <Badge>{state.taxWindow.label}</Badge>
-            <Badge tone={state.stripe.status === "ready" ? "success" : "warning"}>
-              Stripe {state.stripe.status}
-            </Badge>
-            <Badge>{exportHint}</Badge>
-          </div>
+        <div
+          style={{
+            display: "grid",
+            gap: 16,
+            gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))"
+          }}
+        >
+          <Field label="Report window">
+            <select
+              value={filters.reportPreset}
+              onChange={(event) =>
+                setFilters((current) => ({
+                  ...current,
+                  reportPreset: event.target.value as FinanceWorkspaceFilters["reportPreset"]
+                }))
+              }
+              style={{ minHeight: 48, borderRadius: 18, border: `1px solid ${tokens.color.border}`, padding: "0 14px", background: "#fff" }}
+            >
+              <option value="last-30-days">Last 30 Days</option>
+              <option value="last-90-days">Last 90 Days</option>
+              <option value="last-6-months">Last 6 Months</option>
+              <option value="year-to-date">Year To Date</option>
+              <option value="all-time">All Time</option>
+            </select>
+          </Field>
+          <Field label="Tax period">
+            <select
+              value={filters.taxPreset}
+              onChange={(event) =>
+                setFilters((current) => ({
+                  ...current,
+                  taxPreset: event.target.value as FinanceWorkspaceFilters["taxPreset"]
+                }))
+              }
+              style={{ minHeight: 48, borderRadius: 18, border: `1px solid ${tokens.color.border}`, padding: "0 14px", background: "#fff" }}
+            >
+              <option value="current-quarter">Current Quarter</option>
+              <option value="previous-quarter">Previous Quarter</option>
+              <option value="financial-year-to-date">Financial Year To Date</option>
+            </select>
+          </Field>
+          <Field label="Forecast mode">
+            <select
+              value={filters.forecastMode}
+              onChange={(event) =>
+                setFilters((current) => ({
+                  ...current,
+                  forecastMode: event.target.value as FinanceWorkspaceFilters["forecastMode"]
+                }))
+              }
+              style={{ minHeight: 48, borderRadius: 18, border: `1px solid ${tokens.color.border}`, padding: "0 14px", background: "#fff" }}
+            >
+              <option value="monthly">Monthly</option>
+              <option value="weekly">Weekly</option>
+            </select>
+          </Field>
         </div>
       </SectionShell>
 
-      <div style={{ display: "grid", gap: 12, gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))" }}>
-        <Card tone="default">
+      <div style={{ display: "grid", gap: 14, gridTemplateColumns: "repeat(auto-fit, minmax(210px, 1fr))" }}>
+        <Card tone="accent">
           <strong>Collected</strong>
-          <div style={{ marginTop: 10, fontSize: "1.6rem" }}>
+          <div style={{ marginTop: 10, fontSize: "1.8rem", letterSpacing: "-0.04em" }}>
             {formatCurrency(state.overview.totalCollectedMinor, currencyCode)}
           </div>
         </Card>
         <Card tone="default">
-          <strong>Open Receivables</strong>
-          <div style={{ marginTop: 10, fontSize: "1.6rem" }}>
+          <strong>Open receivables</strong>
+          <div style={{ marginTop: 10, fontSize: "1.8rem", letterSpacing: "-0.04em" }}>
             {formatCurrency(state.overview.receivablesMinor, currencyCode)}
           </div>
         </Card>
         <Card tone="default">
           <strong>Overdue</strong>
-          <div style={{ marginTop: 10, fontSize: "1.6rem" }}>
+          <div style={{ marginTop: 10, fontSize: "1.8rem", letterSpacing: "-0.04em" }}>
             {formatCurrency(state.overview.overdueMinor, currencyCode)}
           </div>
         </Card>
         <Card tone="default">
-          <strong>Accepted Quote Pipeline</strong>
-          <div style={{ marginTop: 10, fontSize: "1.6rem" }}>
+          <strong>Quote pipeline</strong>
+          <div style={{ marginTop: 10, fontSize: "1.8rem", letterSpacing: "-0.04em" }}>
             {formatCurrency(state.overview.acceptedQuotePipelineMinor, currencyCode)}
           </div>
         </Card>
@@ -327,39 +297,59 @@ export function FinanceWorkspace() {
         />
       ) : null}
 
-      <SectionShell eyebrow="Receivables" title="Deposits, Balances, and Aging">
+      <SectionShell eyebrow="Receivables" title="Deposits, balances, and aging">
         <div style={{ display: "grid", gap: 16 }}>
           <div style={{ display: "grid", gap: 12, gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))" }}>
             <Card tone="muted">
-              <strong>Open Invoices</strong>
-              <div style={{ marginTop: 8 }}>{state.receivables.openInvoiceCount}</div>
+              <strong>Open invoices</strong>
+              <div style={{ marginTop: 8, fontSize: "1.3rem" }}>{state.receivables.openInvoiceCount}</div>
             </Card>
             <Card tone="muted">
-              <strong>Deposits Outstanding</strong>
-              <div style={{ marginTop: 8 }}>
+              <strong>Deposits outstanding</strong>
+              <div style={{ marginTop: 8, fontSize: "1.3rem" }}>
                 {formatCurrency(state.receivables.depositsOutstandingMinor, currencyCode)}
               </div>
             </Card>
             <Card tone="muted">
-              <strong>Balances Outstanding</strong>
-              <div style={{ marginTop: 8 }}>
+              <strong>Balances outstanding</strong>
+              <div style={{ marginTop: 8, fontSize: "1.3rem" }}>
                 {formatCurrency(state.receivables.balancesOutstandingMinor, currencyCode)}
               </div>
             </Card>
             <Card tone="muted">
-              <strong>Due Soon</strong>
-              <div style={{ marginTop: 8 }}>{state.receivables.dueSoonInvoiceCount}</div>
+              <strong>Due soon</strong>
+              <div style={{ marginTop: 8, fontSize: "1.3rem" }}>{state.receivables.dueSoonInvoiceCount}</div>
             </Card>
           </div>
+
           <div style={{ display: "grid", gap: 12, gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))" }}>
             {state.overdue.buckets.map((bucket) => (
               <Card key={bucket.bucket} tone="muted">
                 <strong>{bucket.bucket}</strong>
-                <div style={{ marginTop: 8 }}>
+                <div style={{ marginTop: 8, fontSize: "1.28rem" }}>
                   {formatCurrency(bucket.amountMinor, currencyCode)}
                 </div>
-                <div style={{ color: tokens.color.textMuted, marginTop: 6 }}>
-                  {bucket.invoiceCount} invoices
+                <div style={{ color: tokens.color.textMuted, marginTop: 6 }}>{bucket.invoiceCount} invoices</div>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </SectionShell>
+
+      <SectionShell eyebrow="Forecast" title="Committed and pipeline outlook">
+        <div style={{ display: "grid", gap: 12 }}>
+          <p style={{ margin: 0, color: tokens.color.textMuted, lineHeight: 1.7 }}>
+            {state.forecast.inclusionRule}
+          </p>
+          <div style={{ display: "grid", gap: 12, gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))" }}>
+            {state.forecast.buckets.map((bucket) => (
+              <Card key={bucket.label} tone="accent">
+                <div style={{ display: "grid", gap: 6 }}>
+                  <strong>{bucket.label}</strong>
+                  <span style={{ color: tokens.color.textMuted }}>
+                    Committed {formatCurrency(bucket.committedMinor, currencyCode)} · Pipeline{" "}
+                    {formatCurrency(bucket.pipelineMinor, currencyCode)}
+                  </span>
                 </div>
               </Card>
             ))}
@@ -367,70 +357,37 @@ export function FinanceWorkspace() {
         </div>
       </SectionShell>
 
-      <SectionShell eyebrow="Forecast" title="Committed and Pipeline Outlook">
-        <div style={{ display: "grid", gap: 12 }}>
-          <p style={{ margin: 0, color: tokens.color.textMuted, lineHeight: 1.7 }}>
-            {state.forecast.inclusionRule}
-          </p>
-          {state.forecast.buckets.map((bucket) => (
-            <Card key={bucket.label} tone="muted">
-              <div style={{ display: "grid", gap: 6 }}>
-                <strong>{bucket.label}</strong>
-                <span style={{ color: tokens.color.textMuted }}>
-                  Committed {formatCurrency(bucket.committedMinor, currencyCode)} · Pipeline{" "}
-                  {formatCurrency(bucket.pipelineMinor, currencyCode)}
-                </span>
-              </div>
-            </Card>
-          ))}
-        </div>
-      </SectionShell>
-
       <SectionShell
-        eyebrow="Tax Centre"
-        title="GST and BAS-Ready Foundations"
-        actions={
-          <Button disabled={isSaving} onClick={() => void handleSaveTaxProfile()}>
-            Save Tax Settings
-          </Button>
-        }
+        eyebrow="Tax centre"
+        title="GST and BAS-ready foundations"
+        actions={<Button disabled={isSaving} onClick={() => void handleSaveTaxProfile()}>Save tax settings</Button>}
       >
         <div style={{ display: "grid", gap: 16 }}>
           <div style={{ display: "grid", gap: 10, gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))" }}>
-            <Field label="GST Registered">
+            <Field label="GST registered">
               <select
                 value={taxDraft.gstRegistered ? "true" : "false"}
                 onChange={(event) =>
                   setTaxDraft((current) =>
-                    current
-                      ? { ...current, gstRegistered: event.target.value === "true" }
-                      : current
+                    current ? { ...current, gstRegistered: event.target.value === "true" } : current
                   )
                 }
-                style={{
-                  minHeight: 48,
-                  borderRadius: 18,
-                  border: `1px solid ${tokens.color.border}`,
-                  padding: "0 14px",
-                  background: "#fff"
-                }}
+                style={{ minHeight: 48, borderRadius: 18, border: `1px solid ${tokens.color.border}`, padding: "0 14px", background: "#fff" }}
               >
                 <option value="false">No</option>
                 <option value="true">Yes</option>
               </select>
             </Field>
-            <Field label="GST Number">
+            <Field label="GST number">
               <TextInput
                 value={taxDraft.gstNumber ?? ""}
                 onChange={(event) =>
-                  setTaxDraft((current) =>
-                    current ? { ...current, gstNumber: event.target.value } : current
-                  )
+                  setTaxDraft((current) => (current ? { ...current, gstNumber: event.target.value } : current))
                 }
                 placeholder="Optional GST / ABN reference"
               />
             </Field>
-            <Field label="Reporting Method">
+            <Field label="Reporting method">
               <select
                 value={taxDraft.reportingMethod}
                 onChange={(event) =>
@@ -443,29 +400,18 @@ export function FinanceWorkspace() {
                       : current
                   )
                 }
-                style={{
-                  minHeight: 48,
-                  borderRadius: 18,
-                  border: `1px solid ${tokens.color.border}`,
-                  padding: "0 14px",
-                  background: "#fff"
-                }}
+                style={{ minHeight: 48, borderRadius: 18, border: `1px solid ${tokens.color.border}`, padding: "0 14px", background: "#fff" }}
               >
                 <option value="cash">Cash</option>
                 <option value="accrual">Accrual</option>
               </select>
             </Field>
-            <Field label="Reserve Rate (bps)">
+            <Field label="Reserve rate (bps)">
               <TextInput
                 value={String(taxDraft.reserveRateBasisPoints)}
                 onChange={(event) =>
                   setTaxDraft((current) =>
-                    current
-                      ? {
-                          ...current,
-                          reserveRateBasisPoints: Number(event.target.value || "0")
-                        }
-                      : current
+                    current ? { ...current, reserveRateBasisPoints: Number(event.target.value || "0") } : current
                   )
                 }
               />
@@ -474,26 +420,26 @@ export function FinanceWorkspace() {
 
           <div style={{ display: "grid", gap: 12, gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))" }}>
             <Card tone="muted">
-              <strong>GST Collected</strong>
-              <div style={{ marginTop: 8 }}>
+              <strong>GST collected</strong>
+              <div style={{ marginTop: 8, fontSize: "1.3rem" }}>
                 {formatCurrency(state.taxSummary.gstCollectedMinor, currencyCode)}
               </div>
             </Card>
             <Card tone="muted">
-              <strong>GST Outstanding</strong>
-              <div style={{ marginTop: 8 }}>
+              <strong>GST outstanding</strong>
+              <div style={{ marginTop: 8, fontSize: "1.3rem" }}>
                 {formatCurrency(state.taxSummary.gstOutstandingMinor, currencyCode)}
               </div>
             </Card>
             <Card tone="muted">
-              <strong>GST Payable</strong>
-              <div style={{ marginTop: 8 }}>
+              <strong>GST payable</strong>
+              <div style={{ marginTop: 8, fontSize: "1.3rem" }}>
                 {formatCurrency(state.taxSummary.gstPayableMinor, currencyCode)}
               </div>
             </Card>
             <Card tone="muted">
-              <strong>Reserve Target</strong>
-              <div style={{ marginTop: 8 }}>
+              <strong>Reserve target</strong>
+              <div style={{ marginTop: 8, fontSize: "1.3rem" }}>
                 {formatCurrency(state.taxSummary.reserveTargetMinor, currencyCode)}
               </div>
             </Card>
@@ -528,7 +474,7 @@ export function FinanceWorkspace() {
         </div>
       </SectionShell>
 
-      <SectionShell eyebrow="Ledger" title="Invoices and Payments">
+      <SectionShell eyebrow="Ledger" title="Invoices and payments">
         <div style={{ display: "grid", gap: 16 }}>
           <div style={{ display: "grid", gap: 12 }}>
             {state.invoiceLedger.length === 0 ? (
