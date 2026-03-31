@@ -5,7 +5,7 @@
   "packageManager": "pnpm@10.6.0",
   "scripts": {
     "build": "pnpm -r --filter './apps/*' --filter './packages/*' run build",
-    "build:web:vercel": "pnpm --filter @museio/web build",
+    "build:web:vercel": "pnpm -r --filter @museio/web... run build",
     "build:api:railway": "pnpm -r --filter @museio/api... run build",
     "dev": "turbo run dev --parallel",
     "lint": "pnpm -r --filter './apps/*' --filter './packages/*' run lint",
