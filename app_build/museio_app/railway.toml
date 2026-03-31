@@ -1,0 +1,18 @@
+[build]
+builder = "RAILPACK"
+buildCommand = "pnpm install --frozen-lockfile && pnpm --filter ./apps/api build"
+watchPatterns = [
+  "/app_build/museio_app/apps/api/**",
+  "/app_build/museio_app/packages/**",
+  "/app_build/museio_app/package.json",
+  "/app_build/museio_app/pnpm-lock.yaml",
+  "/app_build/museio_app/pnpm-workspace.yaml",
+  "/app_build/museio_app/tsconfig.base.json"
+]
+
+[deploy]
+startCommand = "pnpm --filter ./apps/api start"
+healthcheckPath = "/health"
+healthcheckTimeout = 120
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 10
