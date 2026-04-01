@@ -6,6 +6,7 @@ import {
   useState,
   type ReactNode
 } from "react";
+import { Platform } from "react-native";
 import type { Session } from "@supabase/supabase-js";
 import type { AuthUser, SessionSnapshot } from "@museio/types";
 import { getMobileSupabaseClient } from "../lib/supabase";
@@ -14,6 +15,7 @@ interface AuthContextValue extends SessionSnapshot {
   isLoading: boolean;
   session: Session | null;
   signInWithPassword: (email: string, password: string) => Promise<void>;
+  signInWithGoogle: () => Promise<void>;
   signUpWithPassword: (email: string, password: string) => Promise<void>;
   signOut: () => Promise<void>;
   getAccessToken: () => Promise<string | null>;
@@ -75,14 +77,42 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     let active = true;
     const mobileSupabase = getMobileSupabaseClient();
 
-    mobileSupabase.auth.getSession().then(({ data }) => {
+    async function bootstrap() {
+      const { data } = await mobileSupabase.auth.getSession();
+
       if (!active) {
         return;
       }
 
-      setSession(data.session);
+      if (data.session) {
+        const { data: userData, error } = await mobileSupabase.auth.getUser(data.session.access_token);
+
+        if (!active) {
+          return;
+        }
+
+        if (error || !userData.user) {
+          await mobileSupabase.auth.signOut();
+
+          if (!active) {
+            return;
+          }
+
+          setSession(null);
+          setIsLoading(false);
+          return;
+        }
+
+        setSession(data.session);
+        setIsLoading(false);
+        return;
+      }
+
+      setSession(null);
       setIsLoading(false);
-    });
+    }
+
+    void bootstrap();
 
     const {
       data: { subscription }
@@ -99,9 +129,33 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   async function signInWithPassword(email: string, password: string) {
     const mobileSupabase = getMobileSupabaseClient();
-    const { error } = await mobileSupabase.auth.signInWithPassword({
+    const { data, error } = await mobileSupabase.auth.signInWithPassword({
       email,
       password
+    });
+
+    if (error) {
+      throw new Error(error.message);
+    }
+
+    setSession(data.session ?? null);
+  }
+
+  async function signInWithGoogle() {
+    if (Platform.OS !== "web") {
+      throw new Error("Google sign-in is available in the browser preview for now.");
+    }
+
+    const mobileSupabase = getMobileSupabaseClient();
+    const webLocation = (globalThis as { location?: { origin?: string } }).location;
+    const redirectTo =
+      webLocation?.origin
+        ? `${webLocation.origin}/sign-in`
+        : undefined;
+
+    const { error } = await mobileSupabase.auth.signInWithOAuth({
+      provider: "google",
+      options: redirectTo ? { redirectTo } : undefined
     });
 
     if (error) {
@@ -133,7 +187,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       data: { session: nextSession }
     } = await mobileSupabase.auth.getSession();
 
-    return nextSession?.access_token ?? null;
+    if (nextSession?.access_token) {
+      return nextSession.access_token;
+    }
+
+    return null;
   }
 
   const value = useMemo<AuthContextValue>(
@@ -143,6 +201,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       isAuthenticated: Boolean(session),
       user: toAuthUser(session),
       signInWithPassword,
+      signInWithGoogle,
       signUpWithPassword,
       signOut,
       getAccessToken

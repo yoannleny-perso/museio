@@ -24,7 +24,19 @@ export const socialLinksSchema = z.object({
   tiktok: z.string().url().optional().or(z.literal("")),
   youtube: z.string().url().optional().or(z.literal("")),
   spotify: z.string().url().optional().or(z.literal("")),
-  website: z.string().url().optional().or(z.literal(""))
+  website: z.string().url().optional().or(z.literal("")),
+  facebook: z.string().url().optional().or(z.literal("")),
+  linkedin: z.string().url().optional().or(z.literal("")),
+  email: z.string().url().optional().or(z.literal("")),
+  twitter: z.string().url().optional().or(z.literal("")),
+  soundcloud: z.string().url().optional().or(z.literal("")),
+  "apple-music": z.string().url().optional().or(z.literal("")),
+  discord: z.string().url().optional().or(z.literal("")),
+  twitch: z.string().url().optional().or(z.literal("")),
+  patreon: z.string().url().optional().or(z.literal("")),
+  bandcamp: z.string().url().optional().or(z.literal("")),
+  mixcloud: z.string().url().optional().or(z.literal("")),
+  beatport: z.string().url().optional().or(z.literal(""))
 });
 
 export const portfolioSectionDefinitionSchema = z.object({

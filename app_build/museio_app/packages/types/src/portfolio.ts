@@ -15,12 +15,43 @@ export type PortfolioSectionKind =
   | "book-me"
   | "featured-cards";
 
+export type SocialPlatform =
+  | "instagram"
+  | "tiktok"
+  | "youtube"
+  | "spotify"
+  | "website"
+  | "facebook"
+  | "linkedin"
+  | "email"
+  | "twitter"
+  | "soundcloud"
+  | "apple-music"
+  | "discord"
+  | "twitch"
+  | "patreon"
+  | "bandcamp"
+  | "mixcloud"
+  | "beatport";
+
 export interface SocialLinks {
   instagram?: string;
   tiktok?: string;
   youtube?: string;
   spotify?: string;
   website?: string;
+  facebook?: string;
+  linkedin?: string;
+  email?: string;
+  twitter?: string;
+  soundcloud?: string;
+  "apple-music"?: string;
+  discord?: string;
+  twitch?: string;
+  patreon?: string;
+  bandcamp?: string;
+  mixcloud?: string;
+  beatport?: string;
 }
 
 export interface PortfolioThemeOption {

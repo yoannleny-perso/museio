@@ -1,18 +1,16 @@
 import { mobileEnvSchema } from "@museio/validation";
 
-let cachedMobileEnv: ReturnType<typeof mobileEnvSchema.parse> | null = null;
-
 export function getMobileEnv() {
-  if (!cachedMobileEnv) {
-    cachedMobileEnv = mobileEnvSchema.parse({
-      EXPO_PUBLIC_API_URL: process.env.EXPO_PUBLIC_API_URL,
-      EXPO_PUBLIC_SUPABASE_URL: process.env.EXPO_PUBLIC_SUPABASE_URL,
-      EXPO_PUBLIC_SUPABASE_ANON_KEY: process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY,
-      EXPO_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY:
-        process.env.EXPO_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY,
-      EXPO_PUBLIC_ENABLE_DEMO_AUTH: process.env.EXPO_PUBLIC_ENABLE_DEMO_AUTH
-    });
-  }
-
-  return cachedMobileEnv;
+  return mobileEnvSchema.parse({
+    EXPO_PUBLIC_API_URL: process.env.EXPO_PUBLIC_API_URL,
+    EXPO_PUBLIC_SUPABASE_URL: process.env.EXPO_PUBLIC_SUPABASE_URL,
+    EXPO_PUBLIC_SUPABASE_ANON_KEY: process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY,
+    EXPO_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY:
+      process.env.EXPO_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY,
+    EXPO_PUBLIC_ENABLE_DEMO_AUTH: process.env.EXPO_PUBLIC_ENABLE_DEMO_AUTH,
+    EXPO_PUBLIC_QA_EMAIL: process.env.EXPO_PUBLIC_QA_EMAIL,
+    EXPO_PUBLIC_QA_PASSWORD: process.env.EXPO_PUBLIC_QA_PASSWORD,
+    EXPO_PUBLIC_QA_ACCESS_TOKEN: process.env.EXPO_PUBLIC_QA_ACCESS_TOKEN,
+    EXPO_PUBLIC_QA_REFRESH_TOKEN: process.env.EXPO_PUBLIC_QA_REFRESH_TOKEN
+  });
 }

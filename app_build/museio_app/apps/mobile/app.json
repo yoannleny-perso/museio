@@ -8,7 +8,8 @@
     "icon": "./assets/brand/app-icon.png",
     "platforms": [
       "ios",
-      "android"
+      "android",
+      "web"
     ],
     "userInterfaceStyle": "light",
     "splash": {

@@ -3,25 +3,34 @@ import type { ReactNode } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { tokens } from "@museio/ui";
 import { useAuth } from "./auth-context";
+import { getMobileEnv } from "../lib/env";
 
 export function ProtectedScreen({ children }: { children: ReactNode }) {
   const { isAuthenticated, isLoading } = useAuth();
+  const mobileEnv = getMobileEnv();
+  const allowDemoAccess =
+    __DEV__ && mobileEnv.EXPO_PUBLIC_ENABLE_DEMO_AUTH;
+  const hasQACredentials = Boolean(
+    mobileEnv.EXPO_PUBLIC_QA_EMAIL && mobileEnv.EXPO_PUBLIC_QA_PASSWORD
+  );
 
   if (isLoading) {
     return (
       <View style={styles.screen}>
         <View style={styles.card}>
-          <Text style={styles.badge}>Protected shell</Text>
-          <Text style={styles.title}>Checking session…</Text>
-          <Text style={styles.body}>
-            Restoring the creator workspace before protected screens appear.
-          </Text>
+          <Text style={styles.badge}>Museio</Text>
+          <Text style={styles.title}>Loading your app…</Text>
+          <Text style={styles.body}>Checking your session and loading your latest workspace.</Text>
         </View>
       </View>
     );
   }
 
   if (!isAuthenticated) {
+    if (allowDemoAccess && hasQACredentials) {
+      return <Redirect href="/qa-login" />;
+    }
+
     return <Redirect href="/sign-in" />;
   }
 

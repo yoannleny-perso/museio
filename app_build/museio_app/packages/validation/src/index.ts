@@ -33,7 +33,11 @@ export const mobileEnvSchema = z.object({
   EXPO_PUBLIC_SUPABASE_URL: requiredUrl,
   EXPO_PUBLIC_SUPABASE_ANON_KEY: requiredString.optional(),
   EXPO_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY: requiredString.optional(),
-  EXPO_PUBLIC_ENABLE_DEMO_AUTH: optionalBoolean
+  EXPO_PUBLIC_ENABLE_DEMO_AUTH: optionalBoolean,
+  EXPO_PUBLIC_QA_EMAIL: requiredString.optional(),
+  EXPO_PUBLIC_QA_PASSWORD: requiredString.optional(),
+  EXPO_PUBLIC_QA_ACCESS_TOKEN: requiredString.optional(),
+  EXPO_PUBLIC_QA_REFRESH_TOKEN: requiredString.optional()
 }).superRefine((value, context) => {
   if (
     !value.EXPO_PUBLIC_SUPABASE_ANON_KEY &&

@@ -3,7 +3,7 @@ import { tokens } from "@museio/ui";
 import museioGradientLogo from "../../assets/brand/museio-gradient-logo.png";
 
 export function MuseioBrandLockup({
-  subtitle = "Creator workspace",
+  subtitle = "",
   compact = false
 }: {
   subtitle?: string;

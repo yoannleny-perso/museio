@@ -37,14 +37,29 @@ export class SupabaseService {
 
   async verifyAccessToken(accessToken?: string | null) {
     if (!accessToken) {
+      console.warn("[supabase] missing access token", {
+        supabaseUrl: apiEnv.SUPABASE_URL
+      });
       throw new UnauthorizedException("A valid Supabase session is required.");
     }
 
     const { data, error } = await this.getAdminClient().auth.getUser(accessToken);
 
     if (error || !data.user) {
+      console.warn("[supabase] token verification failed", {
+        supabaseUrl: apiEnv.SUPABASE_URL,
+        tokenPrefix: accessToken.slice(0, 24),
+        error: error?.message ?? null
+      });
       throw new UnauthorizedException("The Supabase session is invalid or expired.");
     }
+
+    console.log("[supabase] token verified", {
+      supabaseUrl: apiEnv.SUPABASE_URL,
+      tokenPrefix: accessToken.slice(0, 24),
+      userId: data.user.id,
+      email: data.user.email
+    });
 
     return data.user;
   }

@@ -1,0 +1,30 @@
+{
+  "creator": {
+    "email": "mobile-mnfkxo2v-be73a7-creator@example.com",
+    "password": "MuseioQA12345",
+    "fullName": "Museio Mobile QA mnfkxo2v-be73a7",
+    "accessToken": "eyJhbGciOiJFUzI1NiIsImtpZCI6ImI4MTI2OWYxLTIxZDgtNGYyZS1iNzE5LWMyMjQwYTg0MGQ5MCIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjU0MzIxL2F1dGgvdjEiLCJzdWIiOiJjODk0NzM2OS1jZDM5LTRlMWMtOTIwOS0yOWUyYmViM2ZlNTQiLCJhdWQiOiJhdXRoZW50aWNhdGVkIiwiZXhwIjoxNzc1MDIzMzU5LCJpYXQiOjE3NzUwMTk3NTksImVtYWlsIjoibW9iaWxlLW1uZmt4bzJ2LWJlNzNhNy1jcmVhdG9yQGV4YW1wbGUuY29tIiwicGhvbmUiOiIiLCJhcHBfbWV0YWRhdGEiOnsicHJvdmlkZXIiOiJlbWFpbCIsInByb3ZpZGVycyI6WyJlbWFpbCJdfSwidXNlcl9tZXRhZGF0YSI6eyJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiZnVsbF9uYW1lIjoiTXVzZWlvIE1vYmlsZSBRQSBtbmZreG8ydi1iZTczYTciLCJvbmJvYXJkaW5nX2NvbXBsZXRlIjp0cnVlfSwicm9sZSI6ImF1dGhlbnRpY2F0ZWQiLCJhYWwiOiJhYWwxIiwiYW1yIjpbeyJtZXRob2QiOiJwYXNzd29yZCIsInRpbWVzdGFtcCI6MTc3NTAxOTc1OX1dLCJzZXNzaW9uX2lkIjoiZjlkMDA0Y2EtZDg4Yy00MjcyLWFkYjEtY2QyMjQ4MzgyMjJmIiwiaXNfYW5vbnltb3VzIjpmYWxzZX0.Gi9HLruG3vNIdgyG-Vm5lk-dh39kIt26juNdLBeWzM7vP1q1FdMHdt9cdELeT4aEVpp0ZTGktIccUfje0jg23Q",
+    "refreshToken": "m4kkdzdwtie5"
+  },
+  "routeContext": {
+    "handle": "mobile-mnfkxo2v-be73a7",
+    "primaryBookingRequestId": "95583a77-0127-44fc-974b-bd7ba95626e1",
+    "secondaryBookingRequestId": "b73ddbd3-db5f-466c-95e7-db92526692a3",
+    "jobId": "69b1fce2-68a8-4dec-b3be-10b3226bbed6",
+    "clientId": "b8187778-ae2f-49b3-b2d1-f1abeef0e531",
+    "threadId": "3fd0a1c9-4403-45f5-851c-4fd1c1b80903"
+  },
+  "assertions": {
+    "outsiderInboxStatus": 404,
+    "bookingStatus": "accepted",
+    "jobStatus": "confirmed",
+    "quoteStatus": "accepted",
+    "invoiceStatus": "deposit-paid",
+    "financeCollectedMinor": 65340,
+    "threadMessageCount": 2,
+    "clientTimelineCount": 5,
+    "calendarConflictCount": 3,
+    "jobCount": 1,
+    "messageThreadCount": 1
+  }
+}

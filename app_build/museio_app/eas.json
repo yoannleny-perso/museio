@@ -1,0 +1,63 @@
+{
+  "cli": {
+    "version": ">= 16.16.0",
+    "appVersionSource": "remote"
+  },
+  "build": {
+    "preview": {
+      "distribution": "internal",
+      "channel": "preview",
+      "env": {
+        "MUSEIO_APP_VARIANT": "preview",
+        "MUSEIO_DISPLAY_NAME": "Museio Preview"
+      }
+    },
+    "ios-simulator": {
+      "channel": "preview",
+      "ios": {
+        "simulator": true
+      },
+      "env": {
+        "MUSEIO_APP_VARIANT": "preview",
+        "MUSEIO_DISPLAY_NAME": "Museio Preview"
+      }
+    },
+    "testflight": {
+      "channel": "preview",
+      "autoIncrement": true,
+      "env": {
+        "MUSEIO_APP_VARIANT": "preview",
+        "MUSEIO_DISPLAY_NAME": "Museio Preview"
+      }
+    },
+    "play-internal": {
+      "channel": "preview",
+      "autoIncrement": true,
+      "env": {
+        "MUSEIO_APP_VARIANT": "preview",
+        "MUSEIO_DISPLAY_NAME": "Museio Preview"
+      }
+    },
+    "production": {
+      "channel": "production",
+      "autoIncrement": true,
+      "env": {
+        "MUSEIO_APP_VARIANT": "production",
+        "MUSEIO_DISPLAY_NAME": "Museio"
+      }
+    }
+  },
+  "submit": {
+    "testflight": {},
+    "play-internal": {
+      "android": {
+        "track": "internal"
+      }
+    },
+    "production": {
+      "android": {
+        "track": "production"
+      }
+    }
+  }
+}
