@@ -164,6 +164,7 @@ export function BookingRequestDetail({ requestId }: { requestId: string }) {
       <SectionShell
         eyebrow="Creator Review"
         title={request.eventType}
+        description="Review the original public request, keep internal notes private, and move strong-fit work into a client link or job draft without erasing intake history."
         actions={
           <Link href="/app/bookings" style={{ textDecoration: "none" }}>
             <Button variant="secondary">Back To Inbox</Button>
@@ -178,15 +179,9 @@ export function BookingRequestDetail({ requestId }: { requestId: string }) {
             {state.client ? <Badge>Client linked</Badge> : null}
             {state.jobDraft ? <Badge tone="success">Job draft created</Badge> : null}
           </div>
-          <div
-            style={{
-              display: "grid",
-              gap: 12,
-              gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))"
-            }}
-          >
+          <div className="museio-surface-grid">
             <Card tone="muted">
-              <strong>Requested Slots</strong>
+              <span className="museio-caption">Requested slots</span>
               <div style={{ display: "grid", gap: 8, marginTop: 10 }}>
                 {request.requestedSlots.map((slot) => (
                   <span key={slot.id} style={{ color: tokens.color.textMuted }}>
@@ -205,7 +200,7 @@ export function BookingRequestDetail({ requestId }: { requestId: string }) {
               </div>
             </Card>
             <Card tone="muted">
-              <strong>Notes</strong>
+              <span className="museio-caption">Requester context</span>
               <p style={{ margin: "10px 0 0", color: tokens.color.textMuted }}>
                 {request.eventNotes || "No event notes provided."}
               </p>
@@ -214,7 +209,7 @@ export function BookingRequestDetail({ requestId }: { requestId: string }) {
               </p>
             </Card>
             <Card tone="muted">
-              <strong>Operations State</strong>
+              <span className="museio-caption">Operations state</span>
               <div style={{ display: "grid", gap: 8, marginTop: 10 }}>
                 <span style={{ color: tokens.color.textMuted }}>
                   {state.client
@@ -239,6 +234,24 @@ export function BookingRequestDetail({ requestId }: { requestId: string }) {
 
       <SectionShell eyebrow="Status" title="Review Actions">
         <div style={{ display: "grid", gap: 16 }}>
+          <div className="museio-metric-grid">
+            <Card tone="accent" style={{ padding: 18 }}>
+              <span className="museio-caption">Current status</span>
+              <div style={{ marginTop: 8, fontSize: "1.28rem", fontWeight: 700 }}>{request.status}</div>
+            </Card>
+            <Card tone="default" style={{ padding: 18 }}>
+              <span className="museio-caption">Client linkage</span>
+              <div style={{ marginTop: 8, fontSize: "1.28rem", fontWeight: 700 }}>
+                {state.client ? "Linked" : "Pending"}
+              </div>
+            </Card>
+            <Card tone="default" style={{ padding: 18 }}>
+              <span className="museio-caption">Job conversion</span>
+              <div style={{ marginTop: 8, fontSize: "1.28rem", fontWeight: 700 }}>
+                {state.jobDraft ? "Created" : "Not yet"}
+              </div>
+            </Card>
+          </div>
           <Field label="Decision Note">
             <TextArea
               value={decisionNote}
@@ -322,7 +335,8 @@ export function BookingRequestDetail({ requestId }: { requestId: string }) {
             <div style={{ display: "grid", gap: 12 }}>
               {state.internalNotes.map((note) => (
                 <Card key={note.id} tone="muted">
-                  <strong style={{ display: "block", marginBottom: 8 }}>
+                  <span className="museio-caption">Creator note</span>
+                  <strong style={{ display: "block", marginTop: 8, marginBottom: 8 }}>
                     {new Date(note.createdAt).toLocaleString()}
                   </strong>
                   <span style={{ color: tokens.color.textMuted }}>{note.body}</span>

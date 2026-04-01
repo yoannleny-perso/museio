@@ -86,18 +86,42 @@ export function JobsWorkspace() {
     );
   }
 
+  const quoteCount = state.jobs.filter((entry) => Boolean(entry.quote)).length;
+  const invoiceCount = state.jobs.filter((entry) => Boolean(entry.invoice)).length;
+
   return (
     <div style={{ display: "grid", gap: 20 }}>
+      <div className="museio-metric-grid">
+        <Card tone="accent" style={{ padding: 20 }}>
+          <span className="museio-caption">Jobs</span>
+          <div style={{ marginTop: 8, fontSize: "1.4rem", fontWeight: 700 }}>{state.jobs.length}</div>
+          <span style={{ color: tokens.color.textMuted, lineHeight: 1.7 }}>
+            Accepted work now being carried through delivery and commercial follow-through.
+          </span>
+        </Card>
+        <Card tone="default" style={{ padding: 20 }}>
+          <span className="museio-caption">Quotes</span>
+          <div style={{ marginTop: 8, fontSize: "1.4rem", fontWeight: 700 }}>{quoteCount}</div>
+          <span style={{ color: tokens.color.textMuted, lineHeight: 1.7 }}>
+            Drafted or sent commercial proposals linked to accepted jobs.
+          </span>
+        </Card>
+        <Card tone="default" style={{ padding: 20 }}>
+          <span className="museio-caption">Invoices</span>
+          <div style={{ marginTop: 8, fontSize: "1.4rem", fontWeight: 700 }}>{invoiceCount}</div>
+          <span style={{ color: tokens.color.textMuted, lineHeight: 1.7 }}>
+            Server-owned money flow records derived from real commercial state.
+          </span>
+        </Card>
+      </div>
+
       <SectionShell
         eyebrow="Commercial"
         title="Jobs"
+        description="Accepted booking requests become job drafts here. Quotes, invoices, deposits, and payments all hang off the job so money-state truth stays server-owned."
         actions={<Badge tone={state.stripe.status === "ready" ? "success" : "warning"}>{state.stripe.status}</Badge>}
       >
         <div style={{ display: "grid", gap: 16 }}>
-          <p style={{ margin: 0, color: tokens.color.textMuted, lineHeight: 1.7 }}>
-            Accepted booking requests become job drafts here. Quotes, invoices, deposits,
-            and payments all hang off the job so money-state truth stays server-owned.
-          </p>
           {state.jobs.length === 0 ? (
             <StatePanel
               kind="empty"
@@ -115,11 +139,10 @@ export function JobsWorkspace() {
                 <Card key={entry.job.id} tone="muted">
                   <div
                     style={{
-                      display: "flex",
-                      justifyContent: "space-between",
+                      display: "grid",
                       gap: 16,
-                      flexWrap: "wrap",
-                      alignItems: "center"
+                      gridTemplateColumns: "minmax(0, 1fr) auto",
+                      alignItems: "start"
                     }}
                   >
                     <div style={{ display: "grid", gap: 8 }}>
@@ -129,11 +152,28 @@ export function JobsWorkspace() {
                         {entry.invoice ? <Badge tone="success">{entry.invoice.status} invoice</Badge> : null}
                       </div>
                       <strong style={{ fontSize: "1.05rem" }}>{entry.job.title}</strong>
-                      <span style={{ color: tokens.color.textMuted }}>
-                        {entry.job.requesterSnapshot.clientName} · {entry.job.eventType}
-                      </span>
+                      <div
+                        style={{
+                          display: "grid",
+                          gap: 10,
+                          gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))"
+                        }}
+                      >
+                        <div>
+                          <span className="museio-caption">Client</span>
+                          <div style={{ marginTop: 6, color: tokens.color.textMuted }}>
+                            {entry.job.requesterSnapshot.clientName}
+                          </div>
+                        </div>
+                        <div>
+                          <span className="museio-caption">Event type</span>
+                          <div style={{ marginTop: 6, color: tokens.color.textMuted }}>
+                            {entry.job.eventType}
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                    <Link href={`/app/jobs/${entry.job.id}`} style={{ textDecoration: "none" }}>
+                    <Link href={`/app/jobs/${entry.job.id}`} style={{ textDecoration: "none", alignSelf: "center" }}>
                       <Button variant="secondary">Open Job</Button>
                     </Link>
                   </div>

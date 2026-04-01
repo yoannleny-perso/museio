@@ -19,11 +19,11 @@ function transition() {
 function buttonSize(size: ButtonSize): CSSProperties {
   switch (size) {
     case "sm":
-      return { padding: "10px 14px", fontSize: "0.82rem" };
+      return { padding: "10px 14px", fontSize: "0.82rem", minHeight: 40 };
     case "lg":
-      return { padding: "16px 22px", fontSize: "0.98rem" };
+      return { padding: "16px 22px", fontSize: "0.98rem", minHeight: 56 };
     default:
-      return { padding: "13px 18px", fontSize: "0.9rem" };
+      return { padding: "13px 18px", fontSize: "0.9rem", minHeight: 48 };
   }
 }
 
@@ -31,27 +31,27 @@ function buttonVariant(variant: ButtonVariant): CSSProperties {
   switch (variant) {
     case "secondary":
       return {
-        background: "rgba(255,255,255,0.78)",
+        background: "#FFFFFF",
         color: tokens.color.text,
-        border: `1px solid ${tokens.color.borderStrong}`,
-        boxShadow: tokens.elevation.inset
+        border: `1px solid ${tokens.color.border}`,
+        boxShadow: tokens.elevation.soft
       };
     case "ghost":
       return {
-        background: "transparent",
+        background: "rgba(255,255,255,0.58)",
         color: tokens.color.textMuted,
-        border: "1px solid transparent"
+        border: `1px solid ${tokens.color.border}`
       };
     case "danger":
       return {
-        background: `linear-gradient(135deg, ${tokens.color.danger} 0%, #a73e48 100%)`,
+        background: `linear-gradient(135deg, ${tokens.color.danger} 0%, #c64557 100%)`,
         color: "#FFFFFF",
         border: "1px solid transparent",
         boxShadow: "0 14px 32px rgba(197, 83, 87, 0.22)"
       };
     default:
       return {
-        background: `linear-gradient(135deg, ${tokens.color.accent} 0%, #a16dff 100%)`,
+        background: `linear-gradient(135deg, #8f6ee6 0%, ${tokens.color.accent} 100%)`,
         color: "#FFFFFF",
         border: "1px solid transparent",
         boxShadow: tokens.elevation.glow
@@ -75,12 +75,15 @@ export function Button({
     <button
       {...props}
       style={{
-        borderRadius: tokens.radius.md,
+        borderRadius: tokens.radius.pill,
         fontWeight: 700,
         letterSpacing: "-0.01em",
+        display: "inline-flex",
+        alignItems: "center",
+        justifyContent: "center",
+        gap: 10,
         cursor: props.disabled ? "not-allowed" : "pointer",
         opacity: props.disabled ? 0.5 : 1,
-        backdropFilter: "blur(14px)",
         transition: transition(),
         ...buttonSize(size),
         ...buttonVariant(variant),
@@ -103,17 +106,16 @@ export function IconButton({
       style={{
         width: 42,
         height: 42,
-        borderRadius: tokens.radius.sm,
+        borderRadius: 14,
         border: `1px solid ${tokens.color.border}`,
-        background: "rgba(255,255,255,0.78)",
+        background: "#FFFFFF",
         color: tokens.color.text,
-        backdropFilter: "blur(18px)",
         display: "inline-flex",
         alignItems: "center",
         justifyContent: "center",
         cursor: "pointer",
         transition: transition(),
-        boxShadow: tokens.elevation.inset,
+        boxShadow: tokens.elevation.soft,
         ...style
       }}
     >
@@ -137,17 +139,17 @@ export function Card({
       border: `1px solid ${tokens.color.border}`
     },
     muted: {
-      background: "rgba(255, 250, 246, 0.9)",
+      background: tokens.color.surfaceMuted,
       color: tokens.color.text,
       border: `1px solid ${tokens.color.border}`
     },
     accent: {
-      background: "linear-gradient(135deg, #f8f1ff 0%, #fff7ef 100%)",
+      background: "linear-gradient(135deg, #fbf8ff 0%, #f6f0ff 48%, #fffaf5 100%)",
       color: tokens.color.text,
       border: `1px solid ${tokens.color.borderStrong}`
     },
     dark: {
-      background: `linear-gradient(160deg, ${tokens.color.canvas} 0%, #2d2042 100%)`,
+      background: `linear-gradient(160deg, ${tokens.color.canvas} 0%, #261d3f 100%)`,
       color: "#FFFFFF",
       border: "1px solid rgba(255,255,255,0.08)"
     }
@@ -159,7 +161,6 @@ export function Card({
         borderRadius: tokens.radius.lg,
         boxShadow: tokens.elevation.soft,
         padding: 24,
-        backdropFilter: "blur(20px)",
         overflow: "hidden",
         position: "relative",
         ...tones[tone],
@@ -200,7 +201,7 @@ export function Badge({
         display: "inline-flex",
         alignItems: "center",
         gap: 8,
-        padding: "7px 11px",
+        padding: "7px 12px",
         borderRadius: tokens.radius.pill,
         fontSize: "0.74rem",
         fontWeight: 700,
@@ -227,7 +228,7 @@ export function Chip({
         borderRadius: tokens.radius.pill,
         fontSize: "0.8rem",
         fontWeight: 650,
-        background: active ? tokens.color.accentSoft : "rgba(255,255,255,0.8)",
+        background: active ? tokens.color.accentSoft : "#FFFFFF",
         color: active ? tokens.color.accent : tokens.color.textMuted,
         border: `1px solid ${active ? "rgba(123, 92, 250, 0.18)" : tokens.color.border}`
       }}
@@ -262,7 +263,7 @@ export function Field({
       </span>
       {children}
       {error ? (
-        <span style={{ color: tokens.color.danger, fontSize: "0.8rem" }}>{error}</span>
+        <span style={{ color: tokens.color.danger, fontSize: "0.8rem", lineHeight: 1.5 }}>{error}</span>
       ) : hint ? (
         <span style={{ color: tokens.color.textSubtle, fontSize: "0.8rem", lineHeight: 1.5 }}>
           {hint}
@@ -276,11 +277,12 @@ const sharedInputStyle: CSSProperties = {
   width: "100%",
   borderRadius: tokens.radius.md,
   border: `1px solid ${tokens.color.border}`,
-  background: "rgba(255,255,255,0.92)",
+  background: "rgba(255,255,255,0.96)",
   color: tokens.color.text,
   padding: "14px 16px",
   fontSize: "0.95rem",
-  boxShadow: tokens.elevation.inset,
+  lineHeight: 1.5,
+  boxShadow: "inset 0 1px 0 rgba(255,255,255,0.92), 0 8px 18px rgba(31, 36, 48, 0.04)",
   outline: "none"
 };
 
@@ -341,10 +343,11 @@ export function Toggle({
         gap: 16,
         borderRadius: tokens.radius.md,
         border: `1px solid ${tokens.color.border}`,
-        background: "rgba(255,255,255,0.82)",
+        background: "#FFFFFF",
         padding: "16px 18px",
         cursor: "pointer",
-        boxShadow: tokens.elevation.inset
+        boxShadow: tokens.elevation.soft,
+        transition: transition()
       }}
     >
       <span style={{ display: "grid", gap: 4, textAlign: "left" }}>
@@ -385,27 +388,31 @@ export function Toggle({
 export function SectionShell({
   title,
   eyebrow,
+  description,
   actions,
   children
 }: PropsWithChildren<{
   title: string;
   eyebrow?: string;
+  description?: ReactNode;
   actions?: ReactNode;
 }>) {
   return (
-    <Card style={{ padding: 0 }}>
+    <Card style={{ padding: 0, overflow: "hidden" }}>
       <div
         style={{
-          padding: "24px 24px 18px",
+          padding: "26px 26px 22px",
           display: "flex",
           alignItems: "flex-start",
           justifyContent: "space-between",
           gap: 16,
           flexWrap: "wrap",
-          borderBottom: `1px solid ${tokens.color.border}`
+          borderBottom: `1px solid ${tokens.color.border}`,
+          background:
+            "radial-gradient(circle at top right, rgba(255,179,138,0.16), transparent 28%), linear-gradient(180deg, rgba(244,238,253,0.9) 0%, rgba(255,255,255,0.98) 100%)"
         }}
       >
-        <div style={{ display: "grid", gap: 8 }}>
+        <div style={{ display: "grid", gap: 8, maxWidth: 760 }}>
           {eyebrow ? (
             <span
               style={{
@@ -430,10 +437,21 @@ export function SectionShell({
           >
             {title}
           </h2>
+          {description ? (
+            <div
+              style={{
+                color: tokens.color.textMuted,
+                lineHeight: 1.7,
+                fontSize: "0.96rem"
+              }}
+            >
+              {description}
+            </div>
+          ) : null}
         </div>
         {actions}
       </div>
-      <div style={{ padding: 24 }}>{children}</div>
+      <div style={{ padding: 26, display: "grid", gap: 18 }}>{children}</div>
     </Card>
   );
 }
@@ -470,13 +488,44 @@ export function StatePanel({
         borderRadius: tokens.radius.lg,
         padding: 24,
         display: "grid",
-        gap: 12,
+        gap: 14,
         border: `1px solid ${tokens.color.border}`,
+        boxShadow: tokens.elevation.soft,
+        position: "relative",
         ...tones[kind]
       }}
     >
-      <strong style={{ fontSize: "1rem", color: tokens.color.text }}>{title}</strong>
-      <p style={{ margin: 0, lineHeight: 1.7 }}>{description}</p>
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          borderRadius: tokens.radius.lg,
+          background:
+            kind === "loading"
+              ? "radial-gradient(circle at top right, rgba(75,124,249,0.12), transparent 24%)"
+              : kind === "error"
+                ? "radial-gradient(circle at top right, rgba(216,93,104,0.1), transparent 24%)"
+                : "radial-gradient(circle at top right, rgba(122,66,232,0.1), transparent 24%)",
+          pointerEvents: "none"
+        }}
+      />
+      <div
+        style={{
+          width: 42,
+          height: 42,
+          borderRadius: 14,
+          display: "grid",
+          placeItems: "center",
+          fontWeight: 800,
+          color: tokens.color.text,
+          background: "rgba(255,255,255,0.88)",
+          border: `1px solid ${tokens.color.border}`
+        }}
+      >
+        {kind === "loading" ? "…" : kind === "error" ? "!" : "+"}
+      </div>
+      <strong style={{ fontSize: "1rem", color: tokens.color.text, position: "relative" }}>{title}</strong>
+      <p style={{ margin: 0, lineHeight: 1.7, position: "relative" }}>{description}</p>
       {action}
     </div>
   );

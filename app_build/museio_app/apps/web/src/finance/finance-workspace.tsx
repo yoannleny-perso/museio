@@ -172,7 +172,7 @@ export function FinanceWorkspace() {
         <div style={{ display: "grid", gap: 16 }}>
           <Badge tone="accent">Finance workspace</Badge>
           <h2 style={{ margin: 0, fontSize: "clamp(2.1rem, 5vw, 3.3rem)", letterSpacing: "-0.05em" }}>
-            Understand cash movement, receivables, and GST without reading raw admin tables.
+            Read revenue, receivables, and GST like a real business workspace.
           </h2>
           <p style={{ margin: 0, color: "rgba(255,255,255,0.76)", lineHeight: 1.8, maxWidth: 820 }}>
             Finance is derived from invoice and payment truth only. Deposits, balances, overdue
@@ -192,6 +192,7 @@ export function FinanceWorkspace() {
       <SectionShell
         eyebrow="Control bar"
         title="Reporting windows and exports"
+        description="Choose the reporting lens first, then move into receivables, GST, ledger detail, and export-ready summaries with consistent period logic."
         actions={
           <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
             <Button variant="secondary" disabled={isSaving} onClick={() => void handleExport("csv")}>
@@ -262,29 +263,49 @@ export function FinanceWorkspace() {
         </div>
       </SectionShell>
 
-      <div style={{ display: "grid", gap: 14, gridTemplateColumns: "repeat(auto-fit, minmax(210px, 1fr))" }}>
-        <Card tone="accent">
-          <strong>Collected</strong>
-          <div style={{ marginTop: 10, fontSize: "1.8rem", letterSpacing: "-0.04em" }}>
-            {formatCurrency(state.overview.totalCollectedMinor, currencyCode)}
+      <div className="museio-metric-grid">
+        <Card tone="accent" style={{ padding: 20 }}>
+          <div style={{ display: "grid", gap: 8 }}>
+            <span className="museio-caption">Collected</span>
+            <strong style={{ fontSize: "1.9rem", letterSpacing: "-0.05em" }}>
+              {formatCurrency(state.overview.totalCollectedMinor, currencyCode)}
+            </strong>
+            <span style={{ color: tokens.color.textMuted, lineHeight: 1.7 }}>
+              Confirmed through invoice and payment records, not job assumptions.
+            </span>
           </div>
         </Card>
-        <Card tone="default">
-          <strong>Open receivables</strong>
-          <div style={{ marginTop: 10, fontSize: "1.8rem", letterSpacing: "-0.04em" }}>
-            {formatCurrency(state.overview.receivablesMinor, currencyCode)}
+        <Card tone="default" style={{ padding: 20 }}>
+          <div style={{ display: "grid", gap: 8 }}>
+            <span className="museio-caption">Receivables</span>
+            <strong style={{ fontSize: "1.9rem", letterSpacing: "-0.05em" }}>
+              {formatCurrency(state.overview.receivablesMinor, currencyCode)}
+            </strong>
+            <span style={{ color: tokens.color.textMuted, lineHeight: 1.7 }}>
+              Live open invoice exposure that still needs to be collected.
+            </span>
           </div>
         </Card>
-        <Card tone="default">
-          <strong>Overdue</strong>
-          <div style={{ marginTop: 10, fontSize: "1.8rem", letterSpacing: "-0.04em" }}>
-            {formatCurrency(state.overview.overdueMinor, currencyCode)}
+        <Card tone="default" style={{ padding: 20 }}>
+          <div style={{ display: "grid", gap: 8 }}>
+            <span className="museio-caption">Overdue</span>
+            <strong style={{ fontSize: "1.9rem", letterSpacing: "-0.05em" }}>
+              {formatCurrency(state.overview.overdueMinor, currencyCode)}
+            </strong>
+            <span style={{ color: tokens.color.textMuted, lineHeight: 1.7 }}>
+              Invoice-driven overdue logic with no shortcut interpretation from job state.
+            </span>
           </div>
         </Card>
-        <Card tone="default">
-          <strong>Quote pipeline</strong>
-          <div style={{ marginTop: 10, fontSize: "1.8rem", letterSpacing: "-0.04em" }}>
-            {formatCurrency(state.overview.acceptedQuotePipelineMinor, currencyCode)}
+        <Card tone="default" style={{ padding: 20 }}>
+          <div style={{ display: "grid", gap: 8 }}>
+            <span className="museio-caption">Quote pipeline</span>
+            <strong style={{ fontSize: "1.9rem", letterSpacing: "-0.05em" }}>
+              {formatCurrency(state.overview.acceptedQuotePipelineMinor, currencyCode)}
+            </strong>
+            <span style={{ color: tokens.color.textMuted, lineHeight: 1.7 }}>
+              Committed commercial work that has not fully turned into paid cash yet.
+            </span>
           </div>
         </Card>
       </div>
@@ -297,36 +318,44 @@ export function FinanceWorkspace() {
         />
       ) : null}
 
-      <SectionShell eyebrow="Receivables" title="Deposits, balances, and aging">
+      <SectionShell
+        eyebrow="Receivables"
+        title="Deposits, balances, and aging"
+        description="This surface stays invoice-driven. Overdue status, deposit exposure, and balance outstanding do not rely on approximate job shortcuts."
+      >
         <div style={{ display: "grid", gap: 16 }}>
           <div style={{ display: "grid", gap: 12, gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))" }}>
             <Card tone="muted">
-              <strong>Open invoices</strong>
-              <div style={{ marginTop: 8, fontSize: "1.3rem" }}>{state.receivables.openInvoiceCount}</div>
+              <span className="museio-caption">Open invoices</span>
+              <div style={{ marginTop: 8, fontSize: "1.45rem", fontWeight: 700 }}>{state.receivables.openInvoiceCount}</div>
             </Card>
             <Card tone="muted">
-              <strong>Deposits outstanding</strong>
-              <div style={{ marginTop: 8, fontSize: "1.3rem" }}>
+              <span className="museio-caption">Deposits outstanding</span>
+              <div style={{ marginTop: 8, fontSize: "1.45rem", fontWeight: 700 }}>
                 {formatCurrency(state.receivables.depositsOutstandingMinor, currencyCode)}
               </div>
             </Card>
             <Card tone="muted">
-              <strong>Balances outstanding</strong>
-              <div style={{ marginTop: 8, fontSize: "1.3rem" }}>
+              <span className="museio-caption">Balances outstanding</span>
+              <div style={{ marginTop: 8, fontSize: "1.45rem", fontWeight: 700 }}>
                 {formatCurrency(state.receivables.balancesOutstandingMinor, currencyCode)}
               </div>
             </Card>
             <Card tone="muted">
-              <strong>Due soon</strong>
-              <div style={{ marginTop: 8, fontSize: "1.3rem" }}>{state.receivables.dueSoonInvoiceCount}</div>
+              <span className="museio-caption">Due soon</span>
+              <div style={{ marginTop: 8, fontSize: "1.45rem", fontWeight: 700 }}>{state.receivables.dueSoonInvoiceCount}</div>
             </Card>
           </div>
 
           <div style={{ display: "grid", gap: 12, gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))" }}>
             {state.overdue.buckets.map((bucket) => (
-              <Card key={bucket.bucket} tone="muted">
-                <strong>{bucket.bucket}</strong>
-                <div style={{ marginTop: 8, fontSize: "1.28rem" }}>
+              <Card
+                key={bucket.bucket}
+                tone={bucket.invoiceCount > 0 ? "accent" : "muted"}
+                style={{ padding: 18 }}
+              >
+                <span className="museio-caption">{bucket.bucket}</span>
+                <div style={{ marginTop: 8, fontSize: "1.28rem", fontWeight: 700 }}>
                   {formatCurrency(bucket.amountMinor, currencyCode)}
                 </div>
                 <div style={{ color: tokens.color.textMuted, marginTop: 6 }}>{bucket.invoiceCount} invoices</div>
@@ -336,7 +365,11 @@ export function FinanceWorkspace() {
         </div>
       </SectionShell>
 
-      <SectionShell eyebrow="Forecast" title="Committed and pipeline outlook">
+      <SectionShell
+        eyebrow="Forecast"
+        title="Committed and pipeline outlook"
+        description="Forecast combines committed commercial truth with clearly separated pipeline signal so upcoming revenue stays readable."
+      >
         <div style={{ display: "grid", gap: 12 }}>
           <p style={{ margin: 0, color: tokens.color.textMuted, lineHeight: 1.7 }}>
             {state.forecast.inclusionRule}
@@ -345,10 +378,12 @@ export function FinanceWorkspace() {
             {state.forecast.buckets.map((bucket) => (
               <Card key={bucket.label} tone="accent">
                 <div style={{ display: "grid", gap: 6 }}>
-                  <strong>{bucket.label}</strong>
-                  <span style={{ color: tokens.color.textMuted }}>
-                    Committed {formatCurrency(bucket.committedMinor, currencyCode)} · Pipeline{" "}
-                    {formatCurrency(bucket.pipelineMinor, currencyCode)}
+                  <span className="museio-caption">{bucket.label}</span>
+                  <strong style={{ fontSize: "1.2rem" }}>
+                    {formatCurrency(bucket.committedMinor + bucket.pipelineMinor, currencyCode)}
+                  </strong>
+                  <span style={{ color: tokens.color.textMuted, lineHeight: 1.7 }}>
+                    Committed {formatCurrency(bucket.committedMinor, currencyCode)} · Pipeline {formatCurrency(bucket.pipelineMinor, currencyCode)}
                   </span>
                 </div>
               </Card>
@@ -360,6 +395,7 @@ export function FinanceWorkspace() {
       <SectionShell
         eyebrow="Tax centre"
         title="GST and BAS-ready foundations"
+        description="AU-first GST foundations live here, including registration state, reserve rate, collection, payable position, and export-ready reporting structure."
         actions={<Button disabled={isSaving} onClick={() => void handleSaveTaxProfile()}>Save tax settings</Button>}
       >
         <div style={{ display: "grid", gap: 16 }}>
@@ -420,26 +456,26 @@ export function FinanceWorkspace() {
 
           <div style={{ display: "grid", gap: 12, gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))" }}>
             <Card tone="muted">
-              <strong>GST collected</strong>
-              <div style={{ marginTop: 8, fontSize: "1.3rem" }}>
+              <span className="museio-caption">GST collected</span>
+              <div style={{ marginTop: 8, fontSize: "1.3rem", fontWeight: 700 }}>
                 {formatCurrency(state.taxSummary.gstCollectedMinor, currencyCode)}
               </div>
             </Card>
             <Card tone="muted">
-              <strong>GST outstanding</strong>
-              <div style={{ marginTop: 8, fontSize: "1.3rem" }}>
+              <span className="museio-caption">GST outstanding</span>
+              <div style={{ marginTop: 8, fontSize: "1.3rem", fontWeight: 700 }}>
                 {formatCurrency(state.taxSummary.gstOutstandingMinor, currencyCode)}
               </div>
             </Card>
             <Card tone="muted">
-              <strong>GST payable</strong>
-              <div style={{ marginTop: 8, fontSize: "1.3rem" }}>
+              <span className="museio-caption">GST payable</span>
+              <div style={{ marginTop: 8, fontSize: "1.3rem", fontWeight: 700 }}>
                 {formatCurrency(state.taxSummary.gstPayableMinor, currencyCode)}
               </div>
             </Card>
             <Card tone="muted">
-              <strong>Reserve target</strong>
-              <div style={{ marginTop: 8, fontSize: "1.3rem" }}>
+              <span className="museio-caption">Reserve target</span>
+              <div style={{ marginTop: 8, fontSize: "1.3rem", fontWeight: 700 }}>
                 {formatCurrency(state.taxSummary.reserveTargetMinor, currencyCode)}
               </div>
             </Card>
@@ -474,7 +510,11 @@ export function FinanceWorkspace() {
         </div>
       </SectionShell>
 
-      <SectionShell eyebrow="Ledger" title="Invoices and payments">
+      <SectionShell
+        eyebrow="Ledger"
+        title="Invoices and payments"
+        description="Follow invoice status and payment history from the same server-owned ledger that powers the finance summary."
+      >
         <div style={{ display: "grid", gap: 16 }}>
           <div style={{ display: "grid", gap: 12 }}>
             {state.invoiceLedger.length === 0 ? (
@@ -486,18 +526,39 @@ export function FinanceWorkspace() {
             ) : (
               state.invoiceLedger.map((invoice) => (
                 <Card key={invoice.invoiceId} tone="muted">
-                  <div style={{ display: "grid", gap: 8 }}>
+                  <div style={{ display: "grid", gap: 10 }}>
                     <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
                       <Badge tone="accent">{invoice.status}</Badge>
                       <Badge>{invoice.invoiceNumber}</Badge>
                       {invoice.isOverdue ? <Badge tone="warning">Overdue {invoice.overdueDays}d</Badge> : null}
                     </div>
-                    <strong>{invoice.clientName}</strong>
-                    <span style={{ color: tokens.color.textMuted }}>
-                      Total {formatCurrency(invoice.totalMinor, currencyCode)} · Paid{" "}
-                      {formatCurrency(invoice.amountPaidMinor, currencyCode)} · Due{" "}
-                      {formatCurrency(invoice.amountDueMinor, currencyCode)}
-                    </span>
+                    <strong style={{ fontSize: "1.04rem" }}>{invoice.clientName}</strong>
+                    <div
+                      style={{
+                        display: "grid",
+                        gap: 10,
+                        gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))"
+                      }}
+                    >
+                      <div>
+                        <span className="museio-caption">Total</span>
+                        <div style={{ marginTop: 6, fontWeight: 700 }}>
+                          {formatCurrency(invoice.totalMinor, currencyCode)}
+                        </div>
+                      </div>
+                      <div>
+                        <span className="museio-caption">Paid</span>
+                        <div style={{ marginTop: 6, fontWeight: 700 }}>
+                          {formatCurrency(invoice.amountPaidMinor, currencyCode)}
+                        </div>
+                      </div>
+                      <div>
+                        <span className="museio-caption">Due</span>
+                        <div style={{ marginTop: 6, fontWeight: 700 }}>
+                          {formatCurrency(invoice.amountDueMinor, currencyCode)}
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </Card>
               ))
@@ -514,14 +575,16 @@ export function FinanceWorkspace() {
             ) : (
               state.paymentLedger.map((payment) => (
                 <Card key={payment.id} tone="muted">
-                  <div style={{ display: "flex", gap: 10, flexWrap: "wrap", alignItems: "center" }}>
-                    <Badge>{payment.phase}</Badge>
-                    <Badge tone={payment.status === "succeeded" ? "success" : "warning"}>
-                      {payment.status}
-                    </Badge>
+                  <div style={{ display: "grid", gap: 8 }}>
+                    <div style={{ display: "flex", gap: 10, flexWrap: "wrap", alignItems: "center" }}>
+                      <Badge>{payment.phase}</Badge>
+                      <Badge tone={payment.status === "succeeded" ? "success" : "warning"}>
+                        {payment.status}
+                      </Badge>
+                    </div>
+                    <strong>{payment.clientName}</strong>
                     <span style={{ color: tokens.color.textMuted }}>
-                      {payment.clientName} · {payment.invoiceNumber} ·{" "}
-                      {formatCurrency(payment.amountMinor, currencyCode)}
+                      {payment.invoiceNumber} · {formatCurrency(payment.amountMinor, currencyCode)}
                     </span>
                   </div>
                 </Card>

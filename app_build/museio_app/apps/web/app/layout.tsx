@@ -4,7 +4,11 @@ import { Providers } from "./providers";
 
 export const metadata: Metadata = {
   title: "Museio",
-  description: "Museio public web and creator portfolio workspace"
+  description: "Museio public web and creator portfolio workspace",
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico"
+  }
 };
 
 export default function RootLayout({

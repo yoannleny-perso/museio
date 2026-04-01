@@ -152,6 +152,7 @@ export function ClientProfile({ clientId }: { clientId: string }) {
       <SectionShell
         eyebrow="CRM"
         title={state.client.displayName}
+        description="Use one creator-scoped profile to keep contact detail, relationship notes, commercial summary, and timeline context together."
         actions={
           <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
             <Badge tone="accent">{state.client.status}</Badge>
@@ -162,6 +163,26 @@ export function ClientProfile({ clientId }: { clientId: string }) {
         }
       >
         <div style={{ display: "grid", gap: 16 }}>
+          <div className="museio-metric-grid">
+            <Card tone="accent" style={{ padding: 18 }}>
+              <span className="museio-caption">Bookings</span>
+              <div style={{ marginTop: 8, fontSize: "1.28rem", fontWeight: 700 }}>
+                {state.relationship.bookingRequestCount}
+              </div>
+            </Card>
+            <Card tone="default" style={{ padding: 18 }}>
+              <span className="museio-caption">Jobs</span>
+              <div style={{ marginTop: 8, fontSize: "1.28rem", fontWeight: 700 }}>
+                {state.relationship.jobCount}
+              </div>
+            </Card>
+            <Card tone="default" style={{ padding: 18 }}>
+              <span className="museio-caption">Invoices</span>
+              <div style={{ marginTop: 8, fontSize: "1.28rem", fontWeight: 700 }}>
+                {state.relationship.invoiceCount}
+              </div>
+            </Card>
+          </div>
           <Card tone="muted">
             <form onSubmit={handleSubmit} style={{ display: "grid", gap: 12 }}>
               <strong>Client profile</strong>
@@ -241,13 +262,7 @@ export function ClientProfile({ clientId }: { clientId: string }) {
               </div>
             </form>
           </Card>
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))",
-              gap: 12
-            }}
-          >
+          <div className="museio-metric-grid">
             <Card tone="default">
               <strong>{state.relationship.bookingRequestCount}</strong>
               <span style={{ color: tokens.color.textMuted }}>Bookings</span>

@@ -1,30 +1,30 @@
 export const tokens = {
   color: {
-    background: "#F7F3ED",
-    backgroundAlt: "#FBF8F4",
-    canvas: "#16121D",
-    surface: "rgba(255, 255, 255, 0.92)",
-    surfaceMuted: "#F1ECE5",
-    surfaceElevated: "#FFFDFC",
-    surfaceDark: "#1E1828",
-    text: "#1E1823",
-    textMuted: "#5F5668",
-    textSubtle: "#8E8498",
-    accent: "#7B5CFA",
-    accentHover: "#694BE3",
-    accentSoft: "#EEE8FF",
-    accentWarm: "#F3B483",
-    border: "rgba(98, 79, 130, 0.12)",
-    borderStrong: "rgba(76, 56, 109, 0.22)",
-    success: "#1F8A63",
-    successSoft: "#E6F6EF",
-    warning: "#B26B14",
-    warningSoft: "#FFF3E2",
-    danger: "#C55357",
-    dangerSoft: "#FCEBEC",
-    info: "#2D65D7",
-    infoSoft: "#EAF0FF",
-    overlay: "rgba(17, 12, 27, 0.56)"
+    background: "#F8F9FB",
+    backgroundAlt: "#F2F4F8",
+    canvas: "#151421",
+    surface: "#FFFFFF",
+    surfaceMuted: "#F5F6FA",
+    surfaceElevated: "#FFFFFF",
+    surfaceDark: "#1B1730",
+    text: "#1F2430",
+    textMuted: "#4F5868",
+    textSubtle: "#7A7F8C",
+    accent: "#7A42E8",
+    accentHover: "#6731D6",
+    accentSoft: "#F4EEFD",
+    accentWarm: "#FFB38A",
+    border: "rgba(221, 220, 231, 0.94)",
+    borderStrong: "rgba(122, 66, 232, 0.18)",
+    success: "#2F9D63",
+    successSoft: "#EAF8F0",
+    warning: "#C47B15",
+    warningSoft: "#FFF4E4",
+    danger: "#D85D68",
+    dangerSoft: "#FFF0F3",
+    info: "#4B7CF9",
+    infoSoft: "#EEF3FF",
+    overlay: "rgba(17, 20, 30, 0.52)"
   },
   spacing: {
     xxs: 4,
@@ -37,18 +37,18 @@ export const tokens = {
     xxxl: 64
   },
   radius: {
-    xs: 10,
-    sm: 16,
-    md: 20,
-    lg: 28,
-    xl: 36,
+    xs: 12,
+    sm: 18,
+    md: 22,
+    lg: 30,
+    xl: 38,
     pill: 999
   },
   elevation: {
-    soft: "0 18px 50px rgba(27, 20, 40, 0.08)",
-    medium: "0 24px 70px rgba(27, 20, 40, 0.12)",
-    glow: "0 22px 80px rgba(123, 92, 250, 0.18)",
-    inset: "inset 0 1px 0 rgba(255,255,255,0.7)"
+    soft: "0 16px 36px rgba(31, 36, 48, 0.08)",
+    medium: "0 26px 70px rgba(31, 36, 48, 0.12)",
+    glow: "0 20px 46px rgba(122, 66, 232, 0.24)",
+    inset: "inset 0 1px 0 rgba(255,255,255,0.92)"
   },
   motion: {
     quick: "140ms",
@@ -58,18 +58,18 @@ export const tokens = {
   },
   typography: {
     display: {
-      fontSize: "clamp(3.25rem, 8vw, 6.6rem)",
+      fontSize: "clamp(3.1rem, 8vw, 6rem)",
       lineHeight: 0.92,
       fontWeight: 760
     },
     headline: {
-      fontSize: "clamp(2.2rem, 5vw, 3.4rem)",
+      fontSize: "clamp(2rem, 5vw, 3.25rem)",
       lineHeight: 0.98,
       fontWeight: 720
     },
     title: {
-      fontSize: "1.55rem",
-      lineHeight: 1.08,
+      fontSize: "1.45rem",
+      lineHeight: 1.12,
       fontWeight: 720
     },
     body: {

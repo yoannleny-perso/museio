@@ -25,7 +25,11 @@ export function PublicQuote({ initialState, token }: { initialState: PublicQuote
   }
 
   return (
-    <SectionShell eyebrow="Quote" title={state.quote.title}>
+    <SectionShell
+      eyebrow="Quote"
+      title={state.quote.title}
+      description="Review the creator’s quote in a clean public surface, then accept or decline through a tokenised server-validated action."
+    >
       <div style={{ display: "grid", gap: 16 }}>
         <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
           <Badge tone="accent">{state.quote.status}</Badge>
@@ -48,8 +52,8 @@ export function PublicQuote({ initialState, token }: { initialState: PublicQuote
             </Card>
           ))}
         </div>
-        <Card tone="default">
-          <strong>Total</strong>
+        <Card tone="accent">
+          <span className="museio-caption">Total</span>
           <div style={{ marginTop: 8 }}>
             {(state.quote.totals.totalMinor / 100).toFixed(2)} {state.quote.currencyCode}
           </div>

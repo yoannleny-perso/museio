@@ -22,6 +22,13 @@ function sanitizeError(error: unknown) {
   }
 }
 
+function formatCurrency(amountMinor: number) {
+  return new Intl.NumberFormat("en-AU", {
+    style: "currency",
+    currency: "AUD"
+  }).format(amountMinor / 100);
+}
+
 export function ClientsWorkspace() {
   const { getAccessToken, isLoading: isAuthLoading } = useAuth();
   const [state, setState] = useState<CreatorClientsState | null>(null);
@@ -88,16 +95,32 @@ export function ClientsWorkspace() {
 
   return (
     <div style={{ display: "grid", gap: 20 }}>
+      <div className="museio-metric-grid">
+        <Card tone="accent" style={{ padding: 20 }}>
+          <span className="museio-caption">Records</span>
+          <div style={{ marginTop: 8, fontSize: "1.4rem", fontWeight: 700 }}>{state.clients.length}</div>
+          <span style={{ color: tokens.color.textMuted, lineHeight: 1.7 }}>
+            Creator-scoped relationship records linked back to bookings, jobs, invoices, and payments.
+          </span>
+        </Card>
+        <Card tone="default" style={{ padding: 20 }}>
+          <span className="museio-caption">Active</span>
+          <div style={{ marginTop: 8, fontSize: "1.4rem", fontWeight: 700 }}>
+            {state.clients.filter((entry) => entry.client.status === "active" || entry.client.status === "vip").length}
+          </div>
+          <span style={{ color: tokens.color.textMuted, lineHeight: 1.7 }}>
+            Clients currently in a live delivery relationship.
+          </span>
+        </Card>
+      </div>
+
       <SectionShell
         eyebrow="CRM"
         title="Clients"
+        description="Clients remain creator-scoped and link back to bookings, jobs, invoices, payments, and messaging so relationship context stays unified."
         actions={<Badge tone="accent">{state.clients.length} records</Badge>}
       >
         <div style={{ display: "grid", gap: 16 }}>
-          <p style={{ margin: 0, color: tokens.color.textMuted, lineHeight: 1.7 }}>
-            Clients are creator-scoped and linked back to bookings, jobs, invoices,
-            payments, and messaging so relationship context stays unified.
-          </p>
           {state.clients.length === 0 ? (
             <StatePanel
               kind="empty"
@@ -130,7 +153,7 @@ export function ClientsWorkspace() {
                       </span>
                       <span style={{ color: tokens.color.text }}>
                         {entry.relationship.jobCount} jobs · {entry.relationship.invoiceCount} invoices ·{" "}
-                        {entry.relationship.collectedMinor / 100} collected
+                        {formatCurrency(entry.relationship.collectedMinor)} collected
                       </span>
                     </div>
                     <Link href={`/app/clients/${entry.client.id}`} style={{ textDecoration: "none" }}>

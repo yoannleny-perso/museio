@@ -167,6 +167,7 @@ export function MessageThreadDetail({ threadId }: { threadId: string }) {
       <SectionShell
         eyebrow="Messaging"
         title={state.thread.subject}
+        description="Keep coordination attached to the real client and linked workflow context so next steps stay legible beside the rest of the business."
         actions={
           <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
             <Badge tone="accent">{state.thread.status}</Badge>
@@ -175,6 +176,20 @@ export function MessageThreadDetail({ threadId }: { threadId: string }) {
         }
       >
         <div style={{ display: "grid", gap: 16 }}>
+          <div className="museio-metric-grid">
+            <Card tone="accent" style={{ padding: 18 }}>
+              <span className="museio-caption">Participants</span>
+              <div style={{ marginTop: 8, fontSize: "1.28rem", fontWeight: 700 }}>
+                {state.thread.participants.length}
+              </div>
+            </Card>
+            <Card tone="default" style={{ padding: 18 }}>
+              <span className="museio-caption">Linked context</span>
+              <div style={{ marginTop: 8, fontSize: "1.28rem", fontWeight: 700 }}>
+                {state.thread.linkedContext?.type ?? "Standalone"}
+              </div>
+            </Card>
+          </div>
           <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
             {state.thread.participants.map((participant) => (
               <Badge key={participant.id}>{participant.displayName}</Badge>
@@ -189,7 +204,7 @@ export function MessageThreadDetail({ threadId }: { threadId: string }) {
           ) : (
             <div style={{ display: "grid", gap: 10 }}>
               {state.messages.map((message) => (
-                <Card key={message.id} tone={message.senderType === "creator" ? "default" : "muted"}>
+                <Card key={message.id} tone={message.senderType === "creator" ? "accent" : "muted"}>
                   <div style={{ display: "grid", gap: 6 }}>
                     <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
                       <Badge tone={message.senderType === "creator" ? "accent" : "success"}>

@@ -1,13 +1,19 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Badge, Button, Card, Chip, Divider } from "@museio/ui";
+import { Badge, Button, Card, Chip, Divider, tokens } from "@museio/ui";
 import { portfolioSectionLabels } from "@museio/domain";
 import type {
   PortfolioPublicState,
   PortfolioSectionDefinition,
   SocialLinks
 } from "@museio/types";
+import {
+  LegacySocialIcon,
+  MuseioBrandLockup,
+  legacySocialLabel,
+  resolveLegacySocialPlatform
+} from "../brand/brand-kit";
 
 function sectionTextColor(isDark: boolean) {
   return isDark ? "rgba(255,255,255,0.72)" : "rgba(30,24,35,0.72)";
@@ -15,6 +21,22 @@ function sectionTextColor(isDark: boolean) {
 
 function visibleSocialLinks(socialLinks: SocialLinks) {
   return Object.entries(socialLinks).filter((entry) => Boolean(entry[1]));
+}
+
+function socialPillStyle(isDark: boolean) {
+  return {
+    display: "inline-flex",
+    alignItems: "center",
+    gap: 10,
+    padding: "11px 14px",
+    borderRadius: tokens.radius.pill,
+    border: `1px solid ${isDark ? "rgba(255,255,255,0.14)" : tokens.color.border}`,
+    background: isDark ? "rgba(255,255,255,0.1)" : "rgba(255,255,255,0.88)",
+    color: isDark ? "#FFFFFF" : tokens.color.text,
+    fontWeight: 700,
+    lineHeight: 1,
+    backdropFilter: "blur(12px)"
+  } as const;
 }
 
 function formatEventDate(eventDate: string) {
@@ -58,14 +80,17 @@ function renderSection(
           <div
             style={{
               display: "grid",
-              gap: 24,
+              gap: 28,
               alignItems: "center",
               gridTemplateColumns: "minmax(0, 1.05fr) minmax(280px, 0.95fr)"
             }}
             className="museio-hero-grid"
           >
             <div style={{ display: "grid", gap: 18 }}>
-              <Badge tone="accent">Live portfolio</Badge>
+              <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+                <Badge tone="accent">Live portfolio</Badge>
+                <Chip active>@{state.handle}</Chip>
+              </div>
               <div style={{ display: "grid", gap: 12 }}>
                 <h1
                   style={{
@@ -89,10 +114,50 @@ function renderSection(
                   {state.settings.shortBio}
                 </p>
               </div>
+              <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+                <a href={`/${state.handle}/book`} style={{ textDecoration: "none" }}>
+                  <Button>Book now</Button>
+                </a>
+                {state.visibleSections.find((candidate) => candidate.kind === "photos") ? (
+                  <button
+                    type="button"
+                    onClick={() =>
+                      document.getElementById(
+                        state.visibleSections.find((candidate) => candidate.kind === "photos")?.id ?? ""
+                      )?.scrollIntoView({
+                        behavior: "smooth",
+                        block: "start"
+                      })
+                    }
+                    style={{
+                      borderRadius: tokens.radius.pill,
+                      border: `1px solid ${isDark ? "rgba(255,255,255,0.16)" : tokens.color.border}`,
+                      background: isDark ? "rgba(255,255,255,0.08)" : "#FFFFFF",
+                      color: isDark ? "#FFFFFF" : state.theme.text,
+                      padding: "12px 18px",
+                      cursor: "pointer",
+                      fontWeight: 700
+                    }}
+                  >
+                    View selected work
+                  </button>
+                ) : null}
+              </div>
               <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
                 {visibleSocialLinks(state.settings.socialLinks).map(([platform, url]) => (
-                  <a key={platform} href={url} style={{ color: state.theme.text, textDecoration: "none" }}>
-                    <Chip active>{platform}</Chip>
+                  <a
+                    key={platform}
+                    href={url}
+                    target="_blank"
+                    rel="noreferrer"
+                    style={{ textDecoration: "none" }}
+                  >
+                    <span style={socialPillStyle(isDark)}>
+                      {resolveLegacySocialPlatform(platform) ? (
+                        <LegacySocialIcon platform={platform} size={16} />
+                      ) : null}
+                      <span>{legacySocialLabel(platform)}</span>
+                    </span>
                   </a>
                 ))}
               </div>
@@ -101,28 +166,59 @@ function renderSection(
             <Card
               tone="dark"
               style={{
-                padding: 10,
-                borderRadius: 34,
+                padding: 12,
+                borderRadius: 36,
                 minHeight: 460,
-                background: `linear-gradient(135deg, ${state.theme.gradient[0]}, ${state.theme.gradient[1]})`
+                background: `linear-gradient(135deg, ${state.theme.gradient[0]}, ${state.theme.gradient[1]})`,
+                boxShadow: isDark
+                  ? "0 30px 80px rgba(8, 8, 14, 0.26)"
+                  : "0 28px 68px rgba(31, 36, 48, 0.12)"
               }}
             >
-              {state.settings.portraitUrl ? (
-                <img
-                  src={state.settings.portraitUrl}
-                  alt={state.settings.artistName || "Artist portrait"}
+              <div style={{ position: "relative", minHeight: 440 }}>
+                {state.settings.portraitUrl ? (
+                  <img
+                    src={state.settings.portraitUrl}
+                    alt={state.settings.artistName || "Artist portrait"}
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                      display: "block",
+                      borderRadius: 28,
+                      minHeight: 440
+                    }}
+                  />
+                ) : (
+                  <div style={{ width: "100%", height: 440, borderRadius: 28 }} />
+                )}
+                <div
                   style={{
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                    display: "block",
-                    borderRadius: 26,
-                    minHeight: 440
+                    position: "absolute",
+                    left: 18,
+                    right: 18,
+                    bottom: 18,
+                    borderRadius: 24,
+                    padding: "16px 18px",
+                    background: "rgba(18, 18, 28, 0.42)",
+                    backdropFilter: "blur(16px)",
+                    border: "1px solid rgba(255,255,255,0.14)",
+                    color: "#FFFFFF",
+                    display: "grid",
+                    gap: 6
                   }}
-                />
-              ) : (
-                <div style={{ width: "100%", height: 440, borderRadius: 26 }} />
-              )}
+                >
+                  <span className="museio-caption" style={{ color: "rgba(255,255,255,0.8)" }}>
+                    Creator profile
+                  </span>
+                  <strong style={{ fontSize: "1.1rem" }}>
+                    {state.settings.artistName || "Artist portrait"}
+                  </strong>
+                  <span style={{ color: "rgba(255,255,255,0.74)", lineHeight: 1.65 }}>
+                    Built to feel premium on first view and clear at booking time.
+                  </span>
+                </div>
+              </div>
             </Card>
           </div>
         </section>
@@ -245,8 +341,24 @@ function renderSection(
                   </div>
                   <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
                     {release.links.map((link) => (
-                      <a key={link.id} href={link.url} style={{ color: state.theme.accent, textDecoration: "none" }}>
-                        <Chip active>{link.label}</Chip>
+                      <a
+                        key={link.id}
+                        href={link.url}
+                        target="_blank"
+                        rel="noreferrer"
+                        style={{ textDecoration: "none" }}
+                      >
+                        <span
+                          style={{
+                            ...socialPillStyle(isDark),
+                            color: state.theme.accent
+                          }}
+                        >
+                          {resolveLegacySocialPlatform(link.label) ? (
+                            <LegacySocialIcon platform={link.label} size={15} />
+                          ) : null}
+                          <span>{legacySocialLabel(link.label)}</span>
+                        </span>
                       </a>
                     ))}
                   </div>
@@ -383,7 +495,7 @@ export function PublicPortfolio({ state }: { state: PortfolioPublicState }) {
     <main
       style={{
         minHeight: "100vh",
-        background: state.theme.background,
+        background: `radial-gradient(circle at top left, rgba(255,255,255,0.36), transparent 18%), radial-gradient(circle at top right, rgba(255,255,255,0.16), transparent 16%), ${state.theme.background}`,
         color: state.theme.text,
         padding: "28px 20px 120px"
       }}
@@ -395,7 +507,10 @@ export function PublicPortfolio({ state }: { state: PortfolioPublicState }) {
             style={{
               background: `linear-gradient(135deg, ${state.theme.gradient[0]}, ${state.theme.gradient[1]})`,
               color: isDark ? "#FFFFFF" : state.theme.text,
-              padding: 12
+              padding: 14,
+              boxShadow: isDark
+                ? "0 24px 52px rgba(8, 8, 14, 0.2)"
+                : "0 20px 44px rgba(31, 36, 48, 0.12)"
             }}
           >
             <div
@@ -407,7 +522,13 @@ export function PublicPortfolio({ state }: { state: PortfolioPublicState }) {
                 alignItems: "center"
               }}
             >
-              <div style={{ display: "flex", gap: 10, overflowX: "auto", paddingBottom: 2 }}>
+              <div style={{ display: "grid", gap: 10 }}>
+                <div style={{ display: "flex", gap: 14, alignItems: "center", flexWrap: "wrap" }}>
+                  <MuseioBrandLockup subtitle="" imageHeight={22} />
+                  <strong style={{ fontSize: "1rem" }}>{state.settings.artistName}</strong>
+                  <Chip active>@{state.handle}</Chip>
+                </div>
+                <div style={{ display: "flex", gap: 10, overflowX: "auto", paddingBottom: 2 }}>
                 {state.visibleSections.map((section) => (
                   <button
                     key={section.id}
@@ -435,6 +556,7 @@ export function PublicPortfolio({ state }: { state: PortfolioPublicState }) {
                     {portfolioSectionLabels[section.kind]}
                   </button>
                 ))}
+                </div>
               </div>
               <a href={`/${state.handle}/book`} style={{ textDecoration: "none" }}>
                 <Button variant="secondary" size="sm">

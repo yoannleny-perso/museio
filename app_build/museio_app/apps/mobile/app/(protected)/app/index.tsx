@@ -1,63 +1,88 @@
 import { Link, type Href } from "expo-router";
 import { SafeAreaView, ScrollView, StyleSheet, Text, View } from "react-native";
 import { tokens } from "@museio/ui";
+import { useAuth } from "../../../src/auth/auth-context";
+import { MuseioBrandLockup } from "../../../src/brand/museio-brand-lockup";
 
-const quickActions = [
+const workspaceCards = [
   {
     title: "Portfolio",
-    body: "Refine sections, theme, and public presentation.",
-    href: "/app/portfolio" as Href
+    body: "Refine sections, live presentation, and public share-readiness.",
+    href: "/app/portfolio" as Href,
+    active: true
   },
   {
     title: "Bookings",
-    body: "Stay close to incoming demand and creator availability.",
-    href: "/app" as Href
+    body: "The data foundations already exist. Mobile focus is now catching up to the web shell.",
+    active: false
   },
   {
     title: "Finance",
-    body: "Keep invoices, deposits, and balances top of mind.",
-    href: "/app" as Href
+    body: "Finance truth is already server-owned. This mobile surface is being aligned with the premium shell.",
+    active: false
   }
 ];
 
 export default function ProtectedAppScreen() {
+  const { user, signOut } = useAuth();
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <ScrollView contentContainerStyle={styles.container}>
         <View style={styles.hero}>
-          <Text style={styles.badge}>Creator mobile</Text>
-          <Text style={styles.title}>Museio, designed for the way creators actually work on the go.</Text>
-          <Text style={styles.body}>
-            Review public brand, booking momentum, and business health from a calmer mobile shell
-            that prioritizes clarity over admin clutter.
+          <View style={styles.heroTop}>
+            <View style={styles.heroIdentity}>
+              <MuseioBrandLockup compact subtitle="Creator mobile workspace" />
+              <Text style={styles.heroBadge}>Creator mobile</Text>
+              <Text style={styles.heroTitle}>Museio, designed for the way creators actually work on the go.</Text>
+            </View>
+            <Link href="/sign-in" onPress={() => void signOut()} style={styles.signOut}>
+              Sign out
+            </Link>
+          </View>
+          <Text style={styles.heroBody}>
+            Keep public brand, booking momentum, and business context in one calmer mobile shell.
+          </Text>
+          <Text style={styles.heroMeta}>
+            Signed in as {user?.profile.displayName ?? "Museio creator"}
           </Text>
         </View>
 
-        <View style={styles.kpiRow}>
-          <View style={styles.kpiCard}>
-            <Text style={styles.kpiLabel}>Flagship</Text>
-            <Text style={styles.kpiValue}>Portfolio</Text>
+        <View style={styles.metricRow}>
+          <View style={styles.metricCard}>
+            <Text style={styles.metricLabel}>Flagship</Text>
+            <Text style={styles.metricValue}>Portfolio</Text>
           </View>
-          <View style={styles.kpiCard}>
-            <Text style={styles.kpiLabel}>Focus</Text>
-            <Text style={styles.kpiValue}>Bookings</Text>
+          <View style={styles.metricCard}>
+            <Text style={styles.metricLabel}>Flow</Text>
+            <Text style={styles.metricValue}>Bookings to jobs</Text>
           </View>
-          <View style={styles.kpiCard}>
-            <Text style={styles.kpiLabel}>Health</Text>
-            <Text style={styles.kpiValue}>Finance</Text>
+          <View style={styles.metricCard}>
+            <Text style={styles.metricLabel}>Truth</Text>
+            <Text style={styles.metricValue}>Finance</Text>
           </View>
         </View>
 
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Quick actions</Text>
+          <Text style={styles.sectionTitle}>Workspace modules</Text>
+          <Text style={styles.sectionBody}>
+            The mobile shell is being aligned with the premium creator experience without changing
+            the underlying data contracts.
+          </Text>
           <View style={styles.actionList}>
-            {quickActions.map((item) => (
+            {workspaceCards.map((item) => (
               <View key={item.title} style={styles.card}>
                 <Text style={styles.cardTitle}>{item.title}</Text>
                 <Text style={styles.cardBody}>{item.body}</Text>
-                <Link href={item.href} style={styles.primaryAction}>
-                  Open {item.title}
-                </Link>
+                {item.active && item.href ? (
+                  <Link href={item.href} style={styles.primaryAction}>
+                    Open {item.title}
+                  </Link>
+                ) : (
+                  <View style={styles.pendingPill}>
+                    <Text style={styles.pendingPillText}>Mobile shell next</Text>
+                  </View>
+                )}
               </View>
             ))}
           </View>
@@ -82,67 +107,94 @@ const styles = StyleSheet.create({
     padding: 24,
     gap: 12
   },
-  badge: {
+  heroTop: {
+    gap: 16
+  },
+  heroIdentity: {
+    gap: 8
+  },
+  heroBadge: {
     color: "#D8CBFF",
     textTransform: "uppercase",
     letterSpacing: 1.2,
     fontSize: 12,
     fontWeight: "700"
   },
-  title: {
-    fontSize: 30,
-    lineHeight: 32,
+  heroTitle: {
+    fontSize: 32,
+    lineHeight: 34,
     fontWeight: "800",
     color: "#FFFFFF"
   },
-  body: {
+  heroBody: {
     fontSize: 16,
     lineHeight: 24,
-    color: "rgba(255,255,255,0.74)"
+    color: "rgba(255,255,255,0.76)"
   },
-  kpiRow: {
-    flexDirection: "row",
+  heroMeta: {
+    fontSize: 14,
+    color: "rgba(255,255,255,0.64)"
+  },
+  signOut: {
+    alignSelf: "flex-start",
+    color: "#FFFFFF",
+    backgroundColor: "rgba(255,255,255,0.12)",
+    borderRadius: tokens.radius.pill,
+    paddingHorizontal: 14,
+    paddingVertical: 10,
+    overflow: "hidden",
+    fontWeight: "700"
+  },
+  metricRow: {
     gap: 12
   },
-  kpiCard: {
-    flex: 1,
-    backgroundColor: "rgba(255,255,255,0.9)",
+  metricCard: {
+    backgroundColor: "rgba(255,255,255,0.92)",
     borderRadius: tokens.radius.md,
-    padding: 16,
-    gap: 6
+    padding: 18,
+    gap: 6,
+    borderWidth: 1,
+    borderColor: tokens.color.border
   },
-  kpiLabel: {
+  metricLabel: {
     color: tokens.color.textSubtle,
     fontSize: 12,
     textTransform: "uppercase",
     letterSpacing: 1,
     fontWeight: "700"
   },
-  kpiValue: {
+  metricValue: {
     color: tokens.color.text,
-    fontSize: 17,
-    fontWeight: "700"
+    fontSize: 18,
+    fontWeight: "800"
   },
   section: {
-    gap: 12
+    gap: 10
   },
   sectionTitle: {
-    fontSize: 22,
-    fontWeight: "700",
+    fontSize: 24,
+    fontWeight: "800",
     color: tokens.color.text
+  },
+  sectionBody: {
+    fontSize: 15,
+    lineHeight: 22,
+    color: tokens.color.textMuted
   },
   actionList: {
     gap: 12
   },
   card: {
-    backgroundColor: "rgba(255,255,255,0.92)",
+    backgroundColor: "rgba(255,255,255,0.96)",
     borderRadius: tokens.radius.lg,
     padding: 20,
-    gap: 10
+    gap: 10,
+    borderWidth: 1,
+    borderColor: tokens.color.border
   },
   cardTitle: {
     fontSize: 22,
-    fontWeight: "700",
+    fontWeight: "800",
     color: tokens.color.text
   },
   cardBody: {
@@ -156,8 +208,19 @@ const styles = StyleSheet.create({
     color: "#FFFFFF",
     paddingHorizontal: 18,
     paddingVertical: 15,
-    borderRadius: tokens.radius.md,
+    borderRadius: tokens.radius.pill,
     overflow: "hidden",
+    fontWeight: "800"
+  },
+  pendingPill: {
+    alignSelf: "flex-start",
+    paddingHorizontal: 14,
+    paddingVertical: 10,
+    borderRadius: tokens.radius.pill,
+    backgroundColor: tokens.color.accentSoft
+  },
+  pendingPillText: {
+    color: tokens.color.accent,
     fontWeight: "700"
   }
 });

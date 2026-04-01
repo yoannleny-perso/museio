@@ -124,7 +124,14 @@ export function PublicBookingForm({
         gap: 20
       }}
     >
-      <Card>
+      <Card
+        tone="accent"
+        style={{
+          padding: 26,
+          background:
+            "radial-gradient(circle at top right, rgba(255,179,138,0.18), transparent 22%), linear-gradient(180deg, rgba(255,255,255,0.96) 0%, rgba(247,244,252,0.98) 100%)"
+        }}
+      >
         <div
           style={{
             display: "grid",
@@ -146,6 +153,10 @@ export function PublicBookingForm({
               {state.creator.shortBio ||
                 "Tell the creator what you are planning and request a concrete slot."}
             </p>
+            <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+              <Badge>{handle}</Badge>
+              <Badge tone="accent">{hasAvailability ? "booking open" : "availability limited"}</Badge>
+            </div>
           </div>
         </div>
       </Card>
@@ -168,7 +179,10 @@ export function PublicBookingForm({
 
       <Card tone="muted">
         <div style={{ display: "grid", gap: 14 }}>
-          <h3 style={{ margin: 0, color: tokens.color.text }}>Availability Preview</h3>
+          <div style={{ display: "grid", gap: 6 }}>
+            <span className="museio-caption">Availability preview</span>
+            <h3 style={{ margin: 0, color: tokens.color.text }}>Choose from safe public windows</h3>
+          </div>
           <div style={{ display: "grid", gap: 10 }}>
             {state.availability.slice(0, 6).map((day) => (
               <div
@@ -194,7 +208,9 @@ export function PublicBookingForm({
                       style={{
                         borderRadius: tokens.radius.pill,
                         border: `1px solid ${tokens.color.border}`,
-                        background: tokens.color.surfaceMuted,
+                        background: startsAt === toLocalDateTimeValue(window.startsAt)
+                          ? tokens.color.accentSoft
+                          : tokens.color.surfaceMuted,
                         color: tokens.color.text,
                         padding: "8px 12px",
                         cursor: "pointer"
@@ -217,6 +233,10 @@ export function PublicBookingForm({
 
       <Card>
         <form onSubmit={handleSubmit} style={{ display: "grid", gap: 16 }}>
+          <div style={{ display: "grid", gap: 6 }}>
+            <span className="museio-caption">Booking request</span>
+            <strong style={{ fontSize: "1.25rem" }}>Share the essentials clearly</strong>
+          </div>
           <div
             style={{
               display: "grid",

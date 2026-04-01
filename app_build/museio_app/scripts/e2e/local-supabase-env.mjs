@@ -42,7 +42,11 @@ function parseEnvOutput(raw) {
     }
 
     const key = line.slice(0, separatorIndex).trim();
-    const value = line.slice(separatorIndex + 1).trim();
+    const rawValue = line.slice(separatorIndex + 1).trim();
+    const value =
+      rawValue.startsWith("\"") && rawValue.endsWith("\"")
+        ? rawValue.slice(1, -1)
+        : rawValue;
 
     if (key.length > 0) {
       values[key] = value;

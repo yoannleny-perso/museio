@@ -250,11 +250,55 @@ export function BookingInbox() {
     );
   }
 
+  const submittedCount = state.requests.filter((request) => request.status === "submitted").length;
+  const linkedClientCount = state.requests.filter((request) => Boolean(request.client)).length;
+  const jobDraftCount = state.requests.filter((request) => Boolean(request.jobDraft)).length;
+
   return (
     <div style={{ display: "grid", gap: 20 }}>
+      <div className="museio-metric-grid">
+        <Card tone="accent" style={{ padding: 20 }}>
+          <div style={{ display: "grid", gap: 8 }}>
+            <span className="museio-caption">Inbox</span>
+            <strong style={{ fontSize: "1.4rem" }}>{state.requests.length} requests</strong>
+            <span style={{ color: tokens.color.textMuted, lineHeight: 1.7 }}>
+              Public booking demand now flows here through the portfolio handle.
+            </span>
+          </div>
+        </Card>
+        <Card tone="default" style={{ padding: 20 }}>
+          <div style={{ display: "grid", gap: 8 }}>
+            <span className="museio-caption">Submitted</span>
+            <strong style={{ fontSize: "1.4rem" }}>{submittedCount}</strong>
+            <span style={{ color: tokens.color.textMuted, lineHeight: 1.7 }}>
+              New requests waiting for creator review.
+            </span>
+          </div>
+        </Card>
+        <Card tone="default" style={{ padding: 20 }}>
+          <div style={{ display: "grid", gap: 8 }}>
+            <span className="museio-caption">Linked clients</span>
+            <strong style={{ fontSize: "1.4rem" }}>{linkedClientCount}</strong>
+            <span style={{ color: tokens.color.textMuted, lineHeight: 1.7 }}>
+              Requests already connected to creator-scoped client records.
+            </span>
+          </div>
+        </Card>
+        <Card tone="default" style={{ padding: 20 }}>
+          <div style={{ display: "grid", gap: 8 }}>
+            <span className="museio-caption">Job drafts</span>
+            <strong style={{ fontSize: "1.4rem" }}>{jobDraftCount}</strong>
+            <span style={{ color: tokens.color.textMuted, lineHeight: 1.7 }}>
+              Accepted work already carried into delivery and commercial flow.
+            </span>
+          </div>
+        </Card>
+      </div>
+
       <SectionShell
         eyebrow="Phase 3"
         title="Booking Inbox"
+        description="Public booking resolves through the portfolio handle, then lands here as creator-owned intake with availability and conflict rules already enforced."
         actions={<Badge tone="accent">{state.requests.length} requests</Badge>}
       >
         <div style={{ display: "grid", gap: 16 }}>
@@ -274,11 +318,10 @@ export function BookingInbox() {
                 <Card key={request.id} tone="muted">
                   <div
                     style={{
-                      display: "flex",
-                      justifyContent: "space-between",
+                      display: "grid",
                       gap: 16,
-                      flexWrap: "wrap",
-                      alignItems: "center"
+                      gridTemplateColumns: "minmax(0, 1fr) auto",
+                      alignItems: "start"
                     }}
                   >
                     <div style={{ display: "grid", gap: 8 }}>
@@ -290,31 +333,49 @@ export function BookingInbox() {
                           <Badge tone="success">{request.jobDraft.status} job</Badge>
                         ) : null}
                       </div>
-                      <strong style={{ fontSize: "1.05rem" }}>{request.clientName}</strong>
-                      <span style={{ color: tokens.color.textMuted }}>
-                        {request.requestedSlots
-                          .map((slot) =>
-                            new Date(slot.startsAt).toLocaleString(undefined, {
-                              dateStyle: "medium",
-                              timeStyle: "short"
-                            })
-                          )
-                          .join(" · ")}
-                      </span>
+                      <strong style={{ fontSize: "1.1rem" }}>{request.clientName}</strong>
+                      <div
+                        style={{
+                          display: "grid",
+                          gap: 10,
+                          gridTemplateColumns: "repeat(auto-fit, minmax(170px, 1fr))"
+                        }}
+                      >
+                        <div>
+                          <span className="museio-caption">Requested slots</span>
+                          <div style={{ marginTop: 6, color: tokens.color.textMuted, lineHeight: 1.7 }}>
+                            {request.requestedSlots
+                              .map((slot) =>
+                                new Date(slot.startsAt).toLocaleString(undefined, {
+                                  dateStyle: "medium",
+                                  timeStyle: "short"
+                                })
+                              )
+                              .join(" · ")}
+                          </div>
+                        </div>
+                        <div>
+                          <span className="museio-caption">Progress</span>
+                          <div style={{ marginTop: 6, color: tokens.color.textMuted, lineHeight: 1.7 }}>
+                            {request.client
+                              ? `Client: ${request.client.displayName}`
+                              : "Client not linked yet"}
+                            <br />
+                            {request.jobDraft
+                              ? `Job draft: ${request.jobDraft.title}`
+                              : "No job draft yet"}
+                          </div>
+                        </div>
+                      </div>
                       {request.client || request.jobDraft ? (
                         <span style={{ color: tokens.color.textMuted }}>
-                          {request.client
-                            ? `Client: ${request.client.displayName}`
-                            : "Client not linked yet"}
-                          {request.jobDraft
-                            ? ` · Job draft: ${request.jobDraft.title}`
-                            : " · No job draft yet"}
+                          Server-owned review state stays intact while client and job links grow around it.
                         </span>
                       ) : null}
                     </div>
                     <Link
                       href={`/app/bookings/${request.id}`}
-                      style={{ textDecoration: "none" }}
+                      style={{ textDecoration: "none", alignSelf: "center" }}
                     >
                       <Button variant="secondary">Open Request</Button>
                     </Link>
@@ -329,6 +390,7 @@ export function BookingInbox() {
       <SectionShell
         eyebrow="Availability"
         title="Public Availability"
+        description="Set the creator-controlled foundation first. Manual blocks and future calendar overlays can then refine public slot exposure safely."
         actions={
           <Button onClick={() => void handleSaveAvailability()} disabled={isSaving}>
             {isSaving ? "Saving…" : "Save Availability"}

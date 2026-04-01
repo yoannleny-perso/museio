@@ -173,18 +173,41 @@ export function MessagesWorkspace() {
     );
   }
 
+  const unreadThreads = state.threads.filter((thread) => thread.unreadCount > 0).length;
+
   return (
     <div style={{ display: "grid", gap: 20 }}>
+      <div className="museio-metric-grid">
+        <Card tone="accent" style={{ padding: 20 }}>
+          <span className="museio-caption">Threads</span>
+          <div style={{ marginTop: 8, fontSize: "1.4rem", fontWeight: 700 }}>{state.threads.length}</div>
+          <span style={{ color: tokens.color.textMuted, lineHeight: 1.7 }}>
+            Client conversations anchored to real workflow context.
+          </span>
+        </Card>
+        <Card tone="default" style={{ padding: 20 }}>
+          <span className="museio-caption">Unread</span>
+          <div style={{ marginTop: 8, fontSize: "1.4rem", fontWeight: 700 }}>{unreadThreads}</div>
+          <span style={{ color: tokens.color.textMuted, lineHeight: 1.7 }}>
+            Threads waiting for creator attention.
+          </span>
+        </Card>
+        <Card tone="default" style={{ padding: 20 }}>
+          <span className="museio-caption">Client records</span>
+          <div style={{ marginTop: 8, fontSize: "1.4rem", fontWeight: 700 }}>{clients.clients.length}</div>
+          <span style={{ color: tokens.color.textMuted, lineHeight: 1.7 }}>
+            Available relationships ready to start a conversation.
+          </span>
+        </Card>
+      </div>
+
       <SectionShell
         eyebrow="Coordination"
         title="Messages"
+        description="Messaging stays tied to real clients and linked commercial context so the creator can coordinate without losing the booking, job, or invoice trail."
         actions={<Badge tone="accent">{state.threads.length} threads</Badge>}
       >
         <div style={{ display: "grid", gap: 16 }}>
-          <p style={{ margin: 0, color: tokens.color.textMuted, lineHeight: 1.7 }}>
-            Messaging stays linked to real clients and commercial context so the
-            creator can coordinate without losing the booking, job, or invoice trail.
-          </p>
           <Card tone="muted">
             <form onSubmit={handleCreateThread} style={{ display: "grid", gap: 12 }}>
               <strong>Start a client thread</strong>
@@ -256,13 +279,29 @@ export function MessagesWorkspace() {
                           <Button variant="secondary">Open Thread</Button>
                         </Link>
                       </div>
-                      <strong>{thread.subject}</strong>
-                      <span style={{ color: tokens.color.textMuted }}>
-                        {client?.displayName ?? "Unknown client"} ·{" "}
-                        {thread.lastMessageAt
-                          ? new Date(thread.lastMessageAt).toLocaleString()
-                          : "No messages yet"}
-                      </span>
+                      <strong style={{ fontSize: "1.06rem" }}>{thread.subject}</strong>
+                      <div
+                        style={{
+                          display: "grid",
+                          gap: 10,
+                          gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))"
+                        }}
+                      >
+                        <div>
+                          <span className="museio-caption">Client</span>
+                          <div style={{ marginTop: 6, color: tokens.color.textMuted }}>
+                            {client?.displayName ?? "Unknown client"}
+                          </div>
+                        </div>
+                        <div>
+                          <span className="museio-caption">Latest activity</span>
+                          <div style={{ marginTop: 6, color: tokens.color.textMuted }}>
+                            {thread.lastMessageAt
+                              ? new Date(thread.lastMessageAt).toLocaleString()
+                              : "No messages yet"}
+                          </div>
+                        </div>
+                      </div>
                       <span style={{ color: tokens.color.text }}>
                         {thread.lastMessagePreview || "The thread is ready for the first message."}
                       </span>

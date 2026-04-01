@@ -383,6 +383,7 @@ export function JobDetail({ jobId }: { jobId: string }) {
       <SectionShell
         eyebrow="Commercial Workflow"
         title={state.job.title}
+        description="Jobs are the operational parent for quote, invoice, deposit, and payment work. Booking intake history stays intact while commercial state grows here."
         actions={
           <Link href="/app/jobs" style={{ textDecoration: "none" }}>
             <Button variant="secondary">Back To Jobs</Button>
@@ -395,12 +396,30 @@ export function JobDetail({ jobId }: { jobId: string }) {
             {state.quote ? <Badge>{state.quote.status} quote</Badge> : null}
             {state.invoice ? <Badge tone="success">{state.invoice.status} invoice</Badge> : null}
           </div>
-          <p style={{ margin: 0, color: tokens.color.textMuted, lineHeight: 1.7 }}>
-            {state.job.requesterSnapshot.clientName} · {state.job.requesterSnapshot.clientEmail}
-          </p>
+          <div className="museio-metric-grid">
+            <Card tone="accent" style={{ padding: 18 }}>
+              <span className="museio-caption">Client</span>
+              <div style={{ marginTop: 8, fontSize: "1.18rem", fontWeight: 700 }}>
+                {state.job.requesterSnapshot.clientName}
+              </div>
+              <span style={{ color: tokens.color.textMuted }}>{state.job.requesterSnapshot.clientEmail}</span>
+            </Card>
+            <Card tone="default" style={{ padding: 18 }}>
+              <span className="museio-caption">Quote state</span>
+              <div style={{ marginTop: 8, fontSize: "1.18rem", fontWeight: 700 }}>
+                {state.quote?.status ?? "No quote yet"}
+              </div>
+            </Card>
+            <Card tone="default" style={{ padding: 18 }}>
+              <span className="museio-caption">Invoice state</span>
+              <div style={{ marginTop: 8, fontSize: "1.18rem", fontWeight: 700 }}>
+                {state.invoice?.status ?? "No invoice yet"}
+              </div>
+            </Card>
+          </div>
           {shareUrl ? (
             <Card tone="muted">
-              <strong>Public Link</strong>
+              <span className="museio-caption">Public commercial link</span>
               <div style={{ marginTop: 8 }}>
                 <a href={shareUrl} target="_blank" rel="noreferrer">
                   {shareUrl}

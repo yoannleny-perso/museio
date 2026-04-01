@@ -185,17 +185,37 @@ export function CalendarWorkspace() {
 
   return (
     <div style={{ display: "grid", gap: 20 }}>
+      <div className="museio-metric-grid">
+        <Card tone="accent" style={{ padding: 20 }}>
+          <span className="museio-caption">Connected accounts</span>
+          <div style={{ marginTop: 8, fontSize: "1.4rem", fontWeight: 700 }}>{state.accounts.length}</div>
+          <span style={{ color: tokens.color.textMuted, lineHeight: 1.7 }}>
+            Calendar providers layered onto the existing availability engine.
+          </span>
+        </Card>
+        <Card tone="default" style={{ padding: 20 }}>
+          <span className="museio-caption">Imported busy blocks</span>
+          <div style={{ marginTop: 8, fontSize: "1.4rem", fontWeight: 700 }}>{state.externalBusyBlocks.length}</div>
+          <span style={{ color: tokens.color.textMuted, lineHeight: 1.7 }}>
+            External conflicts that safely constrain public booking exposure.
+          </span>
+        </Card>
+        <Card tone="default" style={{ padding: 20 }}>
+          <span className="museio-caption">Conflicts</span>
+          <div style={{ marginTop: 8, fontSize: "1.4rem", fontWeight: 700 }}>{state.conflicts.length}</div>
+          <span style={{ color: tokens.color.textMuted, lineHeight: 1.7 }}>
+            Creator-facing visibility into overlap without leaking raw details publicly.
+          </span>
+        </Card>
+      </div>
+
       <SectionShell
         eyebrow="Calendar"
         title="Integrations & conflict center"
+        description="External calendars extend the existing availability engine. Public slot exposure still shows only safe availability windows, while creators get a clearer conflict center."
         actions={<Badge tone="accent">{state.conflicts.length} conflicts</Badge>}
       >
         <div style={{ display: "grid", gap: 16 }}>
-          <p style={{ margin: 0, color: tokens.color.textMuted, lineHeight: 1.7 }}>
-            External calendars now extend the existing availability engine. Public
-            slot exposure still shows only safe availability windows, while creators get
-            a richer conflict center for manual blocks, booking holds, and imported busy time.
-          </p>
           <Card tone="muted">
             <form onSubmit={handleConnect} style={{ display: "grid", gap: 12 }}>
               <strong>Connect provider baseline</strong>

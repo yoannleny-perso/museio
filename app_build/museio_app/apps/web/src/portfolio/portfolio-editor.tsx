@@ -140,6 +140,17 @@ function createEmptySocialLinks(): SocialLinks {
   };
 }
 
+const socialPlatformLabels: Record<
+  "instagram" | "tiktok" | "youtube" | "spotify" | "website",
+  string
+> = {
+  instagram: "Instagram",
+  tiktok: "TikTok",
+  youtube: "YouTube",
+  spotify: "Spotify",
+  website: "Website"
+};
+
 export function PortfolioEditor() {
   const { isLoading: isAuthLoading, getAccessToken, user } = useAuth();
   const [state, setState] = useState<PortfolioEditorState | null>(null);
@@ -306,6 +317,7 @@ export function PortfolioEditor() {
       <SectionShell
         title="Portfolio editor"
         eyebrow="Authenticated Workspace"
+        description="Portfolio is the flagship creator surface. Tune the live presentation, keep sections intentional, and preserve content safely while you edit."
         actions={
           <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
             <Badge tone={state.settings.visibility === "public" ? "success" : "neutral"}>
@@ -343,15 +355,19 @@ export function PortfolioEditor() {
               color: "#FFFFFF"
             }}
           >
-            <div style={{ display: "grid", gap: 12 }}>
+            <div style={{ display: "grid", gap: 14 }}>
               <Badge tone="accent">Live presentation</Badge>
-              <strong style={{ fontSize: "1.35rem" }}>
+              <strong style={{ fontSize: "1.5rem", lineHeight: 1.05 }}>
                 {state.settings.artistName || "Untitled portfolio"}
               </strong>
-              <span style={{ color: "rgba(255,255,255,0.82)" }}>
+              <span style={{ color: "rgba(255,255,255,0.82)", lineHeight: 1.7 }}>
                 {state.settings.handle
                   ? `/${state.settings.handle}`
                   : "Choose a handle before publishing"}
+              </span>
+              <span style={{ color: "rgba(255,255,255,0.72)", lineHeight: 1.7 }}>
+                {state.settings.shortBio ||
+                  "Give the live portfolio a short, confident introduction before you share it."}
               </span>
               <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
                 {state.settings.handle ? (
@@ -364,8 +380,8 @@ export function PortfolioEditor() {
             </div>
           </Card>
 
-          <Card>
-            <div style={{ display: "grid", gap: 12 }}>
+          <Card tone="accent">
+            <div style={{ display: "grid", gap: 14 }}>
               <strong style={{ fontSize: "1rem" }}>
                 {user?.profile.displayName ?? "Creator"} portfolio readiness
               </strong>
@@ -392,6 +408,49 @@ export function PortfolioEditor() {
                   {collectionCounts.featuredCards} cards
                 </Chip>
               </div>
+              <div
+                style={{
+                  display: "grid",
+                  gap: 10,
+                  gridTemplateColumns: "repeat(auto-fit, minmax(120px, 1fr))"
+                }}
+              >
+                <div
+                  style={{
+                    padding: "12px 14px",
+                    borderRadius: 18,
+                    background: "rgba(255,255,255,0.82)",
+                    border: "1px solid rgba(122, 66, 232, 0.08)"
+                  }}
+                >
+                  <span className="museio-caption">Visibility</span>
+                  <div style={{ marginTop: 6, fontWeight: 700 }}>
+                    {state.settings.visibility === "public" ? "Public" : "Private"}
+                  </div>
+                </div>
+                <div
+                  style={{
+                    padding: "12px 14px",
+                    borderRadius: 18,
+                    background: "rgba(255,255,255,0.82)",
+                    border: "1px solid rgba(122, 66, 232, 0.08)"
+                  }}
+                >
+                  <span className="museio-caption">Enabled</span>
+                  <div style={{ marginTop: 6, fontWeight: 700 }}>{enabledSections.length} sections</div>
+                </div>
+                <div
+                  style={{
+                    padding: "12px 14px",
+                    borderRadius: 18,
+                    background: "rgba(255,255,255,0.82)",
+                    border: "1px solid rgba(122, 66, 232, 0.08)"
+                  }}
+                >
+                  <span className="museio-caption">Hidden</span>
+                  <div style={{ marginTop: 6, fontWeight: 700 }}>{hiddenSections.length} sections</div>
+                </div>
+              </div>
               <span style={{ color: "#5D6575", lineHeight: 1.7 }}>
                 Section visibility is layout-only. Disabling a section never deletes the
                 content already stored in Supabase.
@@ -402,7 +461,7 @@ export function PortfolioEditor() {
 
         <div style={{ marginTop: 16 }}>
           <StatePanel
-            kind={errorMessage ? "error" : "loading"}
+            kind={errorMessage ? "error" : isSaving ? "loading" : "empty"}
             title={
               errorMessage
                 ? "Could not update the portfolio"
@@ -422,7 +481,11 @@ export function PortfolioEditor() {
         </div>
       </SectionShell>
 
-      <SectionShell title="Portfolio essentials" eyebrow="Settings">
+      <SectionShell
+        title="Portfolio essentials"
+        eyebrow="Settings"
+        description="Set the public identity, visual direction, and biographical foundation that the live portfolio should orbit around."
+      >
         <div
           style={{
             display: "grid",
@@ -639,7 +702,7 @@ export function PortfolioEditor() {
         >
           {(["instagram", "tiktok", "youtube", "spotify", "website"] as const).map(
             (platform) => (
-              <Field key={platform} label={platform}>
+              <Field key={platform} label={socialPlatformLabels[platform]}>
                 <TextInput
                   value={state.settings.socialLinks[platform] ?? ""}
                   onChange={(event) =>
@@ -667,7 +730,11 @@ export function PortfolioEditor() {
         </div>
       </SectionShell>
 
-      <SectionShell title="Section layout" eyebrow="Structure">
+      <SectionShell
+        title="Section layout"
+        eyebrow="Structure"
+        description="Control what appears in live mode, the order it appears in, and which sections stay safely hidden until you are ready."
+      >
         <div style={{ display: "grid", gap: 14 }}>
           {enabledSections.length === 0 ? (
             <StatePanel
@@ -803,7 +870,11 @@ export function PortfolioEditor() {
         </div>
       </SectionShell>
 
-      <SectionShell title="Book Me section" eyebrow="Native CTA shell">
+      <SectionShell
+        title="Book Me section"
+        eyebrow="Native CTA shell"
+        description="Keep the booking entry point polished and clear without mixing creator editing controls into the public experience."
+      >
         <div
           style={{
             display: "grid",
@@ -900,7 +971,11 @@ export function PortfolioEditor() {
         </div>
       </SectionShell>
 
-      <SectionShell title="Photos" eyebrow="Content CRUD">
+      <SectionShell
+        title="Photos"
+        eyebrow="Content CRUD"
+        description="Curate a tighter still-image gallery so the live page feels premium and edited instead of crowded."
+      >
         <div style={{ display: "grid", gap: 16 }}>
           <Card>
             <div style={{ display: "grid", gap: 12 }}>
@@ -1073,7 +1148,11 @@ export function PortfolioEditor() {
         </div>
       </SectionShell>
 
-      <SectionShell title="Videos" eyebrow="Content CRUD">
+      <SectionShell
+        title="Videos"
+        eyebrow="Content CRUD"
+        description="Manage embedded performance and promo video while keeping the live layout clean and scroll-friendly."
+      >
         <div style={{ display: "grid", gap: 16 }}>
           <Card>
             <div style={{ display: "grid", gap: 12 }}>
@@ -1275,7 +1354,11 @@ export function PortfolioEditor() {
         </div>
       </SectionShell>
 
-      <SectionShell title="Music Releases" eyebrow="Content CRUD">
+      <SectionShell
+        title="Music Releases"
+        eyebrow="Content CRUD"
+        description="Present releases as real listening destinations with cover art, subtitle context, and platform links."
+      >
         <div style={{ display: "grid", gap: 16 }}>
           <Card>
             <div style={{ display: "grid", gap: 12 }}>
@@ -1498,7 +1581,11 @@ export function PortfolioEditor() {
         </div>
       </SectionShell>
 
-      <SectionShell title="Events" eyebrow="Content CRUD">
+      <SectionShell
+        title="Events"
+        eyebrow="Content CRUD"
+        description="Surface only the appearances worth promoting publicly, while keeping event data safe behind the editor."
+      >
         <div style={{ display: "grid", gap: 16 }}>
           <Card>
             <div style={{ display: "grid", gap: 12 }}>
@@ -1772,7 +1859,11 @@ export function PortfolioEditor() {
         </div>
       </SectionShell>
 
-      <SectionShell title="Featured Cards" eyebrow="Content CRUD">
+      <SectionShell
+        title="Featured Cards"
+        eyebrow="Content CRUD"
+        description="Use featured cards for honest proof points such as collaborations, press, or booking-relevant highlights."
+      >
         <div style={{ display: "grid", gap: 16 }}>
           <Card>
             <div style={{ display: "grid", gap: 12 }}>

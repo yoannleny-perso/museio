@@ -25,7 +25,11 @@ export function PublicInvoice({ initialState, token }: { initialState: PublicInv
   }
 
   return (
-    <SectionShell eyebrow="Invoice" title={state.invoice.title}>
+    <SectionShell
+      eyebrow="Invoice"
+      title={state.invoice.title}
+      description="Continue to the secure payment step from a public-safe invoice view that only exposes the state needed for payment."
+    >
       <div style={{ display: "grid", gap: 16 }}>
         <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
           <Badge tone="accent">{state.invoice.status}</Badge>
@@ -48,9 +52,9 @@ export function PublicInvoice({ initialState, token }: { initialState: PublicInv
             </Card>
           ))}
         </div>
-        <Card tone="default">
+        <Card tone="accent">
           <div style={{ display: "grid", gap: 6 }}>
-            <strong>Invoice Totals</strong>
+            <span className="museio-caption">Invoice totals</span>
             <span>Total: {(state.invoice.totals.totalMinor / 100).toFixed(2)} {state.invoice.currencyCode}</span>
             <span>Paid: {(state.invoice.totals.amountPaidMinor / 100).toFixed(2)} {state.invoice.currencyCode}</span>
             <span>Due: {(state.invoice.totals.amountDueMinor / 100).toFixed(2)} {state.invoice.currencyCode}</span>

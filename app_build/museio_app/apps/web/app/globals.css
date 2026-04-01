@@ -1,18 +1,18 @@
 :root {
   color-scheme: light;
   font-family:
-    "Avenir Next",
-    "Sofia Pro",
     "Inter",
+    "Sofia Pro",
+    "Avenir Next",
     sans-serif;
-  --museio-bg: #f7f3ed;
-  --museio-bg-alt: #fbf8f4;
-  --museio-text: #1e1823;
-  --museio-muted: #5f5668;
-  --museio-accent: #7b5cfa;
-  --museio-accent-warm: #f3b483;
-  --museio-border: rgba(98, 79, 130, 0.12);
-  --museio-shadow: 0 24px 70px rgba(27, 20, 40, 0.12);
+  --museio-bg: #f8f9fb;
+  --museio-bg-alt: #f2f4f8;
+  --museio-text: #1f2430;
+  --museio-muted: #4f5868;
+  --museio-accent: #7a42e8;
+  --museio-accent-warm: #ffb38a;
+  --museio-border: rgba(221, 220, 231, 0.94);
+  --museio-shadow: 0 26px 70px rgba(31, 36, 48, 0.12);
 }
 
 * {
@@ -28,9 +28,9 @@ body {
 
 html {
   background:
-    radial-gradient(circle at top left, rgba(123, 92, 250, 0.18), transparent 28%),
-    radial-gradient(circle at top right, rgba(243, 180, 131, 0.22), transparent 24%),
-    linear-gradient(180deg, #fff9f3 0%, #f7f3ed 35%, #f4efe8 100%);
+    radial-gradient(circle at top left, rgba(122, 66, 232, 0.12), transparent 28%),
+    radial-gradient(circle at top right, rgba(255, 179, 138, 0.16), transparent 24%),
+    linear-gradient(180deg, #fcfdff 0%, #f8f9fb 36%, #f1f3f8 100%);
 }
 
 body {
@@ -39,13 +39,24 @@ body {
   color: var(--museio-text);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  letter-spacing: -0.01em;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 18% 14%, rgba(122, 66, 232, 0.08), transparent 18%),
+    radial-gradient(circle at 84% 8%, rgba(255, 179, 138, 0.12), transparent 16%);
 }
 
 .museio-body {
   font-family:
-    "Avenir Next",
-    "Sofia Pro",
     "Inter",
+    "Sofia Pro",
+    "Avenir Next",
     sans-serif;
 }
 
@@ -54,10 +65,11 @@ h2,
 h3,
 h4 {
   font-family:
-    "Iowan Old Style",
-    "Canela",
-    "Georgia",
+    "Inter",
+    "Avenir Next",
+    "Sofia Pro",
     serif;
+  font-weight: 760;
 }
 
 a,
@@ -78,7 +90,48 @@ code {
 }
 
 ::selection {
-  background: rgba(123, 92, 250, 0.16);
+  background: rgba(122, 66, 232, 0.16);
+}
+
+.museio-page-shell {
+  display: grid;
+  gap: 20px;
+}
+
+.museio-stack {
+  display: grid;
+  gap: 16px;
+}
+
+.museio-caption {
+  font-size: 0.76rem;
+  line-height: 1.35;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--museio-accent);
+}
+
+.museio-data-grid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.museio-surface-grid {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.museio-metric-grid {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+}
+
+.museio-mobile-nav {
+  display: none;
 }
 
 @media (max-width: 1024px) {
@@ -97,5 +150,15 @@ code {
 
   .museio-mobile-nav {
     display: grid !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .museio-page-shell,
+  .museio-stack,
+  .museio-data-grid,
+  .museio-surface-grid,
+  .museio-metric-grid {
+    gap: 14px;
   }
 }
